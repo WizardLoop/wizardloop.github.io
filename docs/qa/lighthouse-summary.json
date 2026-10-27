@@ -1,0 +1,1159 @@
+{
+  "date": "2026-10-27",
+  "method": "Three sequential local Lighthouse 13.5.0 mobile simulated runs. First run precedes only a paused-mobile-menu CSS fix; later tooltip hover/Escape fixes do not alter initial unfocused rendering. All samples retained, including slow outliers. Not field Core Web Vitals.",
+  "summary": [
+    {
+      "page": "home",
+      "performance": {
+        "median": 92,
+        "range": [
+          59,
+          97
+        ]
+      },
+      "allScores": [
+        {
+          "performance": 59,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 92,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 97,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        }
+      ],
+      "medianMetrics": {
+        "first-contentful-paint": 2580.495,
+        "largest-contentful-paint": 2580.495,
+        "total-blocking-time": 133.49999999999977,
+        "cumulative-layout-shift": 0.00004679164839040017,
+        "speed-index": 2851.945609193184,
+        "total-byte-weight": 1007959
+      }
+    },
+    {
+      "page": "work",
+      "performance": {
+        "median": 95,
+        "range": [
+          94,
+          96
+        ]
+      },
+      "allScores": [
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 96,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 94,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        }
+      ],
+      "medianMetrics": {
+        "first-contentful-paint": 1391.1795,
+        "largest-contentful-paint": 1485.1615000000002,
+        "total-blocking-time": 240.5,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1752.5404285351192,
+        "total-byte-weight": 792451
+      }
+    },
+    {
+      "page": "posts",
+      "performance": {
+        "median": 100,
+        "range": [
+          66,
+          100
+        ]
+      },
+      "allScores": [
+        {
+          "performance": 66,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        }
+      ],
+      "medianMetrics": {
+        "first-contentful-paint": 1460.402,
+        "largest-contentful-paint": 1518.65895,
+        "total-blocking-time": 49,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1460.402,
+        "total-byte-weight": 107059
+      }
+    },
+    {
+      "page": "feedback",
+      "performance": {
+        "median": 99,
+        "range": [
+          98,
+          100
+        ]
+      },
+      "allScores": [
+        {
+          "performance": 98,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 99,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        }
+      ],
+      "medianMetrics": {
+        "first-contentful-paint": 1440.5637499999998,
+        "largest-contentful-paint": 1665.0765,
+        "total-blocking-time": 23,
+        "cumulative-layout-shift": 0.03183100726587574,
+        "speed-index": 1440.5637499999998,
+        "total-byte-weight": 110594
+      }
+    }
+  ],
+  "runs": [
+    {
+      "directory": "artifacts/lighthouse-review",
+      "results": [
+        {
+          "page": "home",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:45:36.290Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 59,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 5970.079,
+              "displayValue": "6.0 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 5970.079,
+              "displayValue": "6.0 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 211.5,
+              "displayValue": "210 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0.00004679164839040017,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 6296.614534747019,
+              "displayValue": "6.3 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 1007941,
+              "displayValue": "Total size was 984 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.04,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.13,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "speed-index",
+              "score": 0.42,
+              "title": "Speed Index"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.88,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.81,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.59,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "image-delivery-insight",
+              "score": 0.5,
+              "title": "Improve image delivery"
+            },
+            {
+              "id": "lcp-breakdown-insight",
+              "score": 0,
+              "title": "LCP breakdown"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "work",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:46:05.753Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 95,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1485.1615000000002,
+              "displayValue": "1.5 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 1485.1615000000002,
+              "displayValue": "1.5 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 240.5,
+              "displayValue": "240 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 2062.3494252056853,
+              "displayValue": "2.1 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 792433,
+              "displayValue": "Total size was 774 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.96,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "speed-index",
+              "score": 0.99,
+              "title": "Speed Index"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.85,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.02,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.9,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "bootup-time",
+              "score": 0,
+              "title": "Reduce JavaScript execution time"
+            },
+            {
+              "id": "unused-javascript",
+              "score": 0.5,
+              "title": "Reduce unused JavaScript"
+            },
+            {
+              "id": "image-delivery-insight",
+              "score": 0.5,
+              "title": "Improve image delivery"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "posts",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:46:34.949Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 66,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 5214.282,
+              "displayValue": "5.2 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 5332.376,
+              "displayValue": "5.3 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 72.5,
+              "displayValue": "70 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 5387.681377698365,
+              "displayValue": "5.4 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 107041,
+              "displayValue": "Total size was 105 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.08,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.21,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "speed-index",
+              "score": 0.56,
+              "title": "Speed Index"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.99,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.84,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.72,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "feedback",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:46:59.521Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 98,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1783.5052500000002,
+              "displayValue": "1.8 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 1889.007,
+              "displayValue": "1.9 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 92,
+              "displayValue": "90 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0.03183100726587574,
+              "displayValue": "0.032"
+            },
+            "speed-index": {
+              "numericValue": 1783.5052500000002,
+              "displayValue": "1.8 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 110576,
+              "displayValue": "Total size was 108 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.9,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.98,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.98,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.86,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.99,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        }
+      ]
+    },
+    {
+      "directory": "artifacts/lighthouse-review-2",
+      "results": [
+        {
+          "page": "home",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:50:12.090Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 92,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 2580.495,
+              "displayValue": "2.6 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 2580.495,
+              "displayValue": "2.6 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 133.49999999999977,
+              "displayValue": "130 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0.00004679164839040017,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 2851.945609193184,
+              "displayValue": "2.9 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 1007959,
+              "displayValue": "Total size was 984 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.64,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.88,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "speed-index",
+              "score": 0.95,
+              "title": "Speed Index"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.96,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.96,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "image-delivery-insight",
+              "score": 0.5,
+              "title": "Improve image delivery"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "work",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:50:28.366Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 96,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1375.589,
+              "displayValue": "1.4 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 1375.589,
+              "displayValue": "1.4 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 225.5,
+              "displayValue": "230 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 1752.5404285351192,
+              "displayValue": "1.8 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 792451,
+              "displayValue": "Total size was 774 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.97,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.87,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.41,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.82,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "bootup-time",
+              "score": 0,
+              "title": "Reduce JavaScript execution time"
+            },
+            {
+              "id": "unused-javascript",
+              "score": 0.5,
+              "title": "Reduce unused JavaScript"
+            },
+            {
+              "id": "image-delivery-insight",
+              "score": 0.5,
+              "title": "Improve image delivery"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "posts",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:50:51.736Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1368.65895,
+              "displayValue": "1.4 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 1518.65895,
+              "displayValue": "1.5 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 0,
+              "displayValue": "0 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 1368.65895,
+              "displayValue": "1.4 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 107059,
+              "displayValue": "Total size was 105 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.97,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.95,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "feedback",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:51:03.921Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1440.5637499999998,
+              "displayValue": "1.4 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 1665.0765,
+              "displayValue": "1.7 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 23,
+              "displayValue": "20 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0.03183100726587574,
+              "displayValue": "0.032"
+            },
+            "speed-index": {
+              "numericValue": 1440.5637499999998,
+              "displayValue": "1.4 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 110594,
+              "displayValue": "Total size was 108 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.97,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.99,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        }
+      ]
+    },
+    {
+      "directory": "artifacts/lighthouse-review-3",
+      "results": [
+        {
+          "page": "home",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:51:40.273Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 97,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1440,
+              "displayValue": "1.4 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 2535,
+              "displayValue": "2.5 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 74,
+              "displayValue": "70 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0.00004679164839040017,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 1440,
+              "displayValue": "1.4 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 1007959,
+              "displayValue": "Total size was 984 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.97,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.89,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.99,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.86,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.98,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "image-delivery-insight",
+              "score": 0,
+              "title": "Improve image delivery"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "work",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:52:03.144Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 94,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1391.1795,
+              "displayValue": "1.4 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 2216.1795,
+              "displayValue": "2.2 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 246.5,
+              "displayValue": "250 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 1569.8906133913074,
+              "displayValue": "1.6 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 792451,
+              "displayValue": "Total size was 774 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.97,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.94,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.85,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.04,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.9,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "bootup-time",
+              "score": 0,
+              "title": "Reduce JavaScript execution time"
+            },
+            {
+              "id": "unused-javascript",
+              "score": 0.5,
+              "title": "Reduce unused JavaScript"
+            },
+            {
+              "id": "image-delivery-insight",
+              "score": 0.5,
+              "title": "Improve image delivery"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "posts",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:52:24.165Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1460.402,
+              "displayValue": "1.5 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 1513.353,
+              "displayValue": "1.5 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 49,
+              "displayValue": "50 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 1460.402,
+              "displayValue": "1.5 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 107059,
+              "displayValue": "Total size was 105 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.96,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.84,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "feedback",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-27T04:52:39.044Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1358.286,
+              "displayValue": "1.4 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 1508.286,
+              "displayValue": "1.5 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 0,
+              "displayValue": "0 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0.03180121031013782,
+              "displayValue": "0.032"
+            },
+            "speed-index": {
+              "numericValue": 1358.286,
+              "displayValue": "1.4 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 110594,
+              "displayValue": "Total size was 108 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.98,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.98,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        }
+      ]
+    }
+  ]
+}

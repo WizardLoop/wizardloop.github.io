@@ -1,0 +1,29 @@
+---
+interface Props {
+  name: string;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+}
+const { name, alt, class: className = '', eager = false } = Astro.props;
+---
+
+<div
+  class:list={['motion-art', className]}
+  data-animation={name}
+  data-state="poster"
+  role="img"
+  aria-label={alt}
+>
+  <img
+    class="art-poster"
+    src={`/media/previews/${name}.webp`}
+    width="512"
+    height="512"
+    alt=""
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    decoding="async"
+  />
+  <div class="art-player" aria-hidden="true"></div>
+</div>

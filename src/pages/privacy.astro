@@ -1,0 +1,158 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Privacy"
+  description="How WizardLoop handles feedback, local preferences, optional Telegram embeds and information processed by hosting and security providers."
+>
+  <section class="wrap prose-page">
+    <header class="page-intro">
+      <p class="eyebrow">THE SMALL PRINT</p>
+      <h1>
+        Your privacy,
+        <br />
+        in plain language.
+      </h1>
+      <p>
+        WizardLoop is my personal creative website. This notice explains what
+        happens when you visit, load optional content or get in touch.
+      </p>
+      <p>
+        Reviewed <time datetime="2026-10-27">27 October 2026</time>.
+      </p>
+    </header>
+    <div class="prose">
+      <h2>Visiting the website</h2>
+      <p>
+        The site is hosted on GitHub Pages. I do not run advertising, visitor
+        analytics or a marketing mailing list here. Hosting providers still
+        process connection information, such as an IP address and browser
+        details, to deliver and protect the website. GitHub describes its
+        processing in the{' '}
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">
+          GitHub Privacy Statement
+        </a>
+        .
+      </p>
+      <p>
+        Your browser can remember your theme, motion and optional
+        Telegram-content preferences in local storage. These preferences are not
+        sent to a visitor analytics service. See the{' '}
+        <a href="/cookies/">Cookie &amp; Storage Policy</a> for controls.
+      </p>
+
+      <h2>Feedback and direct contact</h2>
+      <p>
+        When the feedback service is enabled, the form asks for your name and
+        message. Your email is optional. I use those details to read your
+        feedback and, when possible, respond to your request. You do not need to
+        submit feedback to browse this website.
+      </p>
+      <p>
+        The form sends your information through a separate Cloudflare service to
+        a private Telegram conversation with me. The delivered message includes
+        your submitted details, the source page and a receipt time. It does not
+        include your IP address. The service does not maintain a separate
+        database of feedback messages or log their contents.
+      </p>
+      <p>
+        Cloudflare Turnstile and rate limiting help prevent automated abuse.
+        Cloudflare processes technical connection information for those checks.
+        The rate limiter uses a daily-changing, secret-derived identifier based
+        on the connection IP; this identifier is not sent to Telegram. Turnstile
+        is used only for feedback when configured, with an explanation before it
+        loads. Read{' '}
+        <a href="https://www.cloudflare.com/privacypolicy/">
+          Cloudflare's Privacy Policy
+        </a>{' '}
+        for its provider-level processing.
+      </p>
+      <div class="notice">
+        <p>
+          Availability is shown on the feedback page. An unconfigured form does
+          not send messages. A local mock explicitly states that nothing was
+          sent to Telegram. A live delivery is only reported as successful after
+          the service receives a success response.
+        </p>
+      </div>
+      <p>
+        If you choose email or Telegram instead, the provider you use also
+        processes that conversation. Avoid sending information that is
+        unnecessary for your request.
+      </p>
+
+      <h2>Optional Telegram content</h2>
+      <p>
+        Telegram post embeds are not loaded until you choose to enable them.
+        Loading an embed connects your browser to Telegram, which can receive
+        connection information and use its own storage or cookies. Opening a
+        Telegram link also takes you to its service. See the{' '}
+        <a href="https://telegram.org/privacy">Telegram Privacy Policy</a>.
+      </p>
+      <p>
+        You can decline embeds and use the original post links. You can also
+        withdraw the website's stored Telegram preference from the{' '}
+        <a href="/posts/">Posts page</a>. This stops further embedding here; it
+        cannot undo data already received by Telegram or clear cookies owned by
+        Telegram.
+      </p>
+      <p>
+        <button class="button" type="button" data-privacy-open>
+          Manage external content
+        </button>
+      </p>
+
+      <h2>Keeping and deleting information</h2>
+      <p>
+        Your browser preferences remain until you change or clear them. Feedback
+        sent to me remains in the private Telegram conversation until I delete
+        it. There is currently no automatic deletion schedule. I review requests
+        for deletion and keep information only where it remains necessary to
+        handle the conversation or an applicable legal obligation.
+      </p>
+      <p>
+        Provider security records, backups and service retention are governed by
+        the providers' own policies. Information may be processed in countries
+        other than your own. I cannot promise immediate removal from a
+        provider's independent records or backups.
+      </p>
+
+      <h2>Your choices and rights</h2>
+      <p>
+        You can browse without submitting feedback, decline external embeds,
+        remove browser preferences and contact me about information you have
+        provided. Where applicable data-protection law grants rights of access,
+        correction, deletion, restriction, objection or portability, you can
+        make a request using the contact details below. I may need limited
+        information to identify the relevant message and confirm that the
+        request is yours.
+      </p>
+      <p>
+        The purpose of feedback processing is to handle your requested
+        communication; security processing protects the service from abuse.
+        Optional embeds load based on your choice. Any legal basis and
+        obligations depend on the applicable circumstances. This notice does not
+        claim an exemption from Israeli or European privacy law or certify legal
+        compliance. For general information, the European Commission explains{' '}
+        <a href="https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/dealing-requests-individuals_en">
+          requests to exercise data-protection rights
+        </a>
+        . You may also contact the competent data-protection authority.
+      </p>
+
+      <h2>Contact WizardLoop</h2>
+      <p>
+        For a privacy question or deletion request, email{' '}
+        <a href="mailto:wizard@wizardloop.com">wizard@wizardloop.com</a> or{' '}
+        <a href="https://t.me/wizardloop">contact me on Telegram</a>. Include
+        enough context to locate your message, without sending unrelated
+        personal information.
+      </p>
+      <p>
+        This notice will be updated if the website's services or data practices
+        change.
+      </p>
+    </div>
+  </section>
+</Base>

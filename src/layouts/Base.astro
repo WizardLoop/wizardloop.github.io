@@ -1,0 +1,334 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { site } from '../config/site';
+import preferences from '../../public/js/preferences.js?raw';
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  profile?: boolean;
+}
+const {
+  title,
+  description = site.description,
+  noindex = false,
+  profile = false,
+} = Astro.props;
+const current = Astro.url.pathname;
+const canonical = new URL(current, site.url).href;
+const preview =
+  import.meta.env.PUBLIC_PREVIEW === 'true' || import.meta.env.DEV;
+const robots =
+  preview || noindex
+    ? 'noindex,nofollow,noarchive'
+    : 'index,follow,max-image-preview:large';
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': site.url + '/#website',
+      name: site.name,
+      url: site.url,
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'Person',
+      '@id': site.url + '/#person',
+      name: site.name,
+      url: site.url,
+      image: site.url + '/media/profile/avatar.jpg',
+      description: site.description,
+      sameAs: [site.links.telegram, site.links.github],
+    },
+    ...(profile
+      ? [
+          {
+            '@type': 'ProfilePage',
+            '@id': canonical + '#page',
+            url: canonical,
+            mainEntity: { '@id': site.url + '/#person' },
+          },
+        ]
+      : []),
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light" data-motion="running">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="robots" content={robots} />
+    <meta name="description" content={description} />
+    <meta
+      name="theme-color"
+      content="#f5f2e9"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#191727"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>{title} | WizardLoop</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={`${title} | WizardLoop`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={site.url + '/social-preview.png'} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="WizardLoop. Code, Design & a Little Magic. Original wizard illustration and expressive typography."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | WizardLoop`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={site.url + '/social-preview.png'} />
+    <meta
+      name="twitter:image:alt"
+      content="WizardLoop. Code, Design & a Little Magic."
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schema).replace(/</g, '\\u003c')}
+    />
+    <script is:inline set:html={preferences}></script>
+    <link
+      rel="preload"
+      href="/fonts/spacegrotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main" tabindex="0">
+      Skip to content
+    </a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="WizardLoop home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <path d="m5 25 9-5 8-16 5 14 8 7-10 1-5 8-6-8Z" />
+            <path d="m10 29 9 6 11-6M20 15l2 5" />
+          </svg>
+        </span>
+        <span>
+          WizardLoop
+          <span class="brand-spark" aria-hidden="true">
+            ✳
+          </span>
+        </span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        {site.navigation.slice(1, 5).map((link) => (
+          <a
+            href={link.href}
+            aria-current={current === link.href ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+      <div class="header-controls">
+        <a class="header-contact" href="/feedback/">
+          Let's talk <Icon name="northeast" size={17} />
+        </a>
+        <button
+          class="icon-button"
+          data-theme-toggle
+          data-tooltip="Switch theme"
+          aria-label="Switch to dark mode"
+        >
+          <Icon name="moon" size={20} class="theme-to-dark" />
+          <Icon name="sun" size={20} class="theme-to-light" />
+        </button>
+        <button
+          class="icon-button"
+          data-motion-toggle
+          data-tooltip="Pause motion"
+          aria-label="Pause motion"
+          aria-pressed="false"
+        >
+          <Icon name="pause" size={19} class="motion-pause" />
+          <Icon name="play" size={19} class="motion-resume" />
+        </button>
+        <button
+          class="icon-button menu-toggle"
+          data-menu-toggle
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+          aria-label="Open navigation"
+        >
+          <Icon name="menu" />
+        </button>
+      </div>
+    </header>
+    <dialog id="mobile-nav" aria-labelledby="menu-title">
+      <div class="mobile-top">
+        <span id="menu-title">A little exploring.</span>
+        <button
+          class="icon-button"
+          data-menu-close
+          aria-label="Close navigation"
+        >
+          <Icon name="close" />
+        </button>
+      </div>
+      <nav aria-label="Mobile navigation">
+        {site.navigation.map((link, i) => (
+          <a
+            href={link.href}
+            aria-current={current === link.href ? 'page' : undefined}
+          >
+            <span class="menu-number">0{i + 1}</span>
+            {link.label}
+            <Icon name="northeast" />
+          </a>
+        ))}
+      </nav>
+      <div class="mobile-socials">
+        <a href={site.links.telegram}>
+          <Icon name="telegram" />
+          Telegram
+        </a>
+        <a href={site.links.github}>
+          <Icon name="github" />
+          GitHub
+        </a>
+      </div>
+    </dialog>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="footer-top wrap">
+        <div class="footer-identity">
+          <a class="brand" href="/">
+            WizardLoop
+            <span class="brand-spark" aria-hidden="true">
+              ✳
+            </span>
+          </a>
+          <p>Code, Design & a Little Magic.</p>
+          <span class="footer-doodle" aria-hidden="true">
+            Stay curious.
+          </span>
+        </div>
+        <div class="footer-nav">
+          <h2>Explore</h2>
+          <a href="/about/">About me</a>
+          <a href="/work/">Selected work</a>
+          <a href="/projects/">Projects & builds</a>
+          <a href="/posts/">Posts</a>
+          <a href="/community/">Community</a>
+        </div>
+        <div class="footer-nav">
+          <h2>Keep in the loop</h2>
+          <a href={site.links.channel}>
+            <Icon name="telegram" size={18} />
+            Join the channel
+          </a>
+          <a href={site.links.community}>
+            <Icon name="community" size={18} />
+            Join the community
+          </a>
+          <a href={site.links.github}>
+            <Icon name="github" size={18} />
+            GitHub
+          </a>
+          <a href={site.links.telegram}>
+            <Icon name="telegram" size={18} />
+            Contact me
+          </a>
+        </div>
+        <div class="footer-nav">
+          <h2>A good web</h2>
+          <a href="/feedback/">
+            <Icon name="mail" size={18} />
+            Feedback
+          </a>
+          <a href="/accessibility/">Accessibility</a>
+          <a href="/privacy/">Privacy & cookies</a>
+          <a href="/security/">Security</a>
+        </div>
+      </div>
+      <div class="footer-bottom wrap">
+        <span>© 2026 WizardLoop. All rights reserved.</span>
+        <button class="text-button" data-privacy-open>
+          Privacy preferences
+        </button>
+        <a href={site.links.source}>
+          <Icon name="code" size={17} />
+          Website source
+        </a>
+      </div>
+      <p class="rights-note wrap">
+        Source code is MIT licensed. Branding, illustrations and media retain
+        their respective rights.
+      </p>
+    </footer>
+    <dialog
+      class="privacy-dialog"
+      id="privacy-dialog"
+      aria-labelledby="privacy-title"
+    >
+      <div class="dialog-heading">
+        <h2 id="privacy-title">Your privacy, your choice.</h2>
+        <button
+          class="icon-button"
+          data-privacy-close
+          aria-label="Close privacy preferences"
+        >
+          <Icon name="close" />
+        </button>
+      </div>
+      <p>
+        This site does not use advertising or analytics. Theme and motion
+        preferences stay in your browser.
+      </p>
+      <label class="consent-option">
+        <input type="checkbox" id="telegram-consent" />
+        <span>
+          <strong>Load Telegram posts</strong>
+          <br />
+          Telegram receives your connection information and may store cookies
+          when its embeds load. Animated content is controlled by Telegram.
+        </span>
+      </label>
+      <p class="small-text">
+        You can read every post in Telegram without enabling embeds here.
+        Revoking permission removes loaded embeds.
+      </p>
+      <button class="button" data-privacy-save>
+        Save preferences <Icon name="check" size={18} />
+      </button>
+      <a class="text-link" href="/privacy/">
+        Read the privacy policy
+      </a>
+    </dialog>
+    <div
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      id="site-status"
+    ></div>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>

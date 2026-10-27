@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "flag-il",
+    "title": "Israel",
+    "filename": "flag-il.tgs",
+    "alt": "Waving flag of Israel on a silver mast.",
+    "source": "WizardLoop_Country_Flags_001_050.zip/WizardLoop_Country_Flags_001_050/tgs/001_IL_Israel.tgs",
+    "bytes": 25281,
+    "sha256": "0b6a1b2f48ff408784c12880dd1b13589d146459af5377df0f4ffda0ac5f788a"
+  },
+  {
+    "slug": "flag-us",
+    "title": "United States",
+    "filename": "flag-us.tgs",
+    "alt": "Waving flag of United States on a silver mast.",
+    "source": "WizardLoop_Country_Flags_001_050.zip/WizardLoop_Country_Flags_001_050/tgs/002_US_United_States.tgs",
+    "bytes": 38473,
+    "sha256": "ac683334c99824141040d889a4bbe709d466be073afbb4dbb1806fbeb9609bbf"
+  },
+  {
+    "slug": "flag-gb",
+    "title": "United Kingdom",
+    "filename": "flag-gb.tgs",
+    "alt": "Waving flag of United Kingdom on a silver mast.",
+    "source": "WizardLoop_Country_Flags_001_050.zip/WizardLoop_Country_Flags_001_050/tgs/005_GB_United_Kingdom.tgs",
+    "bytes": 28821,
+    "sha256": "75bb7a7a0622ee3b578a96e4dfa4dddd8ae7e7cde2262f3eb4c18e32aed741cd"
+  },
+  {
+    "slug": "flag-fr",
+    "title": "France",
+    "filename": "flag-fr.tgs",
+    "alt": "Waving flag of France on a silver mast.",
+    "source": "WizardLoop_Country_Flags_001_050.zip/WizardLoop_Country_Flags_001_050/tgs/007_FR_France.tgs",
+    "bytes": 20474,
+    "sha256": "d7dc4975f114a170f0721b6f0adaa9d670c0aa44454dc89e25e38cd115533a1f"
+  },
+  {
+    "slug": "flag-jp",
+    "title": "Japan",
+    "filename": "flag-jp.tgs",
+    "alt": "Waving flag of Japan on a silver mast.",
+    "source": "WizardLoop_Country_Flags_001_050.zip/WizardLoop_Country_Flags_001_050/tgs/017_JP_Japan.tgs",
+    "bytes": 19015,
+    "sha256": "1fc92ed6f622944f0a587e8406e8c6544f81cb096076158576e2d58e706535d3"
+  },
+  {
+    "slug": "flag-br",
+    "title": "Brazil",
+    "filename": "flag-br.tgs",
+    "alt": "Waving flag of Brazil on a silver mast.",
+    "source": "WizardLoop_Country_Flags_001_050.zip/WizardLoop_Country_Flags_001_050/tgs/012_BR_Brazil.tgs",
+    "bytes": 43791,
+    "sha256": "829e68d82a2266651394bf4ce2926f44afdba06b1ad23277ad9b106537ac7922"
+  }
+]

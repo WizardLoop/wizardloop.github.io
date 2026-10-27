@@ -1,0 +1,48 @@
+{
+  "name": "wizardloop-website",
+  "version": "1.0.0-rc.1",
+  "private": true,
+  "type": "module",
+  "description": "WizardLoop personal portfolio: design, illustration, animation and software.",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1 --port 4322",
+    "dev:concepts": "node scripts/preview.mjs",
+    "dev:feedback": "node services/feedback/scripts/mock-server.mjs",
+    "build": "node scripts/generate-previews.mjs && node scripts/generate-brand.mjs && astro build && node scripts/check-build.mjs",
+    "preview": "astro preview",
+    "format": "prettier --write \"src/**/*.{astro,css,ts}\" public/js/preferences.js astro.config.mjs playwright.config.ts",
+    "format:check": "prettier --check \"src/**/*.{astro,css,ts}\" public/js/preferences.js astro.config.mjs playwright.config.ts",
+    "lint": "npm run format:check && node scripts/check.mjs",
+    "typecheck": "astro check",
+    "test:unit": "node --test services/feedback/test/*.test.mjs",
+    "test": "playwright test --project=chromium",
+    "test:browsers": "playwright test",
+    "check": "npm run lint && npm run typecheck && npm run test:unit && npm run build",
+    "audit:performance": "node scripts/lighthouse.mjs",
+    "test:concepts": "node scripts/qa.mjs",
+    "test:concept-interactions": "node scripts/interactions.mjs"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@fontsource-variable/cormorant": "5.3.0",
+    "@fontsource-variable/manrope": "5.3.0",
+    "@fontsource-variable/space-grotesk": "5.3.0",
+    "@playwright/test": "1.64.1",
+    "axe-core": "4.14.0",
+    "lighthouse": "13.5.0",
+    "node": "22.23.4",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.2",
+    "sharp": "0.35.5",
+    "typescript": "6.0.3"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.4.2",
+    "lottie-web": "5.13.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "magiclottie",
+    "name": "MagicLottie",
+    "category": "Animation tools",
+    "description": "A mobile-first, open-source editor for Lottie and TGS animations.",
+    "role": "Open-source project by WizardLoop",
+    "url": "https://github.com/WizardLoop/MagicLottie",
+    "art": "paints-the-world",
+    "color": "violet"
+  },
+  {
+    "slug": "shabbat",
+    "name": "Shabbat",
+    "category": "Telegram bots",
+    "description": "A Telegram bot that automatically locks and unlocks groups during Shabbat and Jewish holidays.",
+    "role": "Open-source project by WizardLoop",
+    "url": "https://github.com/WizardLoop/shabbat",
+    "art": "signature-spirit",
+    "color": "peach"
+  },
+  {
+    "slug": "creationdate",
+    "name": "CreationDate",
+    "category": "Software experiments",
+    "description": "An open-source project that estimates the creation date of Telegram accounts.",
+    "role": "Open-source project by WizardLoop",
+    "url": "https://github.com/WizardLoop/CreationDate",
+    "art": "arcane-coder",
+    "color": "mint"
+  }
+]

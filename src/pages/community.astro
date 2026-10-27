@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import MotionArt from '../components/MotionArt.astro';
+import { site } from '../config/site';
+---
+
+<Base
+  title="Community"
+  description="Join WizardLoop's Telegram channel and community, explore the open-source work or get in touch directly."
+>
+  <section class="community-hero wrap">
+    <div>
+      <p class="eyebrow">GOOD IDEAS LIKE GOOD COMPANY</p>
+      <h1>
+        Stay curious.
+        <br />
+        <span class="outlined-word">Stay in the loop.</span>
+      </h1>
+      <p>
+        Come for the animations. Stay for the conversation.
+        <br />
+        There's room for your curiosity here.
+      </p>
+    </div>
+    <MotionArt
+      name="carnival-hat-burst"
+      alt="WizardLoop's wizard releases colorful confetti from its hat"
+      eager
+    />
+  </section>
+  <section class="community-links wrap" aria-label="Ways to connect">
+    <a href={site.links.channel}>
+      <span class="social-badge">
+        <Icon name="telegram" size={32} />
+      </span>
+      <div>
+        <h2>The channel</h2>
+        <p>Animation drops, experiments and notes from the studio.</p>
+        <span>Join @wizard_loop</span>
+      </div>
+      <Icon name="northeast" size={28} />
+    </a>
+    <a href={site.links.community}>
+      <span class="social-badge">
+        <Icon name="community" size={32} />
+      </span>
+      <div>
+        <h2>The community</h2>
+        <p>A place to join the conversation and share your curiosity.</p>
+        <span>Join @wizardloopchat</span>
+      </div>
+      <Icon name="northeast" size={28} />
+    </a>
+    <a href={site.links.github}>
+      <span class="social-badge">
+        <Icon name="github" size={32} />
+      </span>
+      <div>
+        <h2>The workbench</h2>
+        <p>Source code, issues and the things I'm building.</p>
+        <span>Explore GitHub</span>
+      </div>
+      <Icon name="northeast" size={28} />
+    </a>
+    <a href={site.links.telegram}>
+      <span class="social-badge">
+        <Icon name="telegram" size={32} />
+      </span>
+      <div>
+        <h2>A direct hello</h2>
+        <p>A question, a project, a little spark of an idea.</p>
+        <span>Message @wizardloop</span>
+      </div>
+      <Icon name="northeast" size={28} />
+    </a>
+  </section>
+  <div class="page-end wrap">
+    <p>
+      Prefer email?{' '}
+      <a class="text-link" href={`mailto:${site.email}`}>
+        <Icon name="mail" />
+        {site.email}
+      </a>
+    </p>
+  </div>
+</Base>

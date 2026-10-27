@@ -1,0 +1,15 @@
+{
+  "source": "Telegram public profile still",
+  "avatar": "/media/profile/avatar.jpg",
+  "video": null,
+  "poster": "/media/profile/poster.jpg",
+  "bio": "Independent designer, illustrator & animator. Expressive characters. Playful visuals. Unexpected loops.",
+  "bioSource": "Telegram public profile",
+  "syncedAt": "2026-10-27",
+  "checkedAt": "2026-10-27",
+  "status": "public-snapshot",
+  "posterSource": "public-profile-still",
+  "width": 320,
+  "height": 320,
+  "mediaNote": "Public still verified on 2026-10-27. Current primary original image or video has not been authenticated with MTProto."
+}
