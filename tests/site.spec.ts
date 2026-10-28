@@ -1445,7 +1445,8 @@ test('long-feed fixture reveals six posts at a time without restarting existing 
     await route.fulfill({ response, body: html });
   });
   await page.goto('/posts/');
-  await page.waitForLoadState('networkidle');
+  // Readiness is the rendered page size, not global network quiescence. The
+  // routed HTML fixture can keep Firefox's network-idle heuristic pending.
   await expect(page.locator('.telegram-card:visible')).toHaveCount(6);
   await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(0);
   await page.locator('[data-telegram-load]').click();
