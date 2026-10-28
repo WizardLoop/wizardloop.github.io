@@ -759,8 +759,9 @@ test('unexpected native playback pause retains a clear still fallback @motion', 
 test('hero stall monitor preserves intentional pause and detects an unpaused frozen timeline @motion', async ({
   page,
 }) => {
+  await page.clock.install();
   await page.addInitScript(() => {
-    let starts = 0;
+    let phase = 'initial';
     document.addEventListener(
       'playing',
       (event) => {
@@ -770,16 +771,24 @@ test('hero stall monitor preserves intentional pause and detects an unpaused fro
           !media.hasAttribute('data-hero-video')
         )
           return;
-        const start = ++starts;
+        if (phase === 'initial') phase = 'pausing';
+        else if (
+          phase === 'paused' &&
+          document.documentElement.dataset.motion === 'running'
+        )
+          phase = 'freezing';
+        else return;
+        const action = phase;
         // Run after the application's playing handler, before the known short
         // Windows native loop can stop. Browser-driver latency must not decide
         // whether this fixture is a user pause or a decoder failure.
         window.setTimeout(() => {
-          if (start === 1)
+          if (action === 'pausing') {
             document
               .querySelector<HTMLButtonElement>('[data-motion-toggle]')!
               .click();
-          else if (start === 2) {
+            phase = 'paused';
+          } else if (action === 'freezing') {
             const frozen = media.currentTime;
             Object.defineProperty(media, 'paused', {
               configurable: true,
@@ -790,6 +799,8 @@ test('hero stall monitor preserves intentional pause and detects an unpaused fro
               get: () => frozen,
             });
             media.pause();
+            media.dataset.qaTimelineFrozen = 'true';
+            phase = 'frozen';
           }
         }, 0);
       },
@@ -802,7 +813,7 @@ test('hero stall monitor preserves intentional pause and detects an unpaused fro
   await expect(art).toHaveAttribute('data-state', 'ready', { timeout: 25_000 });
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'paused');
   await expect(video).toHaveJSProperty('paused', true);
-  await page.waitForTimeout(5000);
+  await page.clock.runFor(5000);
   await expect(art).toHaveAttribute('data-state', 'ready');
   await expect(art).toHaveAttribute('data-playing', 'false');
   await expect(art).not.toHaveAttribute('aria-label', /unavailable/);
@@ -810,8 +821,12 @@ test('hero stall monitor preserves intentional pause and detects an unpaused fro
   await expect(art).toHaveAttribute('data-playing', 'true');
   // The second playing event injects a frozen timeline with paused=false,
   // matching the observable decoder failure seen in Linux CI.
+  await expect(video).toHaveAttribute('data-qa-timeline-frozen', 'true');
   await expect(video).toHaveJSProperty('paused', false);
+  // A single delayed callback must reset observation, not declare a stall.
+  await page.clock.fastForward(5000);
   await expect(art).toHaveAttribute('data-state', 'ready');
+  await page.clock.runFor(4500);
   await expect(art).toHaveAttribute('data-state', 'unavailable', {
     timeout: 8000,
   });
@@ -1136,7 +1151,7 @@ test('failed original animation keeps its poster and readable status @motion', a
 
 test('video pause/resume and reduced motion using a local canvas-stream fixture @motion', async ({
   page,
-}) => {
+}, info) => {
   await page.goto('/about/');
   const supported = await page.evaluate(
     () => typeof HTMLCanvasElement.prototype.captureStream === 'function',
@@ -1146,9 +1161,15 @@ test('video pause/resume and reduced motion using a local canvas-stream fixture 
     'This browser does not support the local canvas media fixture; real Telegram video remains an integration test.',
   );
   await page.evaluate(() => {
+    const fixture = document.createElement('div');
+    fixture.id = 'qa-profile-media';
+    fixture.style.cssText =
+      'position:fixed;bottom:0;right:0;z-index:9999;background:white;padding:8px';
     const canvas = document.createElement('canvas');
     canvas.width = 16;
     canvas.height = 16;
+    fixture.append(canvas);
+    document.body.append(fixture);
     const context = canvas.getContext('2d')!;
     const stream = canvas.captureStream(10);
     const track = stream.getVideoTracks()[0] as CanvasCaptureMediaStreamTrack;
@@ -1162,13 +1183,14 @@ test('video pause/resume and reduced motion using a local canvas-stream fixture 
     video.setAttribute('aria-label', 'Local QA media fixture');
     video.srcObject = stream;
     video.dataset.qaPlay = 'pending';
-    document.querySelector('main')!.append(video);
+    fixture.append(video);
     // Capture starts before drawing. A static pre-capture canvas can produce
     // no frames on WebKit, leaving its play() promise pending indefinitely.
     let frame = 0;
     const paint = () => {
       context.fillStyle = frame++ % 2 ? '#7751d4' : '#d7c6ff';
       context.fillRect(0, 0, 16, 16);
+      canvas.dataset.frames = String(frame);
       track.requestFrame?.();
     };
     paint();
@@ -1179,19 +1201,55 @@ test('video pause/resume and reduced motion using a local canvas-stream fixture 
       window.clearInterval(timer);
       stream.getTracks().forEach((source) => source.stop());
     };
-    void video.play().then(
-      () => {
-        video.dataset.qaPlay = 'resolved';
-      },
-      (error: DOMException) => {
-        video.dataset.qaPlay = `rejected:${error.name}`;
-      },
-    );
+    const start = document.createElement('button');
+    start.textContent = 'Start local media fixture';
+    start.addEventListener('click', () => {
+      void video.play().then(
+        () => {
+          video.dataset.qaPlay = 'resolved';
+        },
+        (error: DOMException) => {
+          video.dataset.qaPlay = `rejected:${error.name}`;
+        },
+      );
+    });
+    fixture.append(start);
   });
+  await page.getByRole('button', { name: 'Start local media fixture' }).click();
   const video = page.locator('#qa-profile-video-fixture');
-  await expect(video).toHaveAttribute('data-qa-play', 'resolved', {
-    timeout: 10_000,
-  });
+  try {
+    await expect(video).toHaveAttribute('data-qa-play', 'resolved', {
+      timeout: 10_000,
+    });
+  } finally {
+    const state = await video.evaluate((element) => {
+      const media = element as HTMLVideoElement;
+      const stream = media.srcObject as MediaStream;
+      return {
+        play: media.dataset.qaPlay,
+        readyState: media.readyState,
+        time: media.currentTime,
+        paused: media.paused,
+        visible: !document.hidden,
+        paintedFrames: document.querySelector<HTMLCanvasElement>(
+          '#qa-profile-media canvas',
+        )?.dataset.frames,
+        active: stream.active,
+        tracks: stream
+          .getVideoTracks()
+          .map((track) => ({
+            readyState: track.readyState,
+            enabled: track.enabled,
+            muted: track.muted,
+          })),
+      };
+    });
+    console.info('Local canvas fixture:', JSON.stringify(state));
+    await info.attach('canvas-media-capability', {
+      body: JSON.stringify(state),
+      contentType: 'application/json',
+    });
+  }
   await expect
     .poll(() =>
       video.evaluate((element) => (element as HTMLVideoElement).readyState),
