@@ -2,7 +2,7 @@
 
 I record source changes here and identify verified deployments separately. A version heading alone does not establish that a Git tag or GitHub Release exists.
 
-## 1.0.0-rc.3 - Unreleased
+## 1.0.0-rc.3 - Deployed 2026-10-28
 
 - I added Silver Grimoire to Home, About and Posts, with local still previews and the existing motion controls.
 - I replaced decorative star glyphs with an original reusable SVG mark so the design does not depend on a device's emoji font.
