@@ -1,4 +1,10 @@
-import { test, expect, type Page, type TestInfo } from '@playwright/test';
+import {
+  test,
+  expect,
+  type Locator,
+  type Page,
+  type TestInfo,
+} from '@playwright/test';
 import { mkdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -61,6 +67,28 @@ async function noOverflow(page: Page, label: string) {
   );
   expect(size.body, `${label}: body overflow`).toBeLessThanOrEqual(
     size.viewport + 1,
+  );
+}
+
+async function canvasFrame(canvas: Locator) {
+  return canvas.evaluate((element) => {
+    const bitmap = element as HTMLCanvasElement;
+    const pixels = bitmap
+      .getContext('2d')!
+      .getImageData(0, 0, bitmap.width, bitmap.height).data;
+    let hash = 2166136261;
+    for (let index = 0; index < pixels.length; index += 13)
+      hash = Math.imul(hash ^ pixels[index], 16777619) >>> 0;
+    return `${bitmap.width}x${bitmap.height}:${hash}`;
+  });
+}
+
+async function waitForPaint(page: Page) {
+  await page.evaluate(
+    () =>
+      new Promise<void>((done) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => done())),
+      ),
   );
 }
 
@@ -582,6 +610,9 @@ test('reduced motion avoids animation payloads and external providers @motion', 
   await page.goto('/about/');
   await page.locator('[data-animation]').first().scrollIntoViewIfNeeded();
   await page.waitForLoadState('networkidle');
+  await page.goto('/posts/');
+  await page.locator('.dispatch-grimoire').scrollIntoViewIfNeeded();
+  await page.waitForLoadState('networkidle');
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'paused');
   expect(
     requests.filter((url) =>
@@ -1059,6 +1090,336 @@ test('failed native hero media retains its poster across theme retries @motion',
   await expect(video).toBeHidden();
 });
 
+test('native spark marks keep mobile identity clear without emoji or extra accessible names @keyboard', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  const headerBrand = page.locator('.site-header .brand');
+  const footerBrand = page.locator('.footer-identity .brand');
+  await expect(headerBrand).toHaveAccessibleName('WizardLoop home');
+  await expect(footerBrand).toHaveAccessibleName('WizardLoop');
+  for (const selector of [
+    '.site-header .brand-spark',
+    '.footer-identity .brand-spark',
+    '.drawn-star',
+    '.cta-spark',
+  ]) {
+    const mark = page.locator(selector);
+    await expect(mark).toHaveCount(1);
+    await expect(mark).toHaveAttribute('viewBox', '0 0 64 64');
+    await expect(mark).toHaveAttribute('aria-hidden', 'true');
+    await expect(mark).toHaveAttribute('focusable', 'false');
+    expect(await mark.evaluate((node) => node instanceof SVGSVGElement)).toBe(
+      true,
+    );
+    expect(Number(await mark.getAttribute('width'))).toBeGreaterThan(0);
+    expect(Number(await mark.getAttribute('height'))).toBeGreaterThan(0);
+    expect(await mark.textContent()).not.toMatch(/[\u2733\uFE0F]/u);
+  }
+  expect(await page.locator('body').innerText()).not.toMatch(/[\u2733\uFE0F]/u);
+  for (const currentTheme of themes) {
+    await theme(page, currentTheme);
+    for (const width of [320, 390]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.evaluate(() => scrollTo(0, 0));
+      const mark = await page
+        .locator('.site-header .brand-spark')
+        .boundingBox();
+      const brand = await headerBrand.boundingBox();
+      const controls = await page.locator('.header-controls').boundingBox();
+      expect(mark).not.toBeNull();
+      expect(brand).not.toBeNull();
+      expect(controls).not.toBeNull();
+      expect(mark!.width).toBeGreaterThanOrEqual(12);
+      expect(Math.abs(mark!.width - mark!.height)).toBeLessThan(1);
+      expect(mark!.x).toBeGreaterThanOrEqual(brand!.x);
+      expect(mark!.x + mark!.width).toBeLessThanOrEqual(
+        brand!.x + brand!.width + 1,
+      );
+      expect(brand!.x + brand!.width).toBeLessThanOrEqual(controls!.x + 1);
+      await noOverflow(page, `SVG identity at ${width}px in ${currentTheme}`);
+      await page.locator('[data-menu-toggle]').click();
+      await expect(page.locator('#mobile-nav')).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(page.locator('[data-menu-toggle]')).toBeFocused();
+    }
+  }
+});
+
+test('the silver grimoire renders original moving pixels without shifting the three editorial layouts @motion', async ({
+  page,
+}) => {
+  test.setTimeout(90_000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const [path, selector] of [
+    ['/', '.post-comic [data-animation]'],
+    ['/about/', '.about-profile [data-animation]'],
+    ['/posts/', '.dispatch-grimoire'],
+  ] as const) {
+    let release!: () => void;
+    const held = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    await page.route(
+      '**/media/animations/silver-grimoire.tgs',
+      async (route) => {
+        await held;
+        await route.continue();
+      },
+    );
+    await page.goto(path);
+    const art = page.locator(selector);
+    await expect(art).toHaveAttribute('data-animation', 'silver-grimoire');
+    await page.evaluate(() => document.fonts.ready);
+    await art.scrollIntoViewIfNeeded();
+    const poster = art.locator('.art-poster');
+    await expect
+      .poll(() =>
+        poster.evaluate((node) => (node as HTMLImageElement).naturalWidth),
+      )
+      .toBeGreaterThan(0);
+    await expect(art).toHaveAttribute('data-state', 'poster');
+    const before = await art.boundingBox();
+    const pageHeight = await page.evaluate(
+      () => document.documentElement.scrollHeight,
+    );
+    release();
+    await expect(art).toHaveAttribute('data-state', 'ready', {
+      timeout: 25_000,
+    });
+    const canvas = art.locator('.art-player canvas');
+    await expect(canvas).toHaveCount(1);
+    const initial = await canvasFrame(canvas);
+    await expect.poll(() => canvasFrame(canvas)).not.toBe(initial);
+    const after = await art.boundingBox();
+    expect(before).not.toBeNull();
+    expect(after).not.toBeNull();
+    for (const key of ['x', 'y', 'width', 'height'] as const)
+      expect(
+        Math.abs(after![key] - before![key]),
+        `${path}: ${key} stays stable when motion replaces its poster`,
+      ).toBeLessThanOrEqual(1);
+    expect(
+      Math.abs(
+        (await page.evaluate(() => document.documentElement.scrollHeight)) -
+          pageHeight,
+      ),
+    ).toBeLessThanOrEqual(1);
+    await page.locator('[data-motion-toggle]').click();
+    await expect(art).toHaveAttribute('data-playing', 'false');
+    await waitForPaint(page);
+    const frozen = await canvasFrame(canvas);
+    await page.waitForTimeout(180);
+    expect(await canvasFrame(canvas)).toBe(frozen);
+    await noOverflow(page, `${path}: the grimoire at 390px`);
+    await page.locator('[data-motion-toggle]').click();
+    await page.unroute('**/media/animations/silver-grimoire.tgs');
+  }
+});
+
+test('pausing while the grimoire is downloading keeps its poster until motion is resumed @motion', async ({
+  page,
+}) => {
+  let release!: () => void;
+  const held = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  let requests = 0;
+  await page.route('**/media/animations/silver-grimoire.tgs', async (route) => {
+    requests += 1;
+    await held;
+    await route.continue();
+  });
+  await page.goto('/about/');
+  const art = page.locator('.about-profile [data-animation]');
+  await art.scrollIntoViewIfNeeded();
+  await expect.poll(() => requests).toBe(1);
+  await page.locator('[data-motion-toggle]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'paused');
+  const response = page.waitForResponse(
+    '**/media/animations/silver-grimoire.tgs',
+  );
+  release();
+  await (await response).finished();
+  await page.waitForTimeout(300);
+  await expect(art).toHaveAttribute('data-state', 'poster');
+  await expect(art.locator('canvas')).toHaveCount(0);
+  await expect(art.locator('.art-poster')).toHaveCSS('opacity', '1');
+  await page.locator('[data-motion-toggle]').click();
+  await expect(art).toHaveAttribute('data-state', 'ready', { timeout: 25_000 });
+  await expect(art.locator('canvas')).toHaveCount(1);
+  const first = await canvasFrame(art.locator('canvas'));
+  await expect.poll(() => canvasFrame(art.locator('canvas'))).not.toBe(first);
+  expect(
+    requests,
+    'Resuming should reuse the successfully downloaded original.',
+  ).toBe(1);
+});
+
+test('repeated grimoire instances share a download while keeping independent canvases and a real playback limit @motion', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1200, height: 900 });
+  // Duplicate complete SSR components before the normal site module collects
+  // artwork. The real renderer, data, intersections and pixels remain in use.
+  await page.addInitScript(() => {
+    const observer = new MutationObserver(() => {
+      const original = document.querySelector<HTMLElement>(
+        '.about-profile [data-animation="silver-grimoire"]',
+      );
+      if (
+        !original?.querySelector('.art-player') ||
+        !original.querySelector('.art-poster') ||
+        !document.body
+      )
+        return;
+      observer.disconnect();
+      const fixture = document.createElement('section');
+      fixture.dataset.motionFixture = '';
+      fixture.style.cssText =
+        'position:fixed;left:40px;top:150px;display:flex;gap:24px;z-index:10;';
+      const copies = [
+        original,
+        ...Array.from(
+          { length: 3 },
+          () => original.cloneNode(true) as HTMLElement,
+        ),
+      ];
+      copies.forEach((node, index) => {
+        node.dataset.fixtureArt = String(index);
+        node.style.cssText = 'width:160px;height:160px;flex:none;';
+        fixture.append(node);
+      });
+      document.body.append(fixture);
+    });
+    observer.observe(document, { childList: true, subtree: true });
+  });
+  let requests = 0;
+  await page.route('**/media/animations/silver-grimoire.tgs', async (route) => {
+    requests += 1;
+    await route.continue();
+  });
+  await page.goto('/about/');
+  const copies = page.locator('[data-fixture-art]');
+  await expect(copies).toHaveCount(4);
+  await expect(
+    page.locator('[data-fixture-art][data-playing="true"]'),
+  ).toHaveCount(3, { timeout: 25_000 });
+  await expect(page.locator('[data-fixture-art="3"] canvas')).toHaveCount(0);
+  expect(
+    requests,
+    'Simultaneous instances should fetch and decode their shared source once.',
+  ).toBe(1);
+  for (let index = 0; index < 3; index += 1) {
+    const canvas = copies.nth(index).locator('canvas');
+    await expect(canvas).toHaveCount(1);
+    const first = await canvasFrame(canvas);
+    await expect
+      .poll(() => canvasFrame(canvas), {
+        message: `Instance ${index} renders changing pixels independently.`,
+      })
+      .not.toBe(first);
+  }
+  const firstArt = copies.nth(0);
+  await firstArt.evaluate((node) => {
+    node.style.transform = 'translateY(2000px)';
+  });
+  await expect(firstArt).toHaveAttribute('data-playing', 'false');
+  await expect(copies.nth(3)).toHaveAttribute('data-playing', 'true');
+  await expect(copies.nth(3).locator('canvas')).toHaveCount(1);
+  await waitForPaint(page);
+  const frozen = await canvasFrame(firstArt.locator('canvas'));
+  const sibling = copies.nth(1).locator('canvas');
+  const siblingFrame = await canvasFrame(sibling);
+  await expect.poll(() => canvasFrame(sibling)).not.toBe(siblingFrame);
+  expect(
+    await canvasFrame(firstArt.locator('canvas')),
+    'Offscreen instance freezes while its sibling continues.',
+  ).toBe(frozen);
+  await firstArt.evaluate((node) => {
+    node.style.transform = '';
+  });
+  await copies.nth(1).evaluate((node) => {
+    node.style.transform = 'translateY(2000px)';
+  });
+  await expect(firstArt).toHaveAttribute('data-playing', 'true');
+  await expect
+    .poll(() => canvasFrame(firstArt.locator('canvas')))
+    .not.toBe(frozen);
+  await expect(
+    page.locator('[data-fixture-art][data-playing="true"]'),
+  ).toHaveCount(3);
+  await expect(page.locator('[data-fixture-art] canvas')).toHaveCount(4);
+  expect(requests).toBe(1);
+  await page.locator('[data-motion-toggle]').click();
+  await expect(
+    page.locator('[data-fixture-art][data-playing="true"]'),
+  ).toHaveCount(0);
+});
+
+test('an offscreen pending grimoire defers its canvas and resumes cleanly after leaving and restoring the page @motion', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 600 });
+  let release!: () => void;
+  const held = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  let requests = 0;
+  await page.route('**/media/animations/silver-grimoire.tgs', async (route) => {
+    requests += 1;
+    await held;
+    await route.continue();
+  });
+  await page.goto('/about/');
+  const art = page.locator('.about-profile [data-animation]');
+  await art.scrollIntoViewIfNeeded();
+  await expect.poll(() => requests).toBe(1);
+  await page.locator('.site-footer').scrollIntoViewIfNeeded();
+  await expect
+    .poll(() => art.evaluate((node) => node.getBoundingClientRect().bottom))
+    .toBeLessThan(0);
+  await waitForPaint(page);
+  const response = page.waitForResponse(
+    '**/media/animations/silver-grimoire.tgs',
+  );
+  release();
+  await (await response).finished();
+  await page.waitForTimeout(300);
+  await expect(art).toHaveAttribute('data-state', 'poster');
+  await expect(art.locator('canvas')).toHaveCount(0);
+  await art.scrollIntoViewIfNeeded();
+  await expect(art).toHaveAttribute('data-playing', 'true', {
+    timeout: 25_000,
+  });
+  await expect(art.locator('canvas')).toHaveCount(1);
+  expect(requests).toBe(1);
+  // Exercise the registered lifecycle handlers deterministically. This is
+  // synthetic page-cache restoration, not a claim about browser BFCache policy.
+  await page.evaluate(() =>
+    dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })),
+  );
+  await expect(art).toHaveAttribute('data-state', 'poster');
+  await expect(art.locator('canvas')).toHaveCount(0);
+  await page.evaluate(() =>
+    dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })),
+  );
+  await expect(art).toHaveAttribute('data-playing', 'true', {
+    timeout: 25_000,
+  });
+  await expect(art.locator('canvas')).toHaveCount(1);
+  const restored = await canvasFrame(art.locator('canvas'));
+  await expect
+    .poll(() => canvasFrame(art.locator('canvas')))
+    .not.toBe(restored);
+  expect(
+    requests,
+    'Restoring a page reuses its local parsed source and does not duplicate a request.',
+  ).toBe(1);
+});
+
 test('original Canvas animation changes, freezes on pause and bounds active artwork @motion', async ({
   page,
 }) => {
@@ -1407,7 +1768,7 @@ test('the profile is a dimensioned local still with no provider or synchronizati
   await expect(image).toHaveAttribute('src', '/media/profile/avatar.jpg');
   await expect(image).toHaveAttribute('width', '96');
   await expect(image).toHaveAttribute('height', '96');
-  await expect(image).toHaveAttribute('alt', /WizardLoop/);
+  await expect(image).toHaveAttribute('alt', 'My public profile artwork');
   await expect(
     page.locator('[data-profile-video], [data-profile-source]'),
   ).toHaveCount(0);

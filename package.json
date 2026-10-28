@@ -1,9 +1,9 @@
 {
   "name": "wizardloop-website",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "private": true,
   "type": "module",
-  "description": "WizardLoop personal portfolio: design, illustration, animation and software.",
+  "description": "My personal portfolio: design, illustration, animation and software.",
   "scripts": {
     "dev": "astro dev --host 127.0.0.1 --port 4322",
     "dev:concepts": "node scripts/preview.mjs",
@@ -17,6 +17,7 @@
     "test:browsers": "playwright test",
     "check": "npm run lint && npm run typecheck && npm run build",
     "audit:performance": "node scripts/lighthouse.mjs",
+    "media:poster": "node scripts/render-tgs-poster.mjs",
     "test:concepts": "node scripts/qa.mjs",
     "test:concept-interactions": "node scripts/interactions.mjs"
   },

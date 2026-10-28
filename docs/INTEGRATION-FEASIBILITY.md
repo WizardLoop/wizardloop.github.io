@@ -1,20 +1,20 @@
 # Integration feasibility - Phase 1
 
-> Historical Phase 1 record. The owner chose a static, link-based site on 2026-10-28. Integration proposals and operational assumptions below are superseded; retain this report for dated observations and asset provenance. See [README](../README.md), [deployment](DEPLOYMENT.md) and [current boundaries](QA-INTEGRATIONS.md) for the maintained architecture.
+> My historical Phase 1 record. I chose a static, link-based site on 2026-10-28. I have superseded the integration proposals and operational assumptions below, but retain this report for dated observations and asset provenance. See [README](../README.md), [deployment](DEPLOYMENT.md) and [current boundaries](QA-INTEGRATIONS.md) for my maintained architecture.
 
-Reviewed on 2026-10-27 (Asia/Jerusalem). This is research for local design review. No remote settings, deployments, credentials, webhooks, sessions, releases or production content were changed. Integration proposals below are not implemented or end-to-end tested.
+I reviewed these options on 2026-10-27 (Asia/Jerusalem) for my local design review. I changed no remote settings, deployments, credentials, webhooks, sessions, releases or production content during this research. At that point, I had not implemented or end-to-end tested the integration proposals below.
 
 ## Findings that affect design approval
 
-- The complete Telegram channel page cannot be embedded on WizardLoop: the observed response for `https://t.me/s/wizard_loop` contains `X-Frame-Options: SAMEORIGIN`. Use a native Posts page containing individual official Post Widgets and permanent Telegram links.
-- Telegram documents a bot-authenticated MTProto path for profile photo, video and bio retrieval. It must be tested with an authorized bot and the owner's privacy settings before promising automatic primary-profile video sync. A personal user session is not the default.
+- I could not embed the complete Telegram channel page on my site: the observed response for `https://t.me/s/wizard_loop` contained `X-Frame-Options: SAMEORIGIN`. My proposed alternative was a native Posts page containing individual official Post Widgets and permanent Telegram links.
+- Telegram documents a bot-authenticated MTProto path for profile photo, video and bio retrieval. I would need to test it with an authorized bot and my privacy settings before promising automatic primary-profile video sync. I did not choose a personal user session as the default.
 - Official post responses expose real animated media, but do not guarantee complete Telegram-client fidelity. The observed responses contain both supported-media markup and unsupported-media notices. Custom emoji animation and TGS/WebM/video playback require browser verification after the design is chosen.
 - Telegram embeds execute third-party code and the observed embed HTML writes a `stel_dt` cookie. They must not be described as cookieless. Proposed default: show local post information and an explicit control to load Telegram content, with an always-available source link.
 - The local profile asset is a verified public Telegram still preview. It is not proof of the account's current primary video, original-resolution image, or an operating sync service.
 
 ## Public observations
 
-Read-only HTTP requests were made from the development environment. Initial sandbox requests failed because socket access was restricted; approved public reads subsequently succeeded. These are observations of those responses, not permanent service guarantees.
+I made read-only HTTP requests from my development environment. Initial sandbox requests failed because socket access was restricted; approved public reads subsequently succeeded. I record observations of those responses, not permanent service guarantees.
 
 | URL | Result | Relevant observation |
 | --- | --- | --- |
@@ -31,11 +31,11 @@ The individual embed responses had no X-Frame-Options or CSP header in this obse
 
 ### Verified content for local concepts
 
-Public profile bio, observed in both page content and metadata:
+My public profile bio, observed in both page content and metadata:
 
 > Independent designer, illustrator & animator. Expressive characters. Playful visuals. Unexpected loops.
 
-The image was downloaded from the `og:image` URL published by the profile page into `concepts/assets/profile-telegram.jpg`. It is a 320 x 320 JPEG, 32,157 bytes. SHA-256: `2FB36A4AD9412D9212EA029B81A0F8054AF440E3F5208F06128074D4A580690A`. It was visually checked: a purple wizard character beside a glowing portal. Its permanent provenance is the public profile URL above; the CDN URL is an implementation detail, not a stable publishing contract. Treat this as owner branding/media, outside the new code's MIT license.
+I downloaded the image from the profile page's `og:image` URL into `concepts/assets/profile-telegram.jpg`. It is a 320 x 320 JPEG, 32,157 bytes. SHA-256: `2FB36A4AD9412D9212EA029B81A0F8054AF440E3F5208F06128074D4A580690A`. I visually checked the purple wizard character beside a glowing portal. Its permanent provenance is my public profile URL above; the CDN URL is an implementation detail, not a stable publishing contract. This is my branding/media, outside my new code's MIT license.
 
 Genuine sample links: [Amanimo post](https://t.me/Wizard_Loop/51), [associated sticker](https://t.me/Wizard_Loop/52), [Psychedelic Adaptive post](https://t.me/Wizard_Loop/53), and [Adaptive Star of David post](https://t.me/Wizard_Loop/54). Post 51 reports `2026-10-22T20:55:52+00:00`; post 52 reports `2026-10-22T20:56:09+00:00`. These are source examples, not invented project credits. No reusable scraping infrastructure was created.
 
@@ -43,7 +43,7 @@ Genuine sample links: [Amanimo post](https://t.me/Wizard_Loop/51), [associated s
 
 Telegram's supported MTProto methods [contacts.resolveUsername](https://core.telegram.org/method/contacts.resolveUsername), [users.getFullUser](https://core.telegram.org/method/users.getFullUser), [photos.getUserPhotos](https://core.telegram.org/method/photos.getUserPhotos) and [upload.getFile](https://core.telegram.org/method/upload.getFile) explicitly permit bots. [auth.importBotAuthorization](https://core.telegram.org/method/auth.importBotAuthorization) accepts bot authorization with an API ID/hash. This supports testing a dedicated bot before considering a more powerful personal user session.
 
-Proposed selection algorithm:
+My proposed selection algorithm:
 
 1. Resolve `wizardloop`, read current user and full-user information. [UserProfilePhoto](https://core.telegram.org/constructor/userProfilePhoto) provides `photo_id`, `has_video` and the `personal` flag. [userFull](https://core.telegram.org/constructor/userFull) provides `profile_photo`, optional `about`, and separately identified personal/fallback photos.
 2. Select the current `profile_photo`, cross-checking the current photo ID. If a complete Photo is needed, obtain the matching ID through `photos.getUserPhotos`. Never select the largest ID or newest upload date as a substitute for the active profile. Do not publish a contact-specific personal photo or privately accessible profile data as public branding.
@@ -51,19 +51,19 @@ Proposed selection algorithm:
 4. Use [videoSize.video_start_ts](https://core.telegram.org/constructor/videoSize) for the intended static preview frame. Generate fixed-size local poster, favicon and social-image derivatives. Keep a stable public URL for crawler assets and an atomic, validated asset manifest for the site.
 5. Read supported `userFull.about` when available. Otherwise use verified GitHub bio, then editable local copy. The public-page bio above is evidence for Phase 1, not a proposed long-term HTML scraper.
 
-Proposed operation: a separate small sync process with encrypted credentials, timeout, bounded retries and Telegram flood-wait handling. Check on a conservative schedule, for example every 6 hours, plus a manual trigger. Publish only changed, validated assets and safe metadata. Do not serialize API responses, access hashes, sessions or download credentials into the site. Preserve the last valid asset on transient failure; if none exists, fall back to GitHub, then a local mark. An explicit owner removal/privacy change should be handled separately from a network outage.
+My proposed operation was a separate small sync process with encrypted credentials, timeout, bounded retries and Telegram flood-wait handling. Check on a conservative schedule, for example every 6 hours, plus a manual trigger. Publish only changed, validated assets and safe metadata. Do not serialize API responses, access hashes, sessions or download credentials into the site. Preserve the last valid asset on transient failure; if none exists, fall back to GitHub, then a local mark. Handle an explicit removal or privacy change I request separately from a network outage.
 
-Playback in the chosen design should use a muted, looping, `playsinline` video with dimensions, poster and a pause control. Reduced motion should default to the poster. No MTProto login or video download was attempted because credentials were not provided. Bot visibility, identity matching and video quality remain acceptance tests.
+For the chosen design, I proposed a muted, looping, `playsinline` video with dimensions, poster and a pause control. Reduced motion should default to the poster. I attempted no MTProto login or video download because credentials were not configured. Bot visibility, identity matching and video quality remained acceptance tests at this stage.
 
 The HTTP [Bot API](https://core.telegram.org/bots/api#getuserprofilephotos) returns profile photos as PhotoSize arrays; that method does not document video sizes. It is not evidence of profile-video support.
 
 ## Posts: supported approach and limitations
 
-Telegram's [official Post Widget](https://core.telegram.org/widgets/post) supports individual public group/channel messages, including width and dark-theme configuration. It is the preferred renderer. A native `/posts` page can keep the WizardLoop navigation and own a cached list of verified message IDs, dates, short accessible descriptions and source links. Load a limited batch of widgets on request or near the viewport; reserve space to reduce layout shift and provide failure/retry states.
+Telegram's [official Post Widget](https://core.telegram.org/widgets/post) supports individual public group/channel messages, including width and dark-theme configuration. It was my preferred renderer for this proposal. A native `/posts` page could keep my navigation and maintain a cached list of verified message IDs, dates, short accessible descriptions and source links. Load a limited batch of widgets on request or near the viewport; reserve space to reduce layout shift and provide failure/retry states.
 
-For automatic discovery, a channel-member bot can receive new posts and edits. [Telegram's FAQ](https://core.telegram.org/bots/faq#what-messages-will-my-bot-get) documents channel message delivery. The [Update schema](https://core.telegram.org/bots/api#update) exposes `channel_post` and `edited_channel_post`; undelivered updates are retained for at most 24 hours. Persist updates promptly, deduplicate IDs and handle downtime. The reviewed schema has no general channel-post deletion event. Design reconciliation and owner removal controls explicitly.
+For automatic discovery, a channel-member bot can receive new posts and edits. [Telegram's FAQ](https://core.telegram.org/bots/faq#what-messages-will-my-bot-get) documents channel message delivery. The [Update schema](https://core.telegram.org/bots/api#update) exposes `channel_post` and `edited_channel_post`; undelivered updates are retained for at most 24 hours. Persist updates promptly, deduplicate IDs and handle downtime. The reviewed schema has no general channel-post deletion event. I would need explicit reconciliation and removal controls.
 
-Historical backfill differs: [messages.getHistory](https://core.telegram.org/method/messages.getHistory) is users-only. Start with owner-approved known IDs or an export. If an authorized user session is eventually needed for complete backfill, keep it isolated and explain the scope first. [channels.getMessages](https://core.telegram.org/method/channels.getMessages) permits bots for known IDs, subject to access; test this for edit/deletion reconciliation rather than assuming bot history access.
+Historical backfill differs: [messages.getHistory](https://core.telegram.org/method/messages.getHistory) is users-only. Start with known IDs I approve or an export. If an authorized user session is eventually needed for complete backfill, keep it isolated and explain the scope first. [channels.getMessages](https://core.telegram.org/method/channels.getMessages) permits bots for known IDs, subject to access; test this for edit/deletion reconciliation rather than assuming bot history access.
 
 Do not cache expiring CDN media links as permanent URLs. Do not substitute static emoji or poster images and label them full animation. The cross-origin widget cannot be restyled or paused by arbitrary parent-page DOM access. Reduced-motion behavior and the ability to pause each animated type need real browser testing. If the widget lacks sufficient controls, keep it unloaded until requested and clearly offer the Telegram original. The site's motion toggle should not claim to pause third-party media unless verified.
 
@@ -77,16 +77,16 @@ Keep the site static. A separate Worker can validate method, exact allowed Origi
 
 Cloudflare's [Worker rate-limit binding](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/) is approximate and local to each Cloudflare location. It is not a strict global quota. Use a Durable Object if strict global protection for the Telegram destination is required, with documented retention for any abuse-control keys.
 
-Configure the numeric private chat ID through a private setup step after the owner starts the bot, then verify with an explicitly approved test. The username alone is not proof that a bot can message the private account. Until secrets and a real delivery test exist, use a clearly labeled local mock, not a false success message.
+My proposed setup required me to start the bot, configure my numeric private chat ID privately, then approve a delivery test. My username alone is not proof that a bot can message my private account. Until secrets and a real delivery test exist, use a clearly labeled local mock, not a false success message.
 
-The production response currently lacks the headers listed above. A static HTML CSP can cover some resource rules, but [frame-ancestors cannot be supplied in a meta element](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors). Do not claim server headers are configured by writing an unsupported `_headers` file into GitHub Pages. A proxy/CDN may supply them only after the owner separately approves infrastructure changes.
+My production response at the time lacked the headers listed above. A static HTML CSP can cover some resource rules, but [frame-ancestors cannot be supplied in a meta element](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors). Do not claim server headers are configured by writing an unsupported `_headers` file into GitHub Pages. I would review a proxy/CDN as a separate infrastructure change before using it to supply these headers.
 
 ## Privacy and accessibility review boundaries
 
-- Feedback will process name, message and optional email through the chosen backend and Telegram. Publish purpose, recipients, voluntary/required fields, retention, contact and deletion/correction procedure based on actual operation. Retention is an owner decision, not an invented policy. Israel's [Privacy Protection Authority guidance](https://www.gov.il/BlobFolder/legalinfo/duty_to_notify/he/notify13.pdf) and [Amendment 13 information](https://www.gov.il/he/pages/tikun13_qa) are relevant to the notice and rights assessment.
+- My proposed feedback service would process name, message and optional email through the chosen backend and Telegram. Publish purpose, recipients, voluntary/required fields, retention, contact and deletion/correction procedure based on actual operation. I would need to decide retention from actual practice, not invent a policy. Israel's [Privacy Protection Authority guidance](https://www.gov.il/BlobFolder/legalinfo/duty_to_notify/he/notify13.pdf) and [Amendment 13 information](https://www.gov.il/he/pages/tikun13_qa) are relevant to the notice and rights assessment.
 - [GitHub documents security logging of visitor IPs](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection). [Cloudflare's Turnstile addendum](https://www.cloudflare.com/turnstile-privacy-policy/) describes security signals including IP, TLS fingerprint, user agent and origin. Therefore, do not publish an unconditional claim that the website collects no information.
 - [GDPR territorial scope](https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/application-gdpr_en) depends on establishment, offering services and monitoring; public accessibility from Europe alone is not enough to conclude applicability. [ePrivacy Article 5(3)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02002L0058-20091219) distinguishes consent from strictly necessary storage/access. Assess the actual embeds and tracking before choosing consent behavior. No analytics are needed for the concepts.
 - Use [WCAG 2.2 AA](https://www.w3.org/TR/WCAG22/) as the engineering target, including reflow, focus, target sizes and motion controls. Israel's [internet accessibility guide](https://www.gov.il/he/pages/website_accessibility) and [SI 5568-1 (2023)](https://www.gov.il/BlobFolder/legalinfo/israeli_accessibility_standards_pdf/he/sitedocs_si-5568-1-september-2023.pdf) require a separate applicability and national-adjustments review. No exemption or legal compliance is assumed from the site's personal branding.
 - An accessibility statement must describe actual tests and known third-party limits. Automated axe/Lighthouse results alone do not establish full conformance. Screen-reader testing and legal applicability remain separate review items before publication.
 
-These are implementation research notes, not a legal certification. Final policy text and compliance claims must follow the services actually enabled and the owner's verified circumstances.
+These are my implementation research notes, not a legal certification. I base policy text and compliance claims on the services I actually enable and my verified circumstances.

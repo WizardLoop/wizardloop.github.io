@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
+import SparkMark from '../components/SparkMark.astro';
 import { site } from '../config/site';
 import preferences from '../../public/js/preferences.js?raw';
 interface Props {
@@ -138,9 +139,7 @@ const schema = {
         </span>
         <span>
           WizardLoop
-          <span class="brand-spark" aria-hidden="true">
-            ✳
-          </span>
+          <SparkMark size={20} class="brand-spark" />
         </span>
       </a>
       <nav class="desktop-nav" aria-label="Main navigation">
@@ -229,9 +228,7 @@ const schema = {
         <div class="footer-identity">
           <a class="brand" href="/">
             WizardLoop
-            <span class="brand-spark" aria-hidden="true">
-              ✳
-            </span>
+            <SparkMark size={20} class="brand-spark" />
           </a>
           <p>Code, Design & a Little Magic.</p>
           <span class="footer-doodle" aria-hidden="true">

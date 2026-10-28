@@ -1,13 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import MotionArt from '../components/MotionArt.astro';
 import { site } from '../config/site';
 import '../styles/destinations.css';
 ---
 
 <Base
   title="Posts from the studio"
-  description="Read WizardLoop's posts on Telegram. Design, motion, creative experiments and notes from the making, in their original home."
+  description="Read my posts on Telegram. I share design, motion, creative experiments and notes from the making, in their original home."
 >
   <section class="destination-page destination-posts wrap">
     <header class="destination-heading">
@@ -47,38 +48,45 @@ import '../styles/destinations.css';
         </div>
         <p class="destination-address">Opens the public Telegram feed.</p>
       </div>
-      <div class="destination-art dispatch-drawing" aria-hidden="true">
-        <svg viewBox="0 0 460 400" fill="none" focusable="false">
-          <circle class="drawing-violet" cx="235" cy="202" r="127" />
-          <path
-            class="drawing-stroke drawing-dotted"
-            d="M87 258c-60-93 33-181 99-125 57 49-66 64-96 139-19 48 38 96 102 63"
+      <div class="destination-art dispatch-drawing">
+        <div class="dispatch-seal">
+          <svg
+            class="dispatch-orbits"
+            viewBox="0 0 460 460"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle class="drawing-violet" cx="230" cy="230" r="175" />
+            <ellipse
+              class="drawing-accent-stroke drawing-dotted"
+              cx="230"
+              cy="230"
+              rx="220"
+              ry="125"
+              transform="rotate(-35 230 230)"
+            />
+            <path
+              class="drawing-yellow drawing-stroke"
+              d="m80 65 7 19 20 6-20 7-7 19-7-19-20-7 20-6z"
+            />
+            <path
+              class="drawing-stroke"
+              d="m371 356 18 6m-27 10 12 14m-29-7 4 17"
+            />
+          </svg>
+          <MotionArt
+            name="silver-grimoire"
+            class="dispatch-grimoire"
+            alt="A silver infinity emblem with engraved details and glinting highlights"
           />
-          <path
-            class="drawing-shadow"
-            d="m124 186 237-91-71 226-67-76-47 35 11-66z"
-          />
-          <path
-            class="drawing-paper drawing-stroke"
-            d="m114 175 237-91-71 226-67-76-47 35 11-66z"
-          />
-          <path
-            class="drawing-peach drawing-stroke"
-            d="m177 203-11 66 47-35L351 84z"
-          />
-          <path class="drawing-stroke" d="m213 234 138-150" />
-          <path
-            class="drawing-yellow drawing-stroke"
-            d="m82 73 9 23 24 5-24 7-9 23-8-23-24-7 24-5z"
-          />
-          <path
-            class="drawing-stroke"
-            d="m327 317 17 6m-26 11 12 13m-28-7 4 17m64-200 20-2m-17 20 17 6"
-          />
-          <circle class="drawing-ink" cx="265" cy="52" r="4" />
-          <circle class="drawing-ink" cx="385" cy="271" r="4" />
-        </svg>
-        <span class="destination-handnote">See you in the loop.</span>
+          <span class="dispatch-telegram" aria-hidden="true">
+            <Icon name="telegram" size={28} />
+          </span>
+        </div>
+        <span class="destination-handnote">
+          A little magic, from me to you.
+        </span>
       </div>
     </section>
     <div class="destination-after">

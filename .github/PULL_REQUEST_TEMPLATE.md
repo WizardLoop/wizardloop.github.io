@@ -8,6 +8,6 @@ List checks actually run, measured results and remaining limitations. Do not pre
 
 ## Publication
 
-Merging into `main` triggers the GitHub Pages workflow. Confirm that the change is ready for the owner to publish, preserves `wizardloop.com` and existing URLs, and includes any relevant rollback notes. A pull request does not itself merge or deploy the change.
+Merging into `main` triggers my GitHub Pages workflow. Confirm that the change is ready for me to publish, preserves `wizardloop.com` and existing URLs, and includes any relevant rollback notes. I review publication separately; a pull request does not itself merge or deploy the change.
 
 State any changes to external links, visitor data handling or hosting settings. Keep credentials and personal messages out of this description.

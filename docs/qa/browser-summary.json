@@ -1,30 +1,88 @@
 {
-  "resultBasis": "Latest result for each unique engine/test from the initial static-site run and focused checks of the final build. The initial run had failures, retained below. This is a combined result, not a green full-suite rerun. Remote CI verifies the complete suite separately.",
-  "generatedAt": "2026-10-28T10:35:42.181Z",
-  "environment": "Windows, local built Astro site at http://127.0.0.1:4322, one Playwright worker",
-  "total": 171,
-  "passed": 171,
-  "unresolvedFailures": [],
+  "schemaVersion": 3,
+  "version": "1.0.0-rc.3",
+  "branch": "polish/studio-motion-and-marks",
+  "baseCommit": "ef1157bd1d3f45420656864b5cfbf895d9128f3a",
+  "resultBasis": "Latest result for every unique engine/test from the complete local run and focused verification after correcting the outdated profile-alt assertion. The served site did not change between these runs. This is a combined local result, not a green full-suite rerun; original failures remain recorded below. GitHub CI runs the full Linux suite independently.",
+  "generatedAt": "2026-10-28T12:56:16.119Z",
+  "environment": "Windows, local built Astro site at http://127.0.0.1:4322, one Playwright worker, retries disabled",
+  "runs": [
+    {
+      "report": "artifacts/rc3-initial-full-results.json",
+      "startedAt": "2026-10-28T12:25:59.864Z",
+      "durationSeconds": 1664,
+      "total": 186,
+      "passed": 183,
+      "failures": [
+        {
+          "engine": "chromium",
+          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
+          "status": "failed",
+          "attempts": 1,
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected pattern: /WizardLoop/\nReceived string:  \"My public profile artwork\"\nTimeout: 10000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n    23 × locator resolved to <img width=\"96\" height=\"96\" data-profile-image=\"\" src=\"/media/profile/avatar.jp"
+        },
+        {
+          "engine": "firefox",
+          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
+          "status": "failed",
+          "attempts": 1,
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected pattern: /WizardLoop/\nReceived string:  \"My public profile artwork\"\nTimeout: 10000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n    23 × locator resolved to <img width=\"96\" height=\"96\" data-profile-image=\"\" src=\"/media/profile/avatar.jp"
+        },
+        {
+          "engine": "webkit",
+          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
+          "status": "failed",
+          "attempts": 1,
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected pattern: /WizardLoop/\nReceived string:  \"My public profile artwork\"\nTimeout: 10000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n    20 × locator resolved to <img width=\"96\" height=\"96\" data-profile-image=\"\" src=\"/media/profile/avatar.jp"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "report": "artifacts/rc3-profile-results.json",
+      "startedAt": "2026-10-28T12:54:12.643Z",
+      "durationSeconds": 104,
+      "total": 3,
+      "passed": 3,
+      "failures": [],
+      "errors": []
+    }
+  ],
+  "total": 186,
+  "passed": 186,
+  "failures": [],
   "engines": {
     "chromium": {
-      "total": 74,
-      "passed": 74,
-      "failed": 0,
-      "skipped": 0
+      "total": 79,
+      "passed": 79
     },
     "firefox": {
-      "total": 48,
-      "passed": 48,
-      "failed": 0,
-      "skipped": 0
+      "total": 53,
+      "passed": 53
     },
     "webkit": {
-      "total": 49,
-      "passed": 49,
-      "failed": 0,
-      "skipped": 0
+      "total": 54,
+      "passed": 54
     }
   },
+  "matrix": {
+    "routes": 12,
+    "widths": [
+      320,
+      360,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "engines": 3,
+    "viewportCases": 432
+  },
+  "axeChecks": 24,
   "platformNotes": [
     {
       "engine": "webkit",
@@ -35,49 +93,6 @@
       "engine": "webkit",
       "type": "platform",
       "description": "Windows WebKit Media Foundation stops this real native MP4 after its first loop. This test verifies graceful fallback, not successful uninterrupted looping. The same stop was reproduced on a minimal video without application code."
-    }
-  ],
-  "runs": [
-    {
-      "report": "artifacts/final/static-initial-results.json",
-      "startedAt": "2026-10-28T09:32:08.320Z",
-      "durationSeconds": 1517,
-      "total": 135,
-      "passed": 131,
-      "failures": [
-        {
-          "engine": "chromium",
-          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
-          "status": "failed",
-          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected: \"/media/profile/avatar.jpg\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n"
-        },
-        {
-          "engine": "firefox",
-          "title": "mobile menu has native modal focus, an explicit Tab loop, Escape and scroll restoration @keyboard",
-          "status": "failed",
-          "error": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('#mobile-nav').locator('a[href=\"/posts/\"]')\n    - locator resolved to <a href=\"/posts/\">…</a>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - performing click action\n"
-        },
-        {
-          "engine": "firefox",
-          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
-          "status": "failed",
-          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected: \"/media/profile/avatar.jpg\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n"
-        },
-        {
-          "engine": "webkit",
-          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
-          "status": "failed",
-          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected: \"/media/profile/avatar.jpg\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n"
-        }
-      ]
-    },
-    {
-      "report": "artifacts/final/static-final-results.json",
-      "startedAt": "2026-10-28T10:20:43.519Z",
-      "durationSeconds": 850,
-      "total": 96,
-      "passed": 96,
-      "failures": []
     }
   ]
 }

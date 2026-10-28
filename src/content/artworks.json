@@ -268,5 +268,17 @@
     "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_030_Infinity-Constellation.tgs",
     "bytes": 18014,
     "sha256": "45883211838f3f5ce1d4171b28cec0c4d11e6fee27cb0d25c2c53307fb8cba84"
+  },
+  {
+    "slug": "silver-grimoire",
+    "title": "Silver Grimoire",
+    "filename": "silver-grimoire.tgs",
+    "alt": "A silver infinity emblem with engraved details and glinting highlights.",
+    "source": "WizardLoop_Silver_Grimoire.tgs",
+    "bytes": 61579,
+    "sha256": "e4a0416a2718340441c792eb8fa2b387c709dd23cc64f58d4b219e681c40d793",
+    "sourceBytes": 61584,
+    "sourceSha256": "13a9d74a79b4338070ef76e344de54e7c727ed658a1f6040a86046a41f1b7bf7",
+    "normalization": "Only the internal root.nm title replaces U+2014 with an ASCII hyphen. All other decoded bytes, geometry and timing are unchanged. Recompressed with gzip level 9 and mtime 0; supplied source remains untouched."
   }
 ]
