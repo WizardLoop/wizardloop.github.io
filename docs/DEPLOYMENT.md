@@ -52,7 +52,7 @@ Automatic profile/posts synchronization additionally needs a separate private ho
 
 ## Manual Pages workflow
 
-`.github/workflows/ci.yml` runs quality checks on pull requests or manual dispatch with read-only repository permissions. It cannot publish Pages. Its actual run result is evidence; the presence of the file does not mean CI passed.
+`.github/workflows/ci.yml` runs quality checks on development-branch pushes, pull requests or manual dispatch with read-only repository permissions. Pushes to `main` do not trigger this workflow. It cannot publish Pages. Its actual run result is evidence; the presence of the file does not mean CI passed.
 
 `.github/workflows/deploy.yml`, named **Approved Pages deployment**, runs only by manual `workflow_dispatch`. Its build requires `main` and confirmation input `DEPLOY_WIZARDLOOP`. It installs locked dependencies, runs `npm run check` and uploads `dist/`. The deployment job alone receives `pages: write` and `id-token: write`, targeting the `github-pages` environment. New production jobs do not cancel an already-running deployment.
 

@@ -759,11 +759,48 @@ test('unexpected native playback pause retains a clear still fallback @motion', 
 test('hero stall monitor preserves intentional pause and detects an unpaused frozen timeline @motion', async ({
   page,
 }) => {
+  await page.addInitScript(() => {
+    let starts = 0;
+    document.addEventListener(
+      'playing',
+      (event) => {
+        const media = event.target;
+        if (
+          !(media instanceof HTMLVideoElement) ||
+          !media.hasAttribute('data-hero-video')
+        )
+          return;
+        const start = ++starts;
+        // Run after the application's playing handler, before the known short
+        // Windows native loop can stop. Browser-driver latency must not decide
+        // whether this fixture is a user pause or a decoder failure.
+        window.setTimeout(() => {
+          if (start === 1)
+            document
+              .querySelector<HTMLButtonElement>('[data-motion-toggle]')!
+              .click();
+          else if (start === 2) {
+            const frozen = media.currentTime;
+            Object.defineProperty(media, 'paused', {
+              configurable: true,
+              get: () => false,
+            });
+            Object.defineProperty(media, 'currentTime', {
+              configurable: true,
+              get: () => frozen,
+            });
+            media.pause();
+          }
+        }, 0);
+      },
+      true,
+    );
+  });
   await page.goto('/');
   const art = page.locator('[data-native-hero]');
   const video = art.locator('[data-hero-video]');
   await expect(art).toHaveAttribute('data-state', 'ready', { timeout: 25_000 });
-  await page.locator('[data-motion-toggle]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'paused');
   await expect(video).toHaveJSProperty('paused', true);
   await page.waitForTimeout(5000);
   await expect(art).toHaveAttribute('data-state', 'ready');
@@ -771,22 +808,8 @@ test('hero stall monitor preserves intentional pause and detects an unpaused fro
   await expect(art).not.toHaveAttribute('aria-label', /unavailable/);
   await page.locator('[data-motion-toggle]').click();
   await expect(art).toHaveAttribute('data-playing', 'true');
-  // Model a decoder with no time progress and an incorrect paused=false flag.
-  // The real native pause silences decoding, while the observable contract
-  // remains the stalled-unpaused state seen in the Linux CI failure.
-  await video.evaluate((element) => {
-    const media = element as HTMLVideoElement;
-    const frozen = media.currentTime;
-    Object.defineProperty(media, 'paused', {
-      configurable: true,
-      get: () => false,
-    });
-    Object.defineProperty(media, 'currentTime', {
-      configurable: true,
-      get: () => frozen,
-    });
-    media.pause();
-  });
+  // The second playing event injects a frozen timeline with paused=false,
+  // matching the observable decoder failure seen in Linux CI.
   await expect(video).toHaveJSProperty('paused', false);
   await expect(art).toHaveAttribute('data-state', 'ready');
   await expect(art).toHaveAttribute('data-state', 'unavailable', {
