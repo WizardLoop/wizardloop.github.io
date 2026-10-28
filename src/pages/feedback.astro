@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+import MotionArt from '../components/MotionArt.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../config/site';
+const endpoint = import.meta.env.PUBLIC_FEEDBACK_API_URL || '';
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '';
+---
+
+<Base
+  title="Feedback & contact"
+  description="Send WizardLoop a question, an idea or feedback. A personal conversation about design, animation, software or the website."
+>
+  <section class="page-intro wrap">
+    <p class="eyebrow">AN IDEA? A QUESTION? A LITTLE HELLO?</p>
+    <h1>
+      Let's start
+      <br />
+      <span class="outlined-word">a conversation.</span>
+    </h1>
+  </section>
+  <section class="feedback-grid wrap">
+    <aside class="feedback-aside">
+      <MotionArt
+        name="psychedelic-heart"
+        alt="WizardLoop's wizard creates a heart-shaped infinity loop"
+      />
+      <p>
+        Something to share about the work or the website? I'd like to hear it.
+        Your email is optional. Include it if you'd like an email reply.
+      </p>
+      <a class="text-link" href={site.links.telegram}>
+        <Icon name="telegram" />
+        Message me on Telegram
+      </a>
+      <p class="small-text">
+        Or write to{' '}
+        <a class="text-link" href={`mailto:${site.email}`}>
+          <Icon name="mail" size={17} />
+          {site.email}
+        </a>
+      </p>
+    </aside>
+    <form
+      class="feedback-form"
+      method="post"
+      data-feedback-form
+      data-endpoint={endpoint}
+      data-sitekey={sitekey}
+      novalidate
+    >
+      <div class="local-demo" data-local-demo hidden>
+        <strong>Local test mode.</strong> This form uses a local mock. No
+        feedback is sent to Telegram.
+      </div>
+      <div class="notice" data-feedback-unavailable hidden>
+        The feedback service is not connected yet. Please use{' '}
+        <a href={site.links.telegram}>Telegram</a> or{' '}
+        <a href={`mailto:${site.email}`}>email</a>.
+      </div>
+      <fieldset class="feedback-controls" data-feedback-controls disabled>
+        <legend class="sr-only">Your feedback</legend>
+        <div class="field">
+          <label for="feedback-name">
+            Name <span>Required</span>
+          </label>
+          <input
+            id="feedback-name"
+            name="name"
+            autocomplete="name"
+            required
+            minlength="1"
+            maxlength="80"
+            aria-describedby="name-error"
+          />
+          <p id="name-error" class="field-error"></p>
+        </div>
+        <div class="field">
+          <label for="feedback-message">
+            Your message <span>Required</span>
+          </label>
+          <textarea
+            id="feedback-message"
+            name="message"
+            required
+            minlength="1"
+            maxlength="2500"
+            rows="6"
+            aria-describedby="message-error message-hint"
+          ></textarea>
+          <p id="message-error" class="field-error"></p>
+          <p class="field-hint" id="message-hint">
+            Up to 2,500 characters. Please leave out passwords and sensitive
+            personal information.
+          </p>
+        </div>
+        <div class="field">
+          <label for="feedback-email">
+            Email <span>Optional</span>
+          </label>
+          <input
+            id="feedback-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            maxlength="254"
+            aria-describedby="email-error"
+          />
+          <p id="email-error" class="field-error"></p>
+        </div>
+        <div class="honeypot" aria-hidden="true">
+          <label for="feedback-website">Website</label>
+          <input
+            id="feedback-website"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+        <div class="captcha-section">
+          <p class="captcha-info" data-captcha-description>
+            Before sending, Cloudflare Turnstile checks that this request is
+            legitimate. It processes connection and browser information.{' '}
+            <a href="/privacy/">Privacy details</a>.
+          </p>
+          <button
+            class="text-button captcha-start"
+            type="button"
+            data-verify-start
+            disabled
+          >
+            Start verification
+          </button>
+          <div id="turnstile-container"></div>
+          <p class="verification-state" role="status" data-verification-state>
+            Verification has not started.
+          </p>
+        </div>
+        <button class="button" type="submit" data-feedback-submit disabled>
+          Send feedback <Icon name="arrow" size={20} />
+        </button>
+      </fieldset>
+      <p class="form-disclosure">
+        By sending, you ask me to receive your name, message and optional email
+        in a private Telegram conversation through the feedback service.{' '}
+        <a href="/privacy/">How your information is handled</a>.
+      </p>
+      <div
+        class="form-status"
+        data-feedback-status
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+      <noscript>
+        <p class="notice">
+          The form needs JavaScript for verification. Contact me on{' '}
+          <a href={site.links.telegram}>Telegram</a> or by{' '}
+          <a href={`mailto:${site.email}`}>email</a> instead.
+        </p>
+      </noscript>
+    </form>
+  </section>
+</Base>
+<style>
+  .feedback-controls {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-inline-size: 0;
+  }
+</style>

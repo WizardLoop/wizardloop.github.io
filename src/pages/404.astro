@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import MotionArt from '../components/MotionArt.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Base
+  title="This portal goes nowhere"
+  description="The page you were looking for is missing. Find your way back to WizardLoop."
+  noindex
+>
+  <section class="not-found wrap">
+    <MotionArt
+      name="overwhelmed-hat"
+      alt="A puzzled wizard hat floats in the air"
+      eager
+    />
+    <p class="eyebrow">404 / A SMALL SPELLING MISTAKE</p>
+    <h1>
+      This portal
+      <br />
+      goes nowhere.
+    </h1>
+    <p>The page may have moved. Let's get you back into the loop.</p>
+    <a class="button" href="/">
+      Back to home <Icon name="arrow" />
+    </a>
+  </section>
+</Base>

@@ -1,0 +1,11 @@
+[Unit]
+Description=WizardLoop posts poll every five minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=5min
+AccuracySec=15sec
+Unit=wizardloop-posts.service
+
+[Install]
+WantedBy=timers.target

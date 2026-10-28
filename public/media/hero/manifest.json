@@ -1,0 +1,35 @@
+{
+  "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_006_Portal-Alchemy.tgs",
+  "sourceFile": "/media/animations/portal-alchemy.tgs",
+  "sourceSha256": "9df3d5ce623849cfd9abc183d1891e447c113bb55dfbcf3b0e82579192cc4b93",
+  "rights": "WizardLoop media rights reserved; outside the source-code MIT grant.",
+  "renderer": "lottie-web 5.13.0 light Canvas",
+  "encoder": "Chromium WebCodecs AVC",
+  "browser": "149.0.7827.55",
+  "codec": "avc1.424029",
+  "requestedCodec": "avc1.42001F",
+  "fps": 30,
+  "frames": 72,
+  "durationMs": 2400,
+  "width": 768,
+  "height": 768,
+  "targetBitrate": 2000000,
+  "fastStart": true,
+  "alpha": false,
+  "files": [
+    {
+      "file": "/media/hero/portal-light.mp4",
+      "theme": "light",
+      "background": "#e4dcf7",
+      "bytes": 645033,
+      "sha256": "d534e39411469c68d34da30587307eaf2121cc3dd4e85960fbfd7fc3161d0f58"
+    },
+    {
+      "file": "/media/hero/portal-dark.mp4",
+      "theme": "dark",
+      "background": "#34244e",
+      "bytes": 635146,
+      "sha256": "b701bc13d1496b9c8bd3b983d8f4005af9abbd29b06ae3b39d656d59f3ee90fa"
+    }
+  ]
+}

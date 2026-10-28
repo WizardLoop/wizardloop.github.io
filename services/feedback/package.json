@@ -1,0 +1,14 @@
+{
+  "name": "wizardloop-feedback-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Separate feedback gateway. No deployment is performed by repository workflows.",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "dev:mock": "node scripts/mock-server.mjs",
+    "setup:chat": "node scripts/verify-chat.mjs"
+  },
+  "engines": { "node": ">=22" }
+}

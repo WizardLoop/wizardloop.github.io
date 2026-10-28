@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.env*
+test-output/
+*.pending
+state.json
+.lock

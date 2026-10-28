@@ -1,0 +1,122 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import MotionArt from '../components/MotionArt.astro';
+import { site } from '../config/site';
+import profile from '../../public/media/profile/profile.json';
+---
+
+<Base
+  title="About me"
+  description="Meet WizardLoop, an independent designer, illustrator, animator and developer exploring the space between playful visuals and useful software."
+  profile
+>
+  <section class="page-intro wrap">
+    <p class="eyebrow">THE HUMAN BEHIND THE MAGIC</p>
+    <h1>
+      A curious mind.
+      <br />
+      <span class="outlined-word">An open notebook.</span>
+    </h1>
+  </section>
+  <section class="about-page-grid wrap">
+    <div class="about-profile comic-panel">
+      <MotionArt
+        name="living-spellbook"
+        alt="WizardLoop's infinity wizard reads an illustrated spellbook"
+        eager
+      />
+      <div class="profile-detail">
+        <div class="profile-media">
+          {profile.video && (
+            <video
+              data-profile-video
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster={profile.poster || '/media/profile/avatar.jpg'}
+              width="96"
+              height="96"
+            >
+              <source src={profile.video} type="video/mp4" />
+            </video>
+          )}
+          <img
+            hidden={Boolean(profile.video)}
+            data-profile-image
+            data-github-fallback="/media/profile/github.jpg"
+            src={profile.avatar || '/media/profile/avatar.jpg'}
+            width="96"
+            height="96"
+            alt="WizardLoop's public profile artwork"
+          />
+        </div>
+        <div>
+          <strong>WizardLoop</strong>
+          <span data-profile-source>{profile.source}</span>
+        </div>
+      </div>
+    </div>
+    <div class="prose">
+      <h2>Hi, I'm WizardLoop.</h2>
+      <p class="lead">
+        I work where design, animation and software meet. I like giving ideas a
+        personality, then finding a way to make them work.
+      </p>
+      <p>
+        I'm an independent designer, illustrator, animator and developer. My
+        practice moves between expressive characters, visual identities, looping
+        animation, Telegram bots and open-source tools.
+      </p>
+      <p>
+        Sometimes that means a tiny animated sticker. Sometimes it's a tool that
+        makes someone else's day a little easier. Both start with the same
+        question: what could this become?
+      </p>
+      <blockquote>{profile.bio}</blockquote>
+      <p class="small-text">
+        Profile text source: {profile.bioSource}. Last verified:{' '}
+        {profile.syncedAt ? profile.syncedAt.slice(0, 10) : 'local fallback'}.{' '}
+        {profile.status === 'public-snapshot' &&
+          'The public still is a verified snapshot. Automatic primary-video synchronization is not connected yet.'}
+      </p>
+      <div class="inline-actions">
+        <a class="button" href={site.links.telegram}>
+          <Icon name="telegram" />
+          Say hello
+        </a>
+        <a class="text-link" href={site.links.github}>
+          <Icon name="github" />
+          Look inside my GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="section wrap">
+    <div class="section-heading">
+      <h2>
+        Different tools.
+        <br />
+        Same <span class="marker-word">curiosity.</span>
+      </h2>
+    </div>
+    <div class="practice-grid">
+      <article>
+        <Icon name="sparkle" size={34} />
+        <h3>Design & illustration</h3>
+        <p>Characters, visual details and a little world-building.</p>
+      </article>
+      <article>
+        <Icon name="play" size={34} />
+        <h3>Motion & animation</h3>
+        <p>Expressive movement, playful timing and unexpected loops.</p>
+      </article>
+      <article>
+        <Icon name="code" size={34} />
+        <h3>Software & open source</h3>
+        <p>Telegram bots, practical tools and code I can share.</p>
+      </article>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,272 @@
+[
+  {
+    "slug": "signature-spirit",
+    "title": "Signature Spirit",
+    "filename": "signature-spirit.tgs",
+    "alt": "Purple infinity-ribbon wizard with a pointed hat and glowing cyan eyes.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_001_Signature-Spirit.tgs",
+    "bytes": 15468,
+    "sha256": "f88997c7a636a43875345eb1ee549c82d2ed88363e5860e3f719b0e0586627e8"
+  },
+  {
+    "slug": "arcane-aura",
+    "title": "Arcane Aura",
+    "filename": "arcane-aura.tgs",
+    "alt": "Purple wizard surrounded by a circular field of magical light.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_002_Arcane-Aura.tgs",
+    "bytes": 17957,
+    "sha256": "b23309f89c0cd5c8025bf451053cf245aa9b3ca0e2591dc49dec6d3ebef3d807"
+  },
+  {
+    "slug": "spaceship-flight",
+    "title": "Spaceship Flight",
+    "filename": "spaceship-flight.tgs",
+    "alt": "Wizard piloting a small spacecraft through a field of stars.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_003_Spaceship-Flight.tgs",
+    "bytes": 28458,
+    "sha256": "636c4e4fe96d79f52ee6206f5400170f6c2b84c498cf6989468b7d7b7e826655"
+  },
+  {
+    "slug": "overwhelmed-hat",
+    "title": "Overwhelmed Hat",
+    "filename": "overwhelmed-hat.tgs",
+    "alt": "A floating wizard hat and a burst of magical thoughts.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_004_Overwhelmed-Hat.tgs",
+    "bytes": 37443,
+    "sha256": "7796f9eddd235b306590a8c97e1c38b664313bb43e1ae135b2e22d41f9f6d173"
+  },
+  {
+    "slug": "psychedelic-heart",
+    "title": "Psychedelic Heart",
+    "filename": "psychedelic-heart.tgs",
+    "alt": "Wizard shaping a luminous heart with flowing ribbons.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_005_Psychedelic-Heart.tgs",
+    "bytes": 25016,
+    "sha256": "ffa12591c1e536bc7a131923282d6848c0b214dd29ad30c3610b3f6c3bab6c90"
+  },
+  {
+    "slug": "portal-alchemy",
+    "title": "Portal Alchemy",
+    "filename": "portal-alchemy.tgs",
+    "alt": "Purple wizard conjuring a cyan orb inside a circular rune portal.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_006_Portal-Alchemy.tgs",
+    "bytes": 40359,
+    "sha256": "9df3d5ce623849cfd9abc183d1891e447c113bb55dfbcf3b0e82579192cc4b93"
+  },
+  {
+    "slug": "paints-the-world",
+    "title": "Paints the World",
+    "filename": "paints-the-world.tgs",
+    "alt": "Wizard painting sweeping cyan trails with a magical brush.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_007_Paints-the-World.tgs",
+    "bytes": 45551,
+    "sha256": "c1ee4825b2ed2b691a2a4df3a2128834b8f57551259d826bd14afe71bba341ce"
+  },
+  {
+    "slug": "psychedelic-vortex",
+    "title": "Psychedelic Vortex",
+    "filename": "psychedelic-vortex.tgs",
+    "alt": "Wizard surrounded by swirling pink, cyan and violet ribbons.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_008_Psychedelic-Vortex.tgs",
+    "bytes": 43621,
+    "sha256": "ad662ac42adf5bcfcb64daea0b7b0ff71aec3e73ff517d56b2823e595072a223"
+  },
+  {
+    "slug": "reality-zipper",
+    "title": "Reality Zipper",
+    "filename": "reality-zipper.tgs",
+    "alt": "Wizard opening a bright portal with a giant zipper.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_009_Reality-Zipper.tgs",
+    "bytes": 62399,
+    "sha256": "e4f17201d339602bb5a6c1f7220d06b1be5ef877ffcd788252d9f4ea1c38c6ce"
+  },
+  {
+    "slug": "living-spellbook",
+    "title": "Living Spellbook",
+    "filename": "living-spellbook.tgs",
+    "alt": "Purple wizard hovering above an open spellbook with gold details.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_010_Living-Spellbook.tgs",
+    "bytes": 16831,
+    "sha256": "cb98e24b893c4f57182bfdd4c6a9958f432ec16e90d101920ba8fb29229c2dd2"
+  },
+  {
+    "slug": "bubble-brew",
+    "title": "Bubble Brew",
+    "filename": "bubble-brew.tgs",
+    "alt": "Wizard stirring a cauldron of bubbling green magic.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_011_Bubble-Brew.tgs",
+    "bytes": 17349,
+    "sha256": "1d0d13dee2aa150793d23cc0d0b4a874cf92eca546f53d968a4c7fddadb6672d"
+  },
+  {
+    "slug": "crystal-forge",
+    "title": "Crystal Forge",
+    "filename": "crystal-forge.tgs",
+    "alt": "Wizard levitating a luminous cyan crystal above a stand.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_012_Crystal-Forge.tgs",
+    "bytes": 16822,
+    "sha256": "9fd4be29943d0f13573dc253309dab43491cc3d2b7265fd8f1bb3555ddcc7cd5"
+  },
+  {
+    "slug": "moon-hammock",
+    "title": "Moon Hammock",
+    "filename": "moon-hammock.tgs",
+    "alt": "Wizard resting in a crescent-shaped hammock beneath a yellow moon.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_013_Moon-Hammock.tgs",
+    "bytes": 16252,
+    "sha256": "cd996c4d1a0d0adb5c954e61935521dc2cbc5dc1a83a9b1bba18efb97d0ff9a6"
+  },
+  {
+    "slug": "thunder-catcher",
+    "title": "Thunder Catcher",
+    "filename": "thunder-catcher.tgs",
+    "alt": "Wizard gathering lightning beneath a small storm cloud.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_014_Thunder-Catcher.tgs",
+    "bytes": 16515,
+    "sha256": "739c7bc116b3d3abbccf83634dafd888e42752d2b09226735044e352df81497b"
+  },
+  {
+    "slug": "hourglass-twist",
+    "title": "Hourglass Twist",
+    "filename": "hourglass-twist.tgs",
+    "alt": "Warm orange wizard turning a magical hourglass.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_015_Hourglass-Twist.tgs",
+    "bytes": 16771,
+    "sha256": "ecdced538d3c9554d1d41eea89a23e4325bfbc1e68449b5285e986c4dd1300d2"
+  },
+  {
+    "slug": "midnight-dj",
+    "title": "Midnight DJ",
+    "filename": "midnight-dj.tgs",
+    "alt": "Wizard performing at a pair of glowing turntables.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_016_Midnight-DJ.tgs",
+    "bytes": 17383,
+    "sha256": "fcb93618906aaa22332e605233ddfec67379a3e4351bd20f0ccfdb91d94e1f61"
+  },
+  {
+    "slug": "arcane-coder",
+    "title": "Arcane Coder",
+    "filename": "arcane-coder.tgs",
+    "alt": "Purple and green wizard working at a laptop beneath a cyan code symbol.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_017_Arcane-Coder.tgs",
+    "bytes": 17414,
+    "sha256": "b7b280eacfac2101ee1e21af2a0146c8b16a87a1edb4055d20bb449381830a55"
+  },
+  {
+    "slug": "magnetic-stars",
+    "title": "Magnetic Stars",
+    "filename": "magnetic-stars.tgs",
+    "alt": "Wizard collecting stars with a horseshoe magnet.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_018_Magnetic-Stars.tgs",
+    "bytes": 16427,
+    "sha256": "4bfeb44c12104e5e6746ed9ea941e9c214d33dfc6a2952dcfc2de5b5d6659d9c"
+  },
+  {
+    "slug": "rainbow-rain",
+    "title": "Rainbow Rain",
+    "filename": "rainbow-rain.tgs",
+    "alt": "Wizard sheltering beneath a lavender umbrella and a rainbow.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_019_Rainbow-Rain.tgs",
+    "bytes": 16701,
+    "sha256": "0a086fb734ea6ba100d45d05ba192f521e068ef29a2d2c41db0f6a79e97d18b0"
+  },
+  {
+    "slug": "cosmic-fishing",
+    "title": "Cosmic Fishing",
+    "filename": "cosmic-fishing.tgs",
+    "alt": "Wizard fishing a golden star from a luminous pool.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_020_Cosmic-Fishing.tgs",
+    "bytes": 16795,
+    "sha256": "a9efc6cf4207b57f5ca8ef0841819e24ff3d244f9e49877973006d2ee36d4e4a"
+  },
+  {
+    "slug": "crystal-thaw",
+    "title": "Crystal Thaw",
+    "filename": "crystal-thaw.tgs",
+    "alt": "Wizard emerging among bright angular ice crystals.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_021_Crystal-Thaw.tgs",
+    "bytes": 19050,
+    "sha256": "1aa86ea4b60b8495d1956d36249045089e7f948f0cfcc9bf4e3e53b382c27a18"
+  },
+  {
+    "slug": "molten-ember",
+    "title": "Molten Ember",
+    "filename": "molten-ember.tgs",
+    "alt": "Orange infinity-ribbon wizard surrounded by glowing embers.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_022_Molten-Ember.tgs",
+    "bytes": 19899,
+    "sha256": "0ed015f72ca9f5bc45212cd0d029fef1b12950ba36374ca24e6dad75db135980"
+  },
+  {
+    "slug": "neon-wave-surfer",
+    "title": "Neon Wave Surfer",
+    "filename": "neon-wave-surfer.tgs",
+    "alt": "Wizard surfing along a flowing neon ribbon.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_023_Neon-Wave-Surfer.tgs",
+    "bytes": 16860,
+    "sha256": "0a3953493869599c049e32da1c3708b08577aaf44a6e7308cb4fe526cbe3a9c3"
+  },
+  {
+    "slug": "origami-enchantment",
+    "title": "Origami Enchantment",
+    "filename": "origami-enchantment.tgs",
+    "alt": "Faceted purple paper wizard surrounded by folded paper planes.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_024_Origami-Enchantment.tgs",
+    "bytes": 25100,
+    "sha256": "525437f1b00fbdfd79f899bfd7321c27f44378e397b5590e6aec85682cb35181"
+  },
+  {
+    "slug": "aurora-ribbon-wings",
+    "title": "Aurora Ribbon Wings",
+    "filename": "aurora-ribbon-wings.tgs",
+    "alt": "Wizard with flowing cyan and violet ribbon wings.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_025_Aurora-Ribbon-Wings.tgs",
+    "bytes": 14212,
+    "sha256": "1c855ca82cc1bf922676c83e3091176365b77815107cee63b4868ee51831e05a"
+  },
+  {
+    "slug": "carnival-hat-burst",
+    "title": "Carnival Hat Burst",
+    "filename": "carnival-hat-burst.tgs",
+    "alt": "Wizard hat releasing a colorful burst of confetti.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_026_Carnival-Hat-Burst.tgs",
+    "bytes": 19753,
+    "sha256": "986825cdad61196e8b18b08a2dd86ba340a519c8a4c5d40d7753ee366d41f38a"
+  },
+  {
+    "slug": "clockwork-spring",
+    "title": "Clockwork Spring",
+    "filename": "clockwork-spring.tgs",
+    "alt": "Wizard balanced on a bright orange clockwork spring.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_027_Clockwork-Spring.tgs",
+    "bytes": 21721,
+    "sha256": "55e7b9008af110c478f1e458156f49798cb55820452fbcc49c27d081272e3aed"
+  },
+  {
+    "slug": "silver-lunar-eclipse",
+    "title": "Silver Lunar Eclipse",
+    "filename": "silver-lunar-eclipse.tgs",
+    "alt": "Silver and white wizard glowing with lunar light.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_028_Silver-Lunar-Eclipse.tgs",
+    "bytes": 19156,
+    "sha256": "844519d5dad0ea3dea889c7e45071b90f0491f9fbc7843a1b90cdb823ce59d52"
+  },
+  {
+    "slug": "chromatic-liquid-wave",
+    "title": "Chromatic Liquid Wave",
+    "filename": "chromatic-liquid-wave.tgs",
+    "alt": "Wizard formed from flowing orange and rainbow-colored waves.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_029_Chromatic-Liquid-Wave.tgs",
+    "bytes": 20434,
+    "sha256": "7bdb6b9c08548d6535f174bb534f1d52d2cb9d70620b8d7c3048d46a4ec979b5"
+  },
+  {
+    "slug": "infinity-constellation",
+    "title": "Infinity Constellation",
+    "filename": "infinity-constellation.tgs",
+    "alt": "Wizard silhouette traced with stars and constellation lines.",
+    "source": "WizardLoop_Infinity_Atelier_30_TGS.zip/WL_030_Infinity-Constellation.tgs",
+    "bytes": 18014,
+    "sha256": "45883211838f3f5ce1d4171b28cec0c4d11e6fee27cb0d25c2c53307fb8cba84"
+  }
+]

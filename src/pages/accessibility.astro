@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Accessibility"
+  description="WizardLoop's accessibility features, WCAG 2.2 AA technical target, known third-party limitations and ways to report a barrier."
+>
+  <section class="wrap prose-page">
+    <header class="page-intro">
+      <p class="eyebrow">A SITE YOU CAN USE YOUR WAY</p>
+      <h1>
+        Creativity should
+        <br />
+        stay accessible.
+      </h1>
+      <p>
+        I'm working toward a site that is comfortable to read, navigate and use
+        across different devices and access needs.
+      </p>
+      <p>
+        Reviewed <time datetime="2026-10-27">27 October 2026</time>.
+      </p>
+    </header>
+    <div class="prose">
+      <h2>Technical target</h2>
+      <p>
+        The technical target is{' '}
+        <a href="https://www.w3.org/WAI/standards-guidelines/wcag/">
+          WCAG 2.2 Level AA
+        </a>
+        . Applicable Israeli obligations, including Israeli Standard 5568 and
+        the service-accessibility regulations, require assessment in the context
+        of the actual service. The official{' '}
+        <a href="https://www.gov.il/en/pages/internet_accessibility_regulations">
+          internet accessibility provisions
+        </a>{' '}
+        provide relevant background.
+      </p>
+      <p>
+        This statement describes the measures and limits of this build. It is
+        not a certification of complete conformance or legal compliance.
+      </p>
+
+      <h2>Features included</h2>
+      <ul>
+        <li>Semantic page sections, headings and a Skip to content link.</li>
+        <li>
+          Keyboard-operable navigation, links, form fields and controls with
+          visible focus indicators.
+        </li>
+        <li>
+          A mobile menu with focus management, Escape to close and focus
+          returned to its trigger.
+        </li>
+        <li>
+          Light and dark themes, responsive layouts and text that supports
+          browser zoom.
+        </li>
+        <li>
+          Reduced-motion support and a visible header control to pause repeated
+          animation.
+        </li>
+        <li>
+          Text alternatives for meaningful images and hidden decorative
+          illustrations.
+        </li>
+        <li>
+          Form labels, required-field information and status messages intended
+          for assistive technology.
+        </li>
+        <li>
+          Appropriate language and direction handling, including Hebrew content
+          where it appears.
+        </li>
+      </ul>
+
+      <h2>Using the keyboard and motion controls</h2>
+      <p>
+        Use Tab and Shift+Tab to move between controls. Activate links with
+        Enter and buttons with Enter or Space. Press Escape to close the mobile
+        navigation. The first keyboard link skips directly to the main content.
+      </p>
+      <p>
+        The header's motion control pauses the site's repeated animation. Your
+        operating system's reduced-motion preference is respected. Pausing also
+        unloads optional Telegram embeds, because their internal animation
+        cannot be reliably controlled from this site. Original post links remain
+        available.
+      </p>
+
+      <h2>Known limitations</h2>
+      <p>
+        Telegram embeds and the configured Cloudflare Turnstile challenge are
+        third-party interfaces. Their markup, keyboard behavior, media playback
+        and screen-reader output are not fully under my control. Telegram may
+        also omit some media or formatting available in its own apps. You can
+        decline embeds, open original posts, or use the contact alternatives
+        below.
+      </p>
+      <p>
+        A complete human screen-reader audit has not been performed. Automated
+        accessibility checks and browser tests help find issues, but they do not
+        establish that every interaction meets every requirement. No unmeasured
+        accessibility score or legal compliance claim is made here.
+      </p>
+      <p>
+        The feedback form can be unavailable when its external service is not
+        configured or is temporarily failing. Email and direct Telegram contact
+        remain alternatives. If one of those channels is difficult to use,
+        describe your preferred way to receive a response.
+      </p>
+
+      <h2>Report an accessibility barrier</h2>
+      <p>
+        Email <a href="mailto:wizard@wizardloop.com">wizard@wizardloop.com</a>{' '}
+        or <a href="https://t.me/wizardloop">contact me on Telegram</a>. Include
+        the page address, what you were trying to do and what prevented it.
+        Browser or assistive-technology details are helpful if you are
+        comfortable sharing them; they are not required.
+      </p>
+      <p>
+        I will use the report to investigate and improve the experience. This
+        statement will be updated as testing and fixes progress.
+      </p>
+    </div>
+  </section>
+</Base>

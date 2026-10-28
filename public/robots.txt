@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /concept-a/
+Disallow: /concept-b/
+Disallow: /concept-c/
+
+Sitemap: https://wizardloop.com/sitemap-index.xml

@@ -1,0 +1,46 @@
+name: Approved Pages deployment
+on:
+  workflow_dispatch:
+    inputs:
+      approval:
+        description: 'Type DEPLOY_WIZARDLOOP only after explicit owner approval'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: pages-production
+  cancel-in-progress: false
+env:
+  ASTRO_TELEMETRY_DISABLED: 1
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main' && inputs.approval == 'DEPLOY_WIZARDLOOP'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+        env:
+          PUBLIC_FEEDBACK_API_URL: ${{ vars.PUBLIC_FEEDBACK_API_URL }}
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy approved static artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

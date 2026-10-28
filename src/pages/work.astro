@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import MotionArt from '../components/MotionArt.astro';
+import Icon from '../components/Icon.astro';
+import artworks from '../content/artworks.json';
+import flags from '../content/flags.json';
+import { site } from '../config/site';
+---
+
+<Base
+  title="Selected work"
+  description="Explore WizardLoop's original Infinity Atelier animation collection and animated country flags. Illustration, character design and motion, in a loop."
+>
+  <section class="page-intro wrap">
+    <p class="eyebrow">DESIGN / ILLUSTRATION / ANIMATION</p>
+    <h1>
+      A little strange.
+      <br />
+      <span class="outlined-word">A lot of character.</span>
+    </h1>
+    <p>
+      Original WizardLoop assets, brought out of the workbench and into the
+      light. A collection of expressive worlds, all made to move.
+    </p>
+  </section>
+  <section class="collection section wrap" id="infinity-atelier">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">01 / CHARACTER DESIGN & MOTION</p>
+        <h2>
+          Infinity Atelier<span class="accent-dot">.</span>
+        </h2>
+        <p>
+          {artworks.length} animated studies. One unmistakably curious wizard.
+        </p>
+      </div>
+      <span class="collection-stamp">
+        ORIGINAL
+        <br />
+        WIZARDLOOP
+      </span>
+    </div>
+    <div class="collection-grid">
+      {artworks.map((art, i) => (
+        <figure
+          class:list={['collection-item', { 'extra-artwork': i >= 9 }]}
+          hidden={i >= 9}
+        >
+          <div class="collection-art">
+            <MotionArt name={art.slug} alt={art.alt} />
+            <span class="small-number">{String(i + 1).padStart(2, '0')}</span>
+          </div>
+          <figcaption>
+            <h3>{art.title}</h3>
+            <span>Illustration & animation</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+    <noscript>
+      <style is:inline>
+        .extra-artwork[hidden] {
+          display: block !important;
+        }
+      </style>
+    </noscript>
+    <button
+      class="button secondary-button collection-more"
+      data-show-collection
+      hidden
+    >
+      Explore all {artworks.length} animations <Icon name="arrow" />
+    </button>
+    <p class="collection-note">
+      Original vector animations from the Infinity Atelier collection. Up to
+      three visible pieces play at once. Use the motion button in the header to
+      pause everything. Reduced-motion preferences show still frames.
+    </p>
+  </section>
+  <section class="collection section wrap" id="flags">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">02 / SMALL DETAILS. A WORLD OF MOTION.</p>
+        <h2>Flags, with a little life.</h2>
+        <p>Selected animated flags from the WizardLoop country collection.</p>
+      </div>
+    </div>
+    <div class="flags-grid">
+      {flags.map((flag) => (
+        <figure>
+          <MotionArt name={flag.slug} alt={flag.alt} />
+          <figcaption>{flag.title}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <p class="collection-note">
+      Animation by WizardLoop. Flag source and rights information is preserved
+      in the <a href="/media/licenses/FLAGS-NOTICES.txt">asset notices</a>. The
+      source-code MIT license does not cover branding and media.
+    </p>
+  </section>
+  <section class="contact-cta wrap">
+    <p class="eyebrow">EXPRESSIVE CHARACTERS. UNEXPECTED LOOPS.</p>
+    <h2>
+      Something on
+      <br />
+      your <span>mind?</span>
+    </h2>
+    <a class="button" href={site.links.telegram}>
+      <Icon name="telegram" />
+      Let's talk about it <Icon name="arrow" />
+    </a>
+  </section>
+  <script>
+    const extras = document.querySelectorAll<HTMLElement>('.extra-artwork');
+    const show = document.querySelector<HTMLButtonElement>(
+      '[data-show-collection]',
+    );
+    if (show) {
+      show.addEventListener('click', () => {
+        extras.forEach((el) => {
+          el.hidden = false;
+        });
+        show.hidden = true;
+        const firstHeading = extras[0]?.querySelector<HTMLElement>('h3');
+        if (firstHeading) {
+          firstHeading.tabIndex = -1;
+          firstHeading.focus({ preventScroll: true });
+        }
+        extras[0]?.scrollIntoView({
+          behavior:
+            document.documentElement.dataset.motion === 'paused'
+              ? 'instant'
+              : 'smooth',
+          block: 'start',
+        });
+      });
+      show.hidden = false;
+    }
+  </script>
+</Base>

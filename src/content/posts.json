@@ -1,0 +1,12 @@
+{
+  "channel": "wizard_loop",
+  "source": "https://t.me/s/wizard_loop",
+  "status": "verified-snapshot",
+  "verifiedAt": "2026-10-27",
+  "posts": [
+    { "id": 54, "title": "Adaptive Star of David", "kind": "Animation", "url": "https://t.me/Wizard_Loop/54", "note": "Open the original post for the complete animation and message." },
+    { "id": 53, "title": "Psychedelic Adaptive", "kind": "Animated media", "url": "https://t.me/Wizard_Loop/53", "note": "The official post includes animated media. Some custom emoji may require Telegram." },
+    { "id": 52, "title": "Amanimo sticker", "kind": "TGS sticker", "url": "https://t.me/Wizard_Loop/52", "note": "The official embed exposes a TGS sticker. Client support can vary." },
+    { "id": 51, "title": "Amanimo", "kind": "Pack drop", "url": "https://t.me/Wizard_Loop/51", "note": "Read the original pack announcement, including its formatting and media." }
+  ]
+}

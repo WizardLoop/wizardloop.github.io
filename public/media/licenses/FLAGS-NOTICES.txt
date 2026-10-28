@@ -1,0 +1,312 @@
+FLAG SOURCE NOTICES
+
+This website includes the Israel, United States, United Kingdom, France, Japan and Brazil animations supplied by the owner from WizardLoop_Country_Flags_001_050.zip. The source collection notice below is preserved in full and also lists flags not included here. Its public-domain statements concern underlying flag designs, not a blanket MIT grant for the supplied animated artwork. National-symbol restrictions may apply separately.
+
+BEGIN ORIGINAL COLLECTION NOTICE
+
+FLAG ARTWORK SOURCES AND ATTRIBUTION
+
+001 IL Israel
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/il.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+002 US United States
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/us.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+003 RU Russia
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ru.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+004 UA Ukraine
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ua.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+005 GB United Kingdom
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/gb.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+006 DE Germany
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/de.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+007 FR France
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/fr.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+008 IT Italy
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/it.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+009 ES Spain
+https://commons.wikimedia.org/wiki/File:Flag_of_Spain.svg
+Public domain as identified by Wikimedia Commons
+RelShot 263; Echando una mano; earlier Pedro A. Gracia Fajardo and institutional coat-of-arms artwork
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Spain.svg
+
+010 CA Canada
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ca.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+011 AU Australia
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/au.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+012 BR Brazil
+https://commons.wikimedia.org/wiki/File:Flag_of_Brazil_as_Paths.svg
+Public domain as identified by Wikimedia Commons
+FireDragonValo
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Brazil_as_Paths.svg
+
+013 AR Argentina
+https://commons.wikimedia.org/wiki/File:Flag_of_Argentina.svg
+Public domain as identified by Wikimedia Commons
+Manuel Belgrano (design); Wikimedia contributors
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Argentina.svg
+
+014 MX Mexico
+https://commons.wikimedia.org/wiki/File:Flag_of_Mexico.svg
+Public domain as identified by Wikimedia Commons
+Omar Alejandro Covarrubias Neri; based on 1968 arms by Francisco Eppens Helguera and Juan Manuel Gabino Villascán
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Mexico.svg
+
+015 IN India
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/in.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+016 CN China
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/cn.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+017 JP Japan
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/jp.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+018 KR South Korea
+https://commons.wikimedia.org/wiki/File:Flag_of_South_Korea.svg
+Public domain as identified by Wikimedia Commons
+Government of Republic of Korea; vector by Great Brightstar and others
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_South_Korea.svg
+
+019 TR Turkey
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/tr.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+020 ID Indonesia
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/id.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+021 GR Greece
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/gr.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+022 CY Cyprus
+https://commons.wikimedia.org/wiki/File:Flag_of_Cyprus.svg
+Public domain as identified by Wikimedia Commons
+İsmet Güney; SVG by Vzb83 and later contributors including Zscout370
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Cyprus.svg
+
+023 TH Thailand
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/th.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+024 GE Georgia
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ge.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+025 AE United Arab Emirates
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ae.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+026 RO Romania
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ro.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+027 PT Portugal
+https://commons.wikimedia.org/wiki/File:Flag_of_Portugal_(official).svg
+Public domain as identified by Wikimedia Commons
+Columbano Bordalo Pinheiro (design); Vítor Luís Rodrigues and António Martins-Tuválkin (government-commissioned vectors)
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Portugal_(official).svg
+
+028 NL Netherlands
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/nl.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+029 CH Switzerland
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ch.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+030 SE Sweden
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/se.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+031 PL Poland
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/pl.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+032 CZ Czechia
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/cz.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+033 AT Austria
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/at.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+034 HU Hungary
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/hu.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+035 NO Norway
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/no.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+036 FI Finland
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/fi.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+037 DK Denmark
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/dk.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+038 IE Ireland
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ie.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+039 BE Belgium
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/be.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+040 NZ New Zealand
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/nz.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+041 VN Vietnam
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/vn.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+042 PH Philippines
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/ph.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+043 NP Nepal
+https://commons.wikimedia.org/wiki/File:Flag_of_Nepal.svg
+Public domain as identified by Wikimedia Commons
+Pumbaa80; Achim1999; Wikimedia contributors
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Nepal.svg
+
+044 LK Sri Lanka
+https://commons.wikimedia.org/wiki/File:Flag_of_Sri_Lanka.svg
+Public domain as identified by Wikimedia Commons
+Sri Lanka; vectorization Zscout370 and Mike Rohsopht
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Sri_Lanka.svg
+
+045 ZA South Africa
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/za.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+046 SG Singapore
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/sg.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+047 MY Malaysia
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/my.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+048 TW Taiwan
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/tw.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+049 HK Hong Kong
+https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/svg/hk.svg
+Public domain (PD), as declared by source collection
+Flag artwork from hampusborgos/country-flags and upstream Wikimedia Commons contributors. National/regional symbol usage restrictions may exist independently of copyright.
+License evidence: https://github.com/hampusborgos/country-flags/blob/c09927e63705529bbf59ca6684cd9b23225dddad/README.md
+
+050 EG Egypt
+https://commons.wikimedia.org/wiki/File:Flag_of_Egypt.svg
+Public domain as identified by Wikimedia Commons
+Wikimedia contributors; see source file history
+License evidence: https://commons.wikimedia.org/wiki/File:Flag_of_Egypt.svg
+
+LETTERING
+@WizardLoop is outlined vector lettering using Nimbus Sans, URW Base35.
+Font source: https://github.com/ArtifexSoftware/urw-base35-fonts
+Font license: AGPL-3 with Font exception. No font file is embedded.

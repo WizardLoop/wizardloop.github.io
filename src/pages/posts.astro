@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import posts from '../content/posts.json';
+import { site } from '../config/site';
+const syncedAt =
+  'lastSyncedAt' in posts ? String(posts.lastSyncedAt).slice(0, 10) : null;
+---
+
+<Base
+  title="Posts from the studio"
+  description="Follow original posts, animation drops and studio notes from WizardLoop's Telegram channel, with optional official Telegram embeds."
+>
+  <section class="page-intro wrap">
+    <p class="eyebrow">NOTES FROM THE STUDIO / @WIZARD_LOOP</p>
+    <h1>
+      Fresh from
+      <br />
+      <span class="outlined-word">the loop.</span>
+    </h1>
+    <p>
+      Animation drops, experiments and a glimpse of the making. These links lead
+      to real channel posts. Load their official Telegram embeds when you want
+      to see more.
+    </p>
+    <a class="text-link" href={site.links.channel}>
+      <Icon name="telegram" />
+      Join the channel <Icon name="northeast" size={18} />
+    </a>
+  </section>
+  <section class="posts-shell wrap" data-telegram-feed>
+    <div class="embed-consent notice" hidden={posts.posts.length === 0}>
+      <div>
+        <h2>A small privacy pause.</h2>
+        <p>
+          Loading posts connects you to Telegram, which can set cookies and
+          receive your connection information. Some animated stickers and custom
+          emoji may only play completely in Telegram.
+        </p>
+        <p class="small-text">
+          The site's motion button unloads these embeds because it cannot
+          control animation inside Telegram's frame.
+        </p>
+      </div>
+      <div class="consent-actions">
+        <button class="button" data-telegram-load>
+          <Icon name="telegram" />
+          Load Telegram posts
+        </button>
+        <button class="button secondary-button" data-telegram-reset hidden>
+          Unload Telegram posts
+        </button>
+        <button class="text-button" data-telegram-retry>
+          Retry embeds
+        </button>
+        <a class="text-link" href="/privacy/">
+          Privacy details
+        </a>
+      </div>
+      <p class="embed-status" role="status" data-telegram-status>
+        Telegram content is off. You can still open every original post.
+      </p>
+    </div>
+    <p class="feed-source">
+      {posts.status === 'protected'
+        ? 'This channel is currently protected. Posts are not republished here.'
+        : posts.status === 'incremental'
+          ? `Incremental channel snapshot updated ${syncedAt || posts.verifiedAt}. Earlier channel history may be incomplete.`
+          : `Verified post links from ${posts.verifiedAt}. Automatic synchronization is not connected yet.`}{' '}
+      <a href={site.links.channelPreview}>
+        View the latest posts in Telegram <Icon name="northeast" size={14} />
+      </a>
+    </p>
+    <div class="post-list">
+      {posts.posts.map((post) => (
+        <article class="telegram-card">
+          <div class="post-heading">
+            <span class="post-avatar">
+              <Icon name="telegram" size={22} />
+            </span>
+            <div>
+              <h2 dir="auto">{post.title}</h2>
+              <span>
+                {post.kind} / Telegram post #{post.id}
+              </span>
+            </div>
+            <a
+              class="icon-link"
+              href={post.url}
+              aria-label={`Open ${post.title} in Telegram`}
+            >
+              <Icon name="northeast" />
+            </a>
+          </div>
+          <div
+            class="telegram-slot"
+            data-telegram-slot={`wizard_loop/${post.id}`}
+          ></div>
+          <p dir="auto">{post.note}</p>
+          <a class="text-link" href={post.url}>
+            Open original post <Icon name="northeast" size={17} />
+          </a>
+        </article>
+      ))}
+    </div>
+    <button class="button secondary-button" data-posts-more hidden>
+      More from the loop <Icon name="arrow" />
+    </button>
+    <noscript>
+      <p class="notice">
+        JavaScript is disabled. The original Telegram links above remain
+        available. No third-party embeds have been loaded.
+      </p>
+    </noscript>
+  </section>
+</Base>
