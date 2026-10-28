@@ -2,7 +2,13 @@
 
 I use this guide for `WizardLoop/wizardloop.github.io` and `wizardloop.com` only. My site is static. I do not need a private host, bot, synchronization schedule, feedback service or additional infrastructure.
 
-When I approve and merge a change into `main`, it triggers my checked-in Pages workflow. Creating or updating a pull request does not publish it. My current source candidate is `1.0.0-rc.3`, which I have not deployed. I verified the preceding `1.0.0-rc.2` baseline after [PR #4](https://github.com/WizardLoop/wizardloop.github.io/pull/4) merged at `ef1157b`: [deployment run 40679459115](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40679459115) passed 170 browser tests on 2026-10-28. A package version alone does not prove a Git tag or GitHub Release exists.
+When I approve and merge a change into `main`, it triggers my checked-in Pages workflow. Creating or updating a pull request does not publish it.
+
+## Verified publication and current repository work
+
+My published website is **`1.0.0-rc.3`, deployed on 2026-10-28**. [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) merged at 13:50:17 UTC as commit [`062bdad623c53c2bd10661c3fe578f1cfc62b2b2`](https://github.com/WizardLoop/wizardloop.github.io/commit/062bdad623c53c2bd10661c3fe578f1cfc62b2b2). I verified that both the build and deploy jobs in [deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) succeeded, completing at **13:57:11 UTC (16:57:11 Asia/Jerusalem)**. My live HTTPS check returned 200 and confirmed the Silver Grimoire artwork and SVG marks.
+
+My **`1.0.0-rc.4` repository update remains unreleased**. I am improving documentation and version metadata only; this update changes no website source, public assets, tests or workflows. I keep the published site's evidence separate from this documentation review in [QA.md](QA.md). My preceding `1.0.0-rc.2` deployment remains historical evidence in [CHANGELOG.md](../CHANGELOG.md). A package version or successful deployment does not establish that a Git tag or GitHub Release exists.
 
 ## One-time repository setting
 
@@ -14,9 +20,9 @@ I retain these setup instructions for checking or restoring my GitHub Pages conf
 4. Check the `github-pages` environment permits deployment from `main`. If I configure required reviewers, deployments wait for that review; the workflow does not remove this protection.
 5. Retain the previous published commit/artifact and note the current Pages/domain settings for recovery.
 
-I verified publication of the baseline identified above. These recovery instructions do not establish the state of every account setting. Source code and CNAME alone cannot switch the Pages publishing source. If the source is changed back to a branch, my old root `index.html` may be published instead of the Astro `dist/` artifact. Ensure the source is correct before relying on merge-to-publish behavior.
+I verified the publication identified above. These recovery instructions do not establish the state of every account setting. Source code and CNAME alone cannot switch the Pages publishing source. If the source is changed back to a branch, my old root `index.html` may be published instead of the Astro `dist/` artifact. Ensure the source is correct before relying on merge-to-publish behavior.
 
-In my latest read-only baseline check, [custom deployment run 40679459115](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40679459115) succeeded, while the parallel [legacy Pages/Jekyll run 40679459252](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40679459252) failed when it interpreted Astro component frontmatter as YAML. These are separate builders. My intended publishing source is **GitHub Actions**, which builds Astro and publishes only `dist/`. I have not directly verified the current Pages source setting, and this check changed no settings. Do not rewrite valid Astro as Jekyll YAML or add a root `.nojekyll` to publish the legacy repository files; confirm the Pages source instead.
+In my 2026-10-28 read-only check of the same merged rc.3 commit, the [custom deployment](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) succeeded, while the parallel [legacy Pages/Jekyll run 40700121145](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700121145) failed at 13:50:54 UTC. These are separate builders. My intended publishing source is **GitHub Actions**, which builds Astro and publishes only `dist/`. I have not directly verified the current Pages source setting, and this check changed no settings. The earlier Jekyll frontmatter failure is historical context, not a reason to rewrite valid Astro as Jekyll YAML or add a root `.nojekyll` to publish the legacy repository files. I need to confirm the Pages source setting to resolve the parallel legacy build.
 
 GitHub documents [custom workflow requirements](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) and [choosing the publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). Astro supports [static publication to GitHub Pages](https://docs.astro.build/en/guides/deploy/github/).
 
@@ -68,7 +74,7 @@ After the workflow reports a successful deployment:
 - Fetch social artwork, icons, sitemap and HTML metadata without JavaScript. Production pages must not carry preview `noindex`.
 - Record the commit, successful workflow URL and observations. Account-level headers and certificate settings must be verified from the real response; source files cannot prove them.
 
-See [QA.md](QA.md) for local test evidence and known browser/assistive-technology limits.
+See [QA.md](QA.md) for local and CI evidence, publication verification and known browser/assistive-technology limits.
 
 ## Rollback
 
@@ -82,4 +88,4 @@ Git history does not record every hosting setting. Restore account settings only
 
 ## Tags and releases
 
-A successful deployment does not create a Git tag or GitHub Release. When I decide to publish a release, I verify the live result, recheck existing tags/releases, choose the semantic version, update the package and lockfile together, and tag the exact reviewed commit. Never overwrite an existing tag. My release notes state actual validation, known limits, licensing and recovery instructions.
+I checked the repository's tags and GitHub Releases on 2026-10-28; both lists were empty. The verified rc.3 website deployment is not a GitHub Release. A successful deployment does not create a tag or Release. When I decide to publish a release, I verify the live result, recheck existing tags/releases, choose the semantic version, update the package and lockfile together, and tag the exact reviewed commit. Never overwrite an existing tag. My release notes state actual validation, known limits, licensing and recovery instructions.

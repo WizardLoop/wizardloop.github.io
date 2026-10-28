@@ -1,10 +1,12 @@
-## What changes for visitors
+## What changes
 
-Describe the concrete behavior and reason for it. Include desktop/mobile screenshots for visual changes.
+Describe the concrete change and reason for it. For repository-only work, identify the documentation or tooling improvement and whether visitor behavior changes. Include desktop/mobile screenshots for website visual changes.
 
 ## Validation
 
 List checks actually run, measured results and remaining limitations. Do not present older QA results as verification of this revision.
+
+For documentation and version updates, verify links, image paths, package/lockfile versions and publication dates. Keep new changes unreleased until deployment is verified, and preserve historical test evidence.
 
 ## Publication
 

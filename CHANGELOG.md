@@ -2,7 +2,16 @@
 
 I record source changes here and identify verified deployments separately. A version heading alone does not establish that a Git tag or GitHub Release exists.
 
-## 1.0.0-rc.3 - Unreleased
+## 1.0.0-rc.4 - Unreleased
+
+- I redesigned my README with a visual introduction, quick navigation, a publication-status table and clearer setup, editing and documentation guides.
+- I recorded the verified publication date and deployment evidence for rc.3, keeping that published website separate from this repository update.
+- I clarified first-person writing, documentation-only validation and version maintenance in my contribution guide and pull request template.
+- I updated my package and lockfile version metadata together. I changed no website source, media, dependencies, tests or workflows.
+
+This repository-only update is prepared for review. I have not merged or deployed it, created a Git tag or published a GitHub Release.
+
+## 1.0.0-rc.3 - Published 2026-10-28
 
 - I added Silver Grimoire to Home, About and Posts, with local still previews and the existing motion controls.
 - I replaced decorative star glyphs with an original reusable SVG mark so the design does not depend on a device's emoji font.
@@ -11,7 +20,7 @@ I record source changes here and identify verified deployments separately. A ver
 - I added regression checks for SVG identity, delayed animation loading, independent playback and lifecycle recovery, plus Linux Lighthouse reports in review CI.
 - I rewrote my site and repository prose in my own first-person voice while preserving factual history and third-party legal notices.
 
-This source candidate has not been deployed. I recorded its measured browser checks, performance samples and the local Home performance limitation separately from the historical baseline in [QA.md](docs/QA.md).
+I published this version after [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) merged at `062bdad623c53c2bd10661c3fe578f1cfc62b2b2`. [Deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) completed successfully on **2026-10-28 at 16:57:11 Asia/Jerusalem (13:57:11 UTC)**. I verified HTTPS 200 and the Silver Grimoire artwork and SVG mark on my live Home page. This publication record does not imply a Git tag or GitHub Release. I retain the version's measured checks and known limits in [QA.md](docs/QA.md).
 
 ## 1.0.0-rc.2 - Deployed 2026-10-28
 

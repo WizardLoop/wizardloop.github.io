@@ -14,6 +14,7 @@ Preserve `wizardloop.com`, both source CNAME files and existing public routes. I
 ## Content and interface
 
 - Use English by default and correct direction handling for Hebrew.
+- Write my personal site copy and repository narrative in first person, as WizardLoop: "I updated my site", not "I built this for the owner". Preserve third-party legal notices and factual attribution.
 - Verify claims and links. Do not invent clients, achievements or profiles.
 - Use a regular hyphen instead of U+2014 in controlled content and metadata.
 - Preserve keyboard access, visible focus, semantic headings, contrast and narrow-screen layouts. Honor reduced motion and the global motion control.
@@ -25,6 +26,10 @@ Preserve `wizardloop.com`, both source CNAME files and existing public routes. I
 Run `npm run check`. For layout or interaction changes, run relevant browser tests against the built site; use `npm run test:browsers` for browser behavior changes. Do not add redundant tests for a simple text correction; existing content/build checks still apply.
 
 Describe the concrete change, validation actually performed and remaining limits. Include desktop/mobile screenshots and both themes for visual changes. Do not treat older QA reports as verification of the new revision.
+
+For documentation-only changes, check Markdown links and anchors, referenced images, factual dates and version consistency, then run `npm run check`. State that visitor behavior is unchanged. Existing CI still runs the browser and Lighthouse suites; a prose edit does not need a new screenshot or a new test that mirrors the text.
+
+When changing my source version, update `package.json`, both root version entries in `package-lock.json`, and `CHANGELOG.md` together. Check existing tags and Releases first. Keep the new entry unreleased until publication is verified; record the actual deployment date and workflow when marking a version published. Preserve historical QA versions and measurements rather than changing their labels to the newest version. A published website does not automatically create a Git tag or GitHub Release.
 
 Keep lockfile updates with dependency changes. Exclude installed packages, build output, test artifacts, `.env` files, credentials and personal messages. Review the diff before submitting.
 
