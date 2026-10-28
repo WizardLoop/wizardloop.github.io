@@ -18,10 +18,6 @@ const routes = [
 ] as const;
 const widths = [320, 360, 390, 768, 1024, 1440];
 const themes = ['light', 'dark'] as const;
-const provider = (url: string) =>
-  /(^|\.)(telegram\.org|t\.me|telegram-cdn\.org|telesco\.pe|cloudflare\.com)$/.test(
-    new URL(url).hostname,
-  );
 const screenshotDirectory = resolve('artifacts/final');
 
 async function settle(page: Page) {
@@ -83,6 +79,14 @@ for (const [name, path] of routes) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const errors: string[] = [];
     const missing: string[] = [];
+    const outbound: string[] = [];
+    const origin = new URL(baseURL!).origin;
+    await page.route('**/*', async (route) => {
+      if (new URL(route.request().url()).origin !== origin) {
+        outbound.push(route.request().url());
+        await route.abort('blockedbyclient');
+      } else await route.continue();
+    });
     page.on('pageerror', (error) => errors.push(error.message));
     page.on('response', (response) => {
       if (
@@ -108,6 +112,11 @@ for (const [name, path] of routes) {
     );
     await expect(page.locator('[data-theme-toggle]')).toBeVisible();
     await expect(page.locator('[data-motion-toggle]')).toBeVisible();
+    await expect(
+      page.locator(
+        'form, iframe, [data-feedback-form], [data-telegram-feed], [data-profile-video], #privacy-dialog, [data-privacy-open]',
+      ),
+    ).toHaveCount(0);
     await settle(page);
     expect(await page.locator('body').innerText()).not.toContain(
       String.fromCharCode(0x2014),
@@ -121,11 +130,27 @@ for (const [name, path] of routes) {
     expect(header!.y).toBeLessThan(50);
     expect(errors, 'Uncaught browser errors').toEqual([]);
     expect(missing, 'Missing local resources').toEqual([]);
+    expect(
+      outbound,
+      'Every route must load without any third-party request.',
+    ).toEqual([]);
+    const scriptSources = await page
+      .locator('script[src]')
+      .evaluateAll((scripts) =>
+        scripts.map((script) => (script as HTMLScriptElement).src),
+      );
+    expect(
+      scriptSources.every((source) => new URL(source).origin === origin),
+      'Executable scripts must be served locally.',
+    ).toBe(true);
   });
 
   test(`${name}: six widths in light and dark @matrix`, async ({
     page,
   }, info) => {
+    // This case includes 12 viewport checks and four full-page captures.
+    // Keep individual action deadlines while allowing the complete matrix to finish.
+    test.setTimeout(120_000);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto(path);
     await settle(page);
@@ -408,6 +433,60 @@ test('manually paused motion keeps the mobile menu visible and keyboard usable @
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 });
 
+test('short mobile navigation keeps the current page distinct and close control reachable after scrolling @keyboard', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 320 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/about/');
+  const trigger = page.locator('[data-menu-toggle]');
+  await trigger.click();
+  const dialog = page.locator('#mobile-nav');
+  const current = dialog.locator('a[aria-current="page"]');
+  await expect(current).toHaveCount(1);
+  await expect(current).toHaveAttribute('href', '/about/');
+  await expect(current).toBeInViewport();
+  const colors = await current.evaluate((element) => ({
+    current: getComputedStyle(element).backgroundColor,
+    adjacent: getComputedStyle(
+      element.parentElement!.querySelector('a:not([aria-current])')!,
+    ).backgroundColor,
+    cue: getComputedStyle(element).boxShadow,
+  }));
+  expect(colors.current).not.toBe(colors.adjacent);
+  expect(colors.cue).not.toBe('none');
+  const overflow = await dialog.evaluate((element) => {
+    element.scrollTop = element.scrollHeight;
+    return element.scrollHeight > element.clientHeight;
+  });
+  expect(
+    overflow,
+    'The short-viewport check must exercise a genuinely scrolling menu.',
+  ).toBe(true);
+  await expect
+    .poll(() => dialog.evaluate((element) => element.scrollTop))
+    .toBeGreaterThan(0);
+  const close = dialog.locator('[data-menu-close]');
+  await expect(close).toBeInViewport();
+  const buttonBox = await close.boundingBox();
+  const dialogBox = await dialog.boundingBox();
+  expect(buttonBox).not.toBeNull();
+  expect(dialogBox).not.toBeNull();
+  expect(buttonBox!.y).toBeGreaterThanOrEqual(dialogBox!.y);
+  expect(buttonBox!.y + buttonBox!.height).toBeLessThanOrEqual(
+    dialogBox!.y + dialogBox!.height,
+  );
+  await close.click();
+  await expect(dialog).not.toBeVisible();
+  await expect(trigger).toBeFocused();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  expect(
+    await page
+      .locator('body')
+      .evaluate((element) => getComputedStyle(element).overflow),
+  ).not.toBe('hidden');
+});
+
 test('desktop tooltips stay hoverable, dismiss with Escape and reset after leaving focus @keyboard', async ({
   page,
 }) => {
@@ -491,6 +570,7 @@ test('theme and motion choices persist between reloads and pages @preferences', 
 
 test('reduced motion avoids animation payloads and external providers @motion', async ({
   page,
+  baseURL,
 }) => {
   const requests: string[] = [];
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -499,7 +579,7 @@ test('reduced motion avoids animation payloads and external providers @motion', 
   await settle(page);
   await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
   await page.waitForLoadState('networkidle');
-  await page.goto('/work/');
+  await page.goto('/about/');
   await page.locator('[data-animation]').first().scrollIntoViewIfNeeded();
   await page.waitForLoadState('networkidle');
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'paused');
@@ -510,7 +590,7 @@ test('reduced motion avoids animation payloads and external providers @motion', 
     'Reduced motion must avoid hero video, TGS and the Lottie player',
   ).toEqual([]);
   expect(
-    requests.filter(provider),
+    requests.filter((url) => new URL(url).origin !== new URL(baseURL!).origin),
     'No external content is needed for the initial page',
   ).toEqual([]);
   const activeMedia = await page
@@ -538,10 +618,23 @@ test('native hero verifies loop support, controls and real fallback @motion', as
         .canPlayType(`video/mp4; codecs="${codec}"`),
     manifest.codec,
   );
-  test.skip(
-    !supportsH264,
-    'This browser installation does not advertise H.264 playback.',
-  );
+  if (!supportsH264) {
+    info.annotations.push({
+      type: 'platform',
+      description:
+        'This browser does not advertise the supplied H.264 codec; verify the real still fallback instead of claiming native playback.',
+    });
+    await page.goto('/');
+    const art = page.locator('[data-native-hero]');
+    await expect(art).toHaveAttribute('data-state', 'unavailable', {
+      timeout: 15_000,
+    });
+    await expect(art).toHaveAttribute('data-playing', 'false');
+    await expect(art).toHaveAttribute('aria-label', /Motion unavailable/);
+    await expect(art.locator('video')).toBeHidden();
+    await expect(art.locator('.art-poster')).toBeVisible();
+    return;
+  }
 
   // Probe the real clip without site code before deciding whether this native
   // media backend can sustain its loop. A decoded first frame is insufficient.
@@ -966,72 +1059,13 @@ test('failed native hero media retains its poster across theme retries @motion',
   await expect(video).toBeHidden();
 });
 
-test('Work progressively reveals original artwork with focus and deferred assets @keyboard', async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  const requested: string[] = [];
-  page.on('request', (request) => requested.push(request.url()));
-  await page.goto('/work/');
-  const figures = page.locator('.collection-grid > figure');
-  await expect(figures).toHaveCount(30);
-  await expect(page.locator('.collection-grid > figure:visible')).toHaveCount(
-    9,
-  );
-  await expect(page.locator('.extra-artwork[hidden]')).toHaveCount(21);
-  await expect(page.locator('[data-show-collection]')).toBeVisible();
-  await page.waitForLoadState('networkidle');
-  const deferredPosters = await page
-    .locator('.extra-artwork img')
-    .evaluateAll((images) =>
-      images.map((image) => (image as HTMLImageElement).src),
-    );
-  expect(
-    requested.filter((url) => deferredPosters.includes(url)),
-    'Initially hidden gallery posters should not download.',
-  ).toEqual([]);
-  await page.locator('[data-show-collection]').focus();
-  await page.keyboard.press('Enter');
-  await expect(page.locator('.collection-grid > figure:visible')).toHaveCount(
-    30,
-  );
-  await expect(
-    page.locator('.extra-artwork').first().locator('h3'),
-  ).toBeFocused();
-  await expect(page.locator('[data-show-collection]')).toBeHidden();
-  await noOverflow(page, 'Expanded original artwork gallery');
-});
-
-test('Work retains every original artwork when JavaScript is unavailable @smoke', async ({
-  browser,
-  baseURL,
-}) => {
-  const context = await browser.newContext({
-    javaScriptEnabled: false,
-    baseURL,
-  });
-  try {
-    const page = await context.newPage();
-    await page.goto('/work/');
-    await expect(page.locator('.collection-grid > figure:visible')).toHaveCount(
-      30,
-    );
-    await expect(page.locator('[data-show-collection]')).toBeHidden();
-    await expect(page.locator('.art-player canvas')).toHaveCount(0);
-    await expect(page.locator('.collection-grid h3')).toHaveCount(30);
-    await noOverflow(page, 'Artwork collection without JavaScript');
-  } finally {
-    await context.close();
-  }
-});
-
 test('original Canvas animation changes, freezes on pause and bounds active artwork @motion', async ({
   page,
 }) => {
   const requests: string[] = [];
   page.on('request', (resource) => requests.push(resource.url()));
-  await page.goto('/work/');
-  const art = page.locator('.collection-grid [data-animation]').first();
+  await page.goto('/about/');
+  const art = page.locator('[data-animation]').first();
   await art.scrollIntoViewIfNeeded();
   await expect(art).toHaveAttribute('data-state', 'ready', { timeout: 25_000 });
   await expect(art).toHaveAttribute('data-playing', 'true');
@@ -1107,15 +1141,15 @@ test('original Canvas animation changes, freezes on pause and bounds active artw
   expect(dimensions.right).toBeLessThanOrEqual(391);
   await noOverflow(page, 'Resized active Canvas artwork');
   await page.setViewportSize({ width: 1440, height: 2000 });
-  await page.goto('/work/');
-  await page.locator('.collection-grid').scrollIntoViewIfNeeded();
+  await page.goto('/about/');
+  await page.locator('[data-animation]').first().scrollIntoViewIfNeeded();
   await expect
     .poll(() => page.locator('[data-animation][data-playing="true"]').count())
     .toBeGreaterThan(0);
   await page.waitForLoadState('networkidle');
   expect(
     await page.locator('[data-animation][data-playing="true"]').count(),
-    'The long collection must bound concurrent artwork playback.',
+    'Visible original artwork must respect the concurrent playback limit.',
   ).toBeLessThanOrEqual(3);
   await page.locator('[data-motion-toggle]').click();
   await expect(
@@ -1129,8 +1163,8 @@ test('failed original animation keeps its poster and readable status @motion', a
   await page.route('**/media/animations/*.tgs', (route) =>
     route.abort('failed'),
   );
-  await page.goto('/work/');
-  const art = page.locator('.collection-grid [data-animation]').first();
+  await page.goto('/about/');
+  const art = page.locator('[data-animation]').first();
   await art.scrollIntoViewIfNeeded();
   await expect(art).toHaveAttribute('data-state', 'unavailable');
   await expect(art).toHaveAttribute(
@@ -1149,496 +1183,69 @@ test('failed original animation keeps its poster and readable status @motion', a
     .toBeGreaterThan(0);
 });
 
-test('video pause/resume and reduced motion using a local canvas-stream fixture @motion', async ({
-  page,
-}, info) => {
-  await page.goto('/about/');
-  const supported = await page.evaluate(
-    () => typeof HTMLCanvasElement.prototype.captureStream === 'function',
-  );
-  test.skip(
-    !supported,
-    'This browser does not support the local canvas media fixture; real Telegram video remains an integration test.',
-  );
-  await page.evaluate(() => {
-    const fixture = document.createElement('div');
-    fixture.id = 'qa-profile-media';
-    fixture.style.cssText =
-      'position:fixed;bottom:0;right:0;z-index:9999;background:white;padding:8px';
-    const canvas = document.createElement('canvas');
-    canvas.width = 16;
-    canvas.height = 16;
-    fixture.append(canvas);
-    document.body.append(fixture);
-    const context = canvas.getContext('2d')!;
-    const stream = canvas.captureStream(10);
-    const track = stream.getVideoTracks()[0] as CanvasCaptureMediaStreamTrack;
-    const video = document.createElement('video');
-    video.id = 'qa-profile-video-fixture';
-    video.dataset.profileVideo = '';
-    video.muted = true;
-    video.playsInline = true;
-    video.width = 16;
-    video.height = 16;
-    video.setAttribute('aria-label', 'Local QA media fixture');
-    video.srcObject = stream;
-    video.dataset.qaPlay = 'pending';
-    fixture.append(video);
-    // Capture starts before drawing. A static pre-capture canvas can produce
-    // no frames on WebKit, leaving its play() promise pending indefinitely.
-    let frame = 0;
-    const paint = () => {
-      context.fillStyle = frame++ % 2 ? '#7751d4' : '#d7c6ff';
-      context.fillRect(0, 0, 16, 16);
-      canvas.dataset.frames = String(frame);
-      track.requestFrame?.();
-    };
-    paint();
-    const timer = window.setInterval(paint, 100);
-    (
-      window as Window & { qaProfileFixtureCleanup?: () => void }
-    ).qaProfileFixtureCleanup = () => {
-      window.clearInterval(timer);
-      stream.getTracks().forEach((source) => source.stop());
-    };
-    const start = document.createElement('button');
-    start.textContent = 'Start local media fixture';
-    start.addEventListener('click', () => {
-      void video.play().then(
-        () => {
-          video.dataset.qaPlay = 'resolved';
-        },
-        (error: DOMException) => {
-          video.dataset.qaPlay = `rejected:${error.name}`;
-        },
-      );
-    });
-    fixture.append(start);
+for (const [path, destination] of [
+  ['/work/', 'https://t.me/wizard_loop'],
+  ['/projects/', 'https://github.com/WizardLoop?tab=repositories'],
+  ['/posts/', 'https://t.me/s/wizard_loop'],
+] as const) {
+  test(`${path} offers the requested direct destination without a local collection @smoke @links`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto(path);
+    const links = page.locator(`main a[href="${destination}"]`);
+    expect(await links.count()).toBeGreaterThan(0);
+    await expect(links.first()).toBeVisible();
+    await expect(links.first()).toHaveAccessibleName(/\S/);
+    await expect(
+      page.locator(
+        'main form, main iframe, .collection-grid, [data-show-collection], [data-post-id], [data-telegram-feed]',
+      ),
+    ).toHaveCount(0);
+    if (path === '/work/') {
+      await expect(
+        page.locator('main [data-animation], main figure'),
+      ).toHaveCount(0);
+    }
+    if (path === '/projects/') {
+      await expect(
+        page.locator('main a[href^="https://github.com/WizardLoop/"]'),
+      ).toHaveCount(0);
+    }
   });
-  await page.getByRole('button', { name: 'Start local media fixture' }).click();
-  const video = page.locator('#qa-profile-video-fixture');
-  try {
-    await expect(video).toHaveAttribute('data-qa-play', 'resolved', {
-      timeout: 10_000,
-    });
-  } finally {
-    const state = await video.evaluate((element) => {
-      const media = element as HTMLVideoElement;
-      const stream = media.srcObject as MediaStream;
-      return {
-        play: media.dataset.qaPlay,
-        readyState: media.readyState,
-        time: media.currentTime,
-        paused: media.paused,
-        visible: !document.hidden,
-        paintedFrames: document.querySelector<HTMLCanvasElement>(
-          '#qa-profile-media canvas',
-        )?.dataset.frames,
-        active: stream.active,
-        tracks: stream
-          .getVideoTracks()
-          .map((track) => ({
-            readyState: track.readyState,
-            enabled: track.enabled,
-            muted: track.muted,
-          })),
-      };
-    });
-    console.info('Local canvas fixture:', JSON.stringify(state));
-    await info.attach('canvas-media-capability', {
-      body: JSON.stringify(state),
-      contentType: 'application/json',
-    });
-  }
-  await expect
-    .poll(() =>
-      video.evaluate((element) => (element as HTMLVideoElement).readyState),
-    )
-    .toBeGreaterThanOrEqual(2);
-  await expect
-    .poll(() =>
-      video.evaluate((element) => (element as HTMLVideoElement).paused),
-    )
-    .toBe(false);
-  const firstTime = await video.evaluate(
-    (element) => (element as HTMLVideoElement).currentTime,
-  );
-  await expect
-    .poll(() =>
-      video.evaluate((element) => (element as HTMLVideoElement).currentTime),
-    )
-    .toBeGreaterThan(firstTime + 0.05);
-  await page.locator('[data-motion-toggle]').click();
-  await expect
-    .poll(() =>
-      video.evaluate((element) => (element as HTMLVideoElement).paused),
-    )
-    .toBe(true);
-  await page.locator('[data-motion-toggle]').click();
-  await expect
-    .poll(() =>
-      video.evaluate((element) => (element as HTMLVideoElement).paused),
-    )
-    .toBe(false);
-  const resumedTime = await video.evaluate(
-    (element) => (element as HTMLVideoElement).currentTime,
-  );
-  await expect
-    .poll(() =>
-      video.evaluate((element) => (element as HTMLVideoElement).currentTime),
-    )
-    .toBeGreaterThan(resumedTime + 0.05);
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect
-    .poll(() =>
-      video.evaluate((element) => (element as HTMLVideoElement).paused),
-    )
-    .toBe(true);
-  await page.evaluate(() =>
-    (
-      window as Window & { qaProfileFixtureCleanup?: () => void }
-    ).qaProfileFixtureCleanup?.(),
-  );
-});
-
-async function fixtureTelegram(page: Page) {
-  await page.route('https://telegram.org/js/telegram-widget.js*', (route) =>
-    route.fulfill({
-      contentType: 'application/javascript',
-      body: `(() => { const script = document.currentScript; if (!script) return; const frame = document.createElement('iframe'); frame.src = 'https://t.me/' + script.dataset.telegramPost + '?embed=1'; frame.dataset.qaFixture = 'true'; frame.style.width = '100%'; frame.style.height = '180px'; frame.style.border = '0'; script.parentElement.append(frame); })();`,
-    }),
-  );
-  await page.route('https://t.me/**', (route) =>
-    route.fulfill({
-      contentType: 'text/html',
-      body: '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Telegram QA fixture</title></head><body><p>Deterministic test fixture. This is not a live Telegram post.</p><svg width="40" height="40" aria-label="Fixture motion"><circle cx="20" cy="20" r="12" fill="#7751d4"/></svg></body></html>',
-    }),
-  );
 }
 
-test('Telegram requests wait for consent; pause and revoke remove embedded frames @privacy', async ({
-  page,
-}) => {
-  const requests: string[] = [];
-  await fixtureTelegram(page);
-  page.on('request', (request) => {
-    if (provider(request.url())) requests.push(request.url());
-  });
-  await page.goto('/posts/');
-  await page.waitForLoadState('networkidle');
-  expect(requests).toEqual([]);
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(0);
-  const count = Math.min(6, await page.locator('[data-telegram-slot]').count());
-  expect(count).toBeGreaterThan(0);
-  await page.locator('[data-telegram-load]').click();
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(count);
-  await expect(
-    page.locator('[data-telegram-slot] iframe').first(),
-  ).toHaveAttribute('title', /Original Telegram post/);
-  expect(
-    await page.evaluate(() =>
-      localStorage.getItem('wizardloop-telegram-consent'),
-    ),
-  ).toBe('yes');
-  expect(requests.length).toBeGreaterThan(0);
-  await page.locator('[data-motion-toggle]').click();
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(0);
-  await expect(page.locator('[data-telegram-status]')).toContainText(
-    'motion is paused',
-  );
-  await page.locator('[data-motion-toggle]').click();
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(count);
-  await page.locator('[data-telegram-reset]').click();
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(0);
-  expect(
-    await page.evaluate(() =>
-      localStorage.getItem('wizardloop-telegram-consent'),
-    ),
-  ).toBe('no');
-  requests.length = 0;
-  await page.reload();
-  await page.waitForLoadState('networkidle');
-  expect(requests).toEqual([]);
-});
-
-test('privacy preferences dialog can grant and withdraw Telegram permission @privacy @keyboard', async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await fixtureTelegram(page);
-  await page.goto('/posts/');
-  await page.waitForLoadState('networkidle');
-  const opener = page.locator('[data-privacy-open]').first();
-  await opener.click();
-  const dialog = page.locator('#privacy-dialog');
-  await expect(dialog).toBeVisible();
-  await expect(page.locator('#telegram-consent')).not.toBeChecked();
-  await page.locator('#telegram-consent').check();
-  await page.locator('[data-privacy-save]').click();
-  await expect(dialog).not.toBeVisible();
-  await expect(opener).toBeFocused();
-  await expect(
-    page.locator('[data-telegram-slot] iframe').first(),
-  ).toBeAttached();
-  await opener.click();
-  await page.locator('#telegram-consent').uncheck();
-  await page.locator('[data-privacy-save]').click();
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(0);
-  await expect(opener).toBeFocused();
-});
-
-test('Telegram failure leaves original links and a working retry path @privacy', async ({
-  page,
-}) => {
-  await page.route('https://telegram.org/js/telegram-widget.js*', (route) =>
-    route.abort('failed'),
-  );
-  await page.goto('/posts/');
-  await page.waitForLoadState('networkidle');
-  await page.locator('[data-telegram-load]').click();
-  await expect(page.locator('[data-telegram-slot]').first()).toContainText(
-    'could not load',
-  );
-  expect(
-    await page.locator('.telegram-card a[href^="https://t.me/"]').count(),
-  ).toBeGreaterThan(0);
-  await page.unroute('https://telegram.org/js/telegram-widget.js*');
-  await fixtureTelegram(page);
-  await page.locator('[data-telegram-retry]').click();
-  await expect(
-    page.locator('[data-telegram-slot] iframe').first(),
-  ).toBeAttached();
-});
-
-test('long-feed fixture reveals six posts at a time without restarting existing embeds @privacy @keyboard', async ({
-  page,
-}) => {
-  await fixtureTelegram(page);
-  await page.route('**/posts/', async (route) => {
-    const response = await route.fetch();
-    let html = await response.text();
-    const articles =
-      html.match(/<article class="telegram-card"[^>]*>[\s\S]*?<\/article>/g) ||
-      [];
-    expect(
-      articles.length,
-      'The fixture extends the real static post markup.',
-    ).toBeGreaterThan(0);
-    const original = articles[0];
-    const fixtureArticles = Array.from({ length: 13 }, (_, index) =>
-      original
-        .replace(/wizard_loop\/\d+/gi, `wizard_loop/${7000 + index}`)
-        .replace(
-          /<h2[^>]*>[\s\S]*?<\/h2>/,
-          `<h2 dir="auto">Local QA post fixture ${index + 1}</h2>`,
-        ),
-    ).join('');
-    let inserted = false;
-    html = html.replace(
-      /<article class="telegram-card"[^>]*>[\s\S]*?<\/article>/g,
-      () => {
-        if (inserted) return '';
-        inserted = true;
-        return fixtureArticles;
-      },
-    );
-    await route.fulfill({ response, body: html });
-  });
-  await page.goto('/posts/');
-  // Readiness is the rendered page size, not global network quiescence. The
-  // routed HTML fixture can keep Firefox's network-idle heuristic pending.
-  await expect(page.locator('.telegram-card:visible')).toHaveCount(6);
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(0);
-  await page.locator('[data-telegram-load]').click();
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(6);
-  await page.locator('[data-telegram-slot] iframe').evaluateAll((frames) =>
-    frames.forEach((frame) => {
-      (frame as HTMLElement).dataset.qaOriginalFrame = 'true';
-    }),
-  );
-  const more = page.locator('[data-posts-more]');
-  await more.focus();
-  await page.keyboard.press('Enter');
-  await expect(page.locator('.telegram-card:visible')).toHaveCount(12);
-  await expect(
-    page.locator('.telegram-card').nth(6).locator('h2'),
-  ).toBeFocused();
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(12);
-  await expect(
-    page.locator('iframe[data-qa-original-frame]'),
-    'Already-loaded frames retain their DOM identity.',
-  ).toHaveCount(6);
-  await more.focus();
-  await page.keyboard.press('Enter');
-  await expect(page.locator('.telegram-card:visible')).toHaveCount(13);
-  await expect(
-    page.locator('.telegram-card').nth(12).locator('h2'),
-  ).toBeFocused();
-  await expect(more).toBeHidden();
-  await expect(page.locator('[data-telegram-slot] iframe')).toHaveCount(13);
-  await expect(page.locator('iframe[data-qa-original-frame]')).toHaveCount(6);
-});
-
-test('profile falls back from Telegram to GitHub while retaining dimensions @profile', async ({
+test('contact keeps the verified Telegram and email links keyboard accessible without collecting fields @privacy @keyboard', async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.route('**/media/profile/avatar.jpg', (route) =>
-    route.abort('failed'),
-  );
-  await page.goto('/about/');
-  const image = page.locator('img[data-profile-image]');
-  await expect(image).toHaveAttribute('src', '/media/profile/github.jpg');
-  await expect(page.locator('[data-profile-source]')).toContainText('GitHub');
-  await expect
-    .poll(() =>
-      image.evaluate((element) => (element as HTMLImageElement).naturalWidth),
-    )
-    .toBeGreaterThan(0);
-  await expect(image).toHaveAttribute('width', '96');
-  await expect(image).toHaveAttribute('height', '96');
-});
-
-test('both profile providers can fail without losing the local fallback @profile', async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.route('**/media/profile/avatar.jpg', (route) =>
-    route.abort('failed'),
-  );
-  await page.route('**/media/profile/github.jpg', (route) =>
-    route.abort('failed'),
-  );
-  await page.goto('/about/');
-  const image = page.locator('img[data-profile-image]');
-  await expect(image).toHaveAttribute('src', '/media/profile/fallback.svg');
-  await expect(page.locator('[data-profile-source]')).toContainText('Local');
-  await expect
-    .poll(() =>
-      image.evaluate((element) => (element as HTMLImageElement).naturalWidth),
-    )
-    .toBeGreaterThan(0);
-});
-
-test('unavailable profile video fixture retains a usable image and respects reduced motion @profile @motion', async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.route('**/about/', async (route) => {
-    const response = await route.fetch();
-    const html = (await response.text()).replace(
-      /<img\b(?=[^>]*data-profile-image)[^>]*>/,
-      (image) =>
-        `<video id="qa-unavailable-profile-video" data-profile-video muted loop playsinline preload="none" width="96" height="96" aria-label="Local unavailable-media fixture"></video>${image.replace('<img', '<img hidden')}`,
-    );
-    await route.fulfill({ response, body: html });
-  });
-  await page.route('**/media/profile/qa-unavailable.mp4', (route) =>
-    route.fulfill({
-      status: 404,
-      contentType: 'text/plain',
-      body: 'Local QA missing-media fixture.',
-    }),
-  );
-  await page.goto('/about/');
-  await page.waitForLoadState('networkidle');
-  const video = page.locator('#qa-unavailable-profile-video');
-  await expect(video).not.toHaveAttribute('autoplay');
-  expect(
-    await video.evaluate((element) => (element as HTMLVideoElement).paused),
-  ).toBe(true);
-  await video.evaluate((element) => {
-    const media = element as HTMLVideoElement;
-    media.src = '/media/profile/qa-unavailable.mp4';
-    media.load();
-  });
-  await expect(video).toBeHidden();
-  const image = page.locator('img[data-profile-image]');
-  await expect(image).toBeVisible();
-  await expect
-    .poll(() =>
-      image.evaluate((element) => (element as HTMLImageElement).naturalWidth),
-    )
-    .toBeGreaterThan(0);
-});
-
-test('mocked Turnstile retry resets the existing widget without duplicate renders @privacy', async ({
-  page,
-}) => {
-  const externalRequests: string[] = [];
-  page.on('request', (request) => {
-    if (
-      /challenges\.cloudflare\.com|feedback-fixture\.invalid/.test(
-        request.url(),
-      )
-    )
-      externalRequests.push(request.url());
-  });
-  await page.route('**/feedback/', async (route) => {
-    const response = await route.fetch();
-    const html = (await response.text()).replace(
-      /<form\b[^>]*data-feedback-form[^>]*>/,
-      (form) =>
-        form
-          .replace(
-            /data-endpoint(?:="[^"]*")?/,
-            'data-endpoint="https://feedback-fixture.invalid/feedback"',
-          )
-          .replace(
-            /data-sitekey(?:="[^"]*")?/,
-            'data-sitekey="qa-turnstile-fixture"',
-          ),
-    );
-    await route.fulfill({ response, body: html });
-  });
-  await page.route('https://feedback-fixture.invalid/**', (route) =>
-    route.abort('blockedbyclient'),
-  );
-  await page.route('https://challenges.cloudflare.com/turnstile/**', (route) =>
-    route.fulfill({
-      contentType: 'application/javascript',
-      body: `(() => {
-    const state = window.__qaTurnstile = { renders: 0, resets: 0, ids: [] };
-    let callbacks;
-    window.turnstile = {
-      render(target, options) { state.renders++; callbacks = options; setTimeout(() => callbacks['error-callback']('local-fixture-error'), 0); return 'qa-widget-1'; },
-      reset(id) { state.resets++; state.ids.push(id); setTimeout(() => callbacks.callback('local-fixture-token'), 0); }
-    };
-  })();`,
-    }),
-  );
   await page.goto('/feedback/');
-  await page.waitForLoadState('networkidle');
-  expect(externalRequests).toEqual([]);
-  await expect(page.locator('[data-local-demo]')).toBeHidden();
-  const verify = page.locator('[data-verify-start]');
-  await verify.click();
-  await expect(page.locator('[data-verification-state]')).toContainText(
-    'could not complete',
-  );
-  await expect(verify).toBeEnabled();
-  await verify.click();
-  await expect(page.locator('[data-verification-state]')).toContainText(
-    'Verification complete',
-  );
-  const state = await page.evaluate(
-    () =>
-      (
-        window as unknown as {
-          __qaTurnstile: { renders: number; resets: number; ids: string[] };
-        }
-      ).__qaTurnstile,
-  );
-  expect(state).toEqual({ renders: 1, resets: 1, ids: ['qa-widget-1'] });
+  await page.keyboard.press('Tab');
+  for (const href of [
+    'https://t.me/wizardloop',
+    'mailto:wizard@wizardloop.com',
+  ]) {
+    const link = page.locator(`main a[href="${href}"]`).first();
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAccessibleName(/\S/);
+    await link.focus();
+    await expect(link).toBeFocused();
+    expect(
+      await link.evaluate((element) => getComputedStyle(element).outlineStyle),
+    ).not.toBe('none');
+  }
+  await expect(
+    page.locator(
+      'form, input, textarea, select, iframe, [data-feedback-submit], [data-verify-start]',
+    ),
+  ).toHaveCount(0);
   expect(
-    externalRequests.filter((url) => url.includes('challenges.cloudflare.com')),
-  ).toHaveLength(1);
-  expect(
-    externalRequests.filter((url) => url.includes('feedback-fixture.invalid')),
-  ).toEqual([]);
+    new URL(page.url()).search,
+    'Contact details must not be entered into a local submission URL.',
+  ).toBe('');
 });
 
-test('feedback cannot submit personal fields through a URL when JavaScript is unavailable @privacy', async ({
+test('direct contact and gateway links work without JavaScript @smoke @privacy', async ({
   browser,
   baseURL,
 }) => {
@@ -1646,41 +1253,227 @@ test('feedback cannot submit personal fields through a URL when JavaScript is un
     javaScriptEnabled: false,
     baseURL,
   });
-  const page = await context.newPage();
   try {
-    await page.goto('/feedback/');
-    await expect(page.locator('[data-feedback-controls]')).toHaveAttribute(
-      'disabled',
-    );
-    await expect(page.locator('[data-feedback-submit]')).toBeDisabled();
-    await expect(page.locator('[data-verify-start]')).toBeDisabled();
-    for (const id of ['feedback-name', 'feedback-message', 'feedback-email'])
-      await expect(page.locator(`#${id}`)).toBeDisabled();
-    await expect(page.locator('[data-feedback-form]')).toHaveAttribute(
-      'method',
-      /post/i,
-    );
-    const notice = page.locator('noscript .notice');
-    await expect(notice).toBeVisible();
-    await expect(notice).toContainText(
-      'The form needs JavaScript for verification.',
-    );
-    expect(
-      new URL(page.url()).search,
-      'Form content must never enter URL query parameters.',
-    ).toBe('');
-    await expect(
-      page.locator('noscript a[href="mailto:wizard@wizardloop.com"]'),
-    ).toBeVisible();
-    await expect(
-      page.locator('noscript a[href="https://t.me/wizardloop"]'),
-    ).toBeVisible();
+    const page = await context.newPage();
+    for (const [path, hrefs] of [
+      [
+        '/feedback/',
+        ['https://t.me/wizardloop', 'mailto:wizard@wizardloop.com'],
+      ],
+      ['/work/', ['https://t.me/wizard_loop']],
+      ['/projects/', ['https://github.com/WizardLoop?tab=repositories']],
+      ['/posts/', ['https://t.me/s/wizard_loop']],
+    ] as const) {
+      await page.goto(path);
+      await expect(page.locator('h1')).toBeVisible();
+      for (const href of hrefs)
+        await expect(
+          page.locator(`main a[href="${href}"]`).first(),
+        ).toBeVisible();
+      await expect(page.locator('form, iframe')).toHaveCount(0);
+      if (path === '/feedback/')
+        await expect(page.locator('[data-copy-email]')).toBeHidden();
+    }
   } finally {
     await context.close();
   }
 });
 
-for (const path of ['/', '/about/', '/work/', '/posts/', '/feedback/']) {
+for (const outcome of ['success', 'denied'] as const) {
+  test(`copy email ${outcome} preserves focus, prevents duplicate writes and keeps the narrow layout stable @privacy @keyboard`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.addInitScript(() => {
+      const fixture = {
+        calls: [] as string[],
+        finish: (_success: boolean) => {},
+      };
+      (window as Window & { qaClipboard?: typeof fixture }).qaClipboard =
+        fixture;
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: {
+          writeText(address: string) {
+            fixture.calls.push(address);
+            return new Promise<void>((resolve, reject) => {
+              fixture.finish = (success) =>
+                success
+                  ? resolve()
+                  : reject(
+                      new DOMException(
+                        'Local permission-denied fixture',
+                        'NotAllowedError',
+                      ),
+                    );
+            });
+          },
+        },
+      });
+    });
+    await page.goto('/feedback/');
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+    });
+    const button = page.locator('[data-copy-email]');
+    const status = page.locator('[data-copy-status]');
+    const help = page.locator('.destination-contact-help').first();
+    await expect(button).toBeVisible();
+    await expect(button).toHaveAttribute(
+      'data-copy-email',
+      'wizard@wizardloop.com',
+    );
+    await expect(status).toHaveAttribute('role', 'status');
+    await expect(status).toHaveAttribute('aria-live', 'polite');
+    await page.keyboard.press('Tab');
+    await button.focus();
+    const helpPosition = () =>
+      help.evaluate(
+        (element) => element.getBoundingClientRect().top + window.scrollY,
+      );
+    const before = await helpPosition();
+    await page.keyboard.press('Enter');
+    await expect(button).toBeFocused();
+    await expect(button).toHaveAttribute('aria-busy', 'true');
+    await expect(button).toHaveAttribute('aria-disabled', 'true');
+    await page.keyboard.press('Enter');
+    expect(
+      await page.evaluate(
+        () =>
+          (window as Window & { qaClipboard?: { calls: string[] } })
+            .qaClipboard!.calls,
+      ),
+    ).toEqual(['wizard@wizardloop.com']);
+    await page.evaluate((success) => {
+      (
+        window as Window & {
+          qaClipboard?: { finish: (success: boolean) => void };
+        }
+      ).qaClipboard!.finish(success);
+    }, outcome === 'success');
+    await expect(status).toHaveText(
+      outcome === 'success'
+        ? 'Email address copied. Paste it into your message.'
+        : 'Copy unavailable. Select: wizard@wizardloop.com',
+    );
+    await expect(button).toBeFocused();
+    await expect(button).not.toHaveAttribute('aria-busy');
+    await expect(button).not.toHaveAttribute('aria-disabled');
+    await expect(button).toBeEnabled();
+    expect(
+      Math.abs((await helpPosition()) - before),
+      'The reserved status area must not shift the following help text at 320px.',
+    ).toBeLessThanOrEqual(1);
+    await expect(
+      page.locator('main a[href="mailto:wizard@wizardloop.com"]'),
+    ).toBeVisible();
+    await noOverflow(page, `Copy email ${outcome} at 320px`);
+  });
+}
+
+test('copy email stays hidden when the Clipboard API is unavailable @privacy', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: undefined,
+    });
+  });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/feedback/');
+  await expect(page.locator('[data-copy-email]')).toBeHidden();
+  await expect(page.locator('[data-copy-status]')).toBeEmpty();
+  await expect(
+    page.locator('main a[href="mailto:wizard@wizardloop.com"]'),
+  ).toBeVisible();
+});
+
+test('the profile is a dimensioned local still with no provider or synchronization dependency @profile', async ({
+  page,
+  baseURL,
+}) => {
+  const outbound: string[] = [];
+  await page.route('**/*', async (route) => {
+    if (new URL(route.request().url()).origin !== new URL(baseURL!).origin) {
+      outbound.push(route.request().url());
+      await route.abort('blockedbyclient');
+    } else await route.continue();
+  });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/about/');
+  const image = page.locator('img[data-profile-image]');
+  await expect(image).toHaveAttribute('src', '/media/profile/avatar.jpg');
+  await expect(image).toHaveAttribute('width', '96');
+  await expect(image).toHaveAttribute('height', '96');
+  await expect(image).toHaveAttribute('alt', /WizardLoop/);
+  await expect(
+    page.locator('[data-profile-video], [data-profile-source]'),
+  ).toHaveCount(0);
+  await expect
+    .poll(() =>
+      image.evaluate((element) => {
+        const photo = element as HTMLImageElement;
+        return photo.complete && photo.naturalWidth > 0;
+      }),
+    )
+    .toBe(true);
+  expect(outbound).toEqual([]);
+});
+
+test('a missing local profile image uses the local artwork fallback @profile', async ({
+  page,
+}) => {
+  const requested: string[] = [];
+  page.on('request', (request) => requested.push(request.url()));
+  await page.route('**/media/profile/avatar.jpg', (route) =>
+    route.abort('failed'),
+  );
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/about/');
+  const image = page.locator('img[data-profile-image]');
+  await expect(image).toHaveAttribute('src', '/media/profile/fallback.svg');
+  await expect(image).toHaveAttribute('width', '96');
+  await expect(image).toHaveAttribute('height', '96');
+  await expect
+    .poll(() =>
+      image.evaluate((element) => (element as HTMLImageElement).naturalWidth),
+    )
+    .toBeGreaterThan(0);
+  expect(
+    requested.filter((url) =>
+      /github\.com|githubusercontent\.com|t\.me|telegram\.org/.test(
+        new URL(url).hostname,
+      ),
+    ),
+  ).toEqual([]);
+});
+
+test('Home introduces the creator without listing individual projects or collections @smoke', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await expect(page.locator('[data-native-hero]')).toBeVisible();
+  await expect(
+    page.locator(
+      'main .collection-grid, main .project-row, main .project-feature, main a[href^="https://github.com/WizardLoop/"]',
+    ),
+  ).toHaveCount(0);
+  for (const href of ['/about/', '/work/', '/projects/', '/posts/']) {
+    expect(await page.locator(`a[href="${href}"]`).count()).toBeGreaterThan(0);
+  }
+});
+
+for (const path of [
+  '/',
+  '/about/',
+  '/work/',
+  '/projects/',
+  '/posts/',
+  '/feedback/',
+]) {
   for (const currentTheme of themes) {
     for (const width of [390, 1440]) {
       test(`axe ${path} ${currentTheme} ${width}px @axe`, async ({

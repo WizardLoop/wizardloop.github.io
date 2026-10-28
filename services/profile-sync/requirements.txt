@@ -1,6 +1,0 @@
-Telethon==1.45.0
-Pillow==13.0.0
-# Resolved transitive dependencies, pinned for reproducible isolated installs.
-pyaes==1.6.1
-rsa==4.9.1
-pyasn1==0.6.4

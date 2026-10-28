@@ -28,24 +28,8 @@ import profile from '../../public/media/profile/profile.json';
       />
       <div class="profile-detail">
         <div class="profile-media">
-          {profile.video && (
-            <video
-              data-profile-video
-              muted
-              loop
-              playsinline
-              preload="none"
-              poster={profile.poster || '/media/profile/avatar.jpg'}
-              width="96"
-              height="96"
-            >
-              <source src={profile.video} type="video/mp4" />
-            </video>
-          )}
           <img
-            hidden={Boolean(profile.video)}
             data-profile-image
-            data-github-fallback="/media/profile/github.jpg"
             src={profile.avatar || '/media/profile/avatar.jpg'}
             width="96"
             height="96"
@@ -54,7 +38,7 @@ import profile from '../../public/media/profile/profile.json';
         </div>
         <div>
           <strong>WizardLoop</strong>
-          <span data-profile-source>{profile.source}</span>
+          <span>Design, motion & code</span>
         </div>
       </div>
     </div>
@@ -75,12 +59,6 @@ import profile from '../../public/media/profile/profile.json';
         question: what could this become?
       </p>
       <blockquote>{profile.bio}</blockquote>
-      <p class="small-text">
-        Profile text source: {profile.bioSource}. Last verified:{' '}
-        {profile.syncedAt ? profile.syncedAt.slice(0, 10) : 'local fallback'}.{' '}
-        {profile.status === 'public-snapshot' &&
-          'The public still is a verified snapshot. Automatic primary-video synchronization is not connected yet.'}
-      </p>
       <div class="inline-actions">
         <a class="button" href={site.links.telegram}>
           <Icon name="telegram" />

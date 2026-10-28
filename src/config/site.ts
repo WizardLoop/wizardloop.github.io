@@ -11,6 +11,7 @@ export const site = {
     channelPreview: 'https://t.me/s/wizard_loop',
     community: 'https://t.me/wizardloopchat',
     github: 'https://github.com/WizardLoop',
+    repositories: 'https://github.com/WizardLoop?tab=repositories',
     source: 'https://github.com/WizardLoop/wizardloop.github.io',
   },
   navigation: [
@@ -20,6 +21,6 @@ export const site = {
     { label: 'Builds', href: '/projects/' },
     { label: 'Posts', href: '/posts/' },
     { label: 'Community', href: '/community/' },
-    { label: 'Feedback', href: '/feedback/' },
+    { label: 'Contact', href: '/feedback/' },
   ],
 };

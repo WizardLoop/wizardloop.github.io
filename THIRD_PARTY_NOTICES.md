@@ -32,11 +32,11 @@ The Home hero uses two native 768 x 768 H.264 MP4 derivatives of `portal-alchemy
 
 WebP assets are static previews. The quality-94 delivery copies in `public/media/previews/` retain the masters' dimensions and alpha channel; the lossless masters in `public/media/posters/` and original TGS sources are unchanged. The MP4 and WebP derivatives inherit the underlying WizardLoop media rights and are outside the source-code MIT grant. Full provenance, rendering checks and source-license links are documented in `docs/DESIGN-ASSET-INVENTORY.md`.
 
-## Interface icons and service dependencies
+## Interface icons
 
 The local interface icon set adapts familiar Feather geometry for GitHub, mail and common controls, with custom WizardLoop symbols and Telegram/community treatments. Feather is MIT licensed, Copyright (c) 2013-2023 Cole Bemis. Its full notice is preserved in `public/media/licenses/FEATHER-LICENSE.txt`; source: https://github.com/feathericons/feather/blob/main/LICENSE. No icon CDN is loaded. Social marks identify their respective services and do not imply endorsement.
 
-The final site's self-hosted font notices are also present in `public/fonts/`. The separate profile synchronizer uses Telethon and pyaes (MIT), Pillow (MIT-CMU), rsa (Apache-2.0) and pyasn1 (BSD-2-Clause). Their pinned distributions include their original license files. These Python dependencies run separately and are not distributed in the static website build.
+The final site's self-hosted font notices are also present in `public/fonts/`. The removed synchronization services and their Python dependencies are not part of this revision. Their earlier code and licensing records remain in Git history.
 
 ## Development tooling
 

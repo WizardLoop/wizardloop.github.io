@@ -1,15 +1,10 @@
 {
-  "source": "Telegram public profile still",
   "avatar": "/media/profile/avatar.jpg",
-  "video": null,
-  "poster": "/media/profile/poster.jpg",
   "bio": "Independent designer, illustrator & animator. Expressive characters. Playful visuals. Unexpected loops.",
-  "bioSource": "Telegram public profile",
-  "syncedAt": "2026-10-27",
-  "checkedAt": "2026-10-27",
-  "status": "public-snapshot",
-  "posterSource": "public-profile-still",
+  "assetOrigin": "WizardLoop public Telegram profile, saved locally on 2026-10-27",
+  "verifiedAt": "2026-10-27",
+  "maintenance": "Edit this local file and replace avatar.jpg when needed. No synchronization or remote requests.",
   "width": 320,
   "height": 320,
-  "mediaNote": "Public still verified on 2026-10-27. Current primary original image or video has not been authenticated with MTProto."
+  "mediaNote": "Manually maintained profile artwork. Not a live Telegram profile."
 }

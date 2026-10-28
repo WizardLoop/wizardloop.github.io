@@ -1,5 +1,7 @@
 # Repository audit - Phase 1
 
+> Historical Phase 1 record. The owner chose a static, link-based site on 2026-10-28. Integration proposals and operational assumptions below are superseded; retain this report for dated observations and asset provenance. See [README](../README.md), [deployment](DEPLOYMENT.md) and [current boundaries](QA-INTEGRATIONS.md) for the maintained architecture.
+
 Reviewed on 2026-10-27 (Asia/Jerusalem). Scope: `WizardLoop/wizardloop.github.io` only. All original tracked files were read. Remote inspection used read-only GitHub connector calls and public HTTP observations. No repository settings, DNS, Pages source, production deployment, tags or releases were changed.
 
 ## Baseline and repository identity
