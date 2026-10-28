@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/favicon.svg" width="80" height="80" alt="My WizardLoop emblem">
+  <img src="public/apple-touch-icon.png" width="80" height="80" alt="My WizardLoop illustration">
 </p>
 
 <h1 align="center">WizardLoop</h1>
