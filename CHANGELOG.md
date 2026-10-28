@@ -10,6 +10,7 @@ This file records repository changes. A heading does not mean a Git tag, GitHub 
 - Add Home, About, Selected Work, Projects, Posts, Community, Feedback, Privacy, Cookies, Security, Accessibility and a custom 404 page.
 - Add responsive navigation, light and dark themes, persistent preferences, keyboard controls, motion pause and reduced-motion behavior.
 - Return the hero to a still preview when a native decoder stops unexpectedly, while preserving intentional user and visibility pauses.
+- Detect a frozen native-video clock even when the decoder still reports playback, and avoid false failures after delayed timer callbacks.
 - Include 30 original wizard animations and six flag samples, unchanged source TGS files, transparent posters and provenance manifests.
 - Add page-specific metadata, structured data, static social artwork, favicons, sitemap output and domain-preserving builds.
 
@@ -19,6 +20,7 @@ This file records repository changes. A heading does not mean a Git tag, GitHub 
 - Add consent-gated Telegram posts and a separately configured supported-update ingestion path. Original Telegram links remain available when embedded media is incomplete.
 - Add a feedback Worker and local mock, server validation, Turnstile verification, private-chat setup and provider-mocked tests.
 - Add source/build checks, browser coverage, accessibility checks, quality CI and an approval-gated manual Pages workflow.
+- Correct the canvas media fixture, measure native loop capability independently from application code, and record actual encoded AVC metadata.
 - Document setup, content editing, service limitations, asset rights, contribution, security reporting and release/rollback procedures.
 
 ### Review status

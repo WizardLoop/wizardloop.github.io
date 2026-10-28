@@ -14,6 +14,7 @@ import { createHash } from 'node:crypto';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const bitrate = 2000000;
+const requestedCodec = 'avc1.42001F';
 const output = path.join(root, 'public/media/hero');
 
 // AVC-only ISO BMFF: one video track, no B-frames, one chunk.
@@ -281,14 +282,14 @@ try {
     ]),
   );
   const support = await page.evaluate(
-    async (bitrate) => ({
+    async ({ bitrate, requestedCodec }) => ({
       secure: isSecureContext,
       encoder: typeof VideoEncoder,
       configs:
         typeof VideoEncoder === 'undefined'
           ? []
           : await Promise.all(
-              ['avc1.42001F', 'avc1.640028'].map((codec) =>
+              [requestedCodec, 'avc1.640028'].map((codec) =>
                 VideoEncoder.isConfigSupported({
                   codec,
                   width: 768,
@@ -301,7 +302,7 @@ try {
               ),
             ),
     }),
-    bitrate,
+    { bitrate, requestedCodec },
   );
   console.log(JSON.stringify({ support }));
   if (support.encoder === 'undefined' || !support.configs[0]?.supported)
@@ -312,7 +313,7 @@ try {
   ]) {
     const start = Date.now();
     const encoded = await page.evaluate(
-      async ({ color, bitrate }) => {
+      async ({ color, bitrate, requestedCodec }) => {
         const chunks = [],
           canvas = document.querySelector('#target'),
           context = canvas.getContext('2d', { alpha: false });
@@ -338,7 +339,7 @@ try {
           },
         });
         encoder.configure({
-          codec: 'avc1.42001F',
+          codec: requestedCodec,
           width: 768,
           height: 768,
           bitrate,
@@ -371,7 +372,7 @@ try {
         context.drawImage(document.querySelector('#source canvas'), 0, 0);
         return { chunks, description };
       },
-      { color, bitrate },
+      { color, bitrate, requestedCodec },
     );
     await page
       .locator('#target')
@@ -388,7 +389,14 @@ try {
       )
     )
       throw Error('Unexpected AVC frame ordering');
-    const mp4 = mux(chunks, Buffer.from(encoded.description), 768, 768);
+    const avcConfiguration = Buffer.from(encoded.description);
+    if (avcConfiguration.length < 4 || avcConfiguration[0] !== 1)
+      throw new Error('Invalid AVC decoder configuration.');
+    // The encoder may choose a different level from the requested configuration.
+    // Report the profile, compatibility flags and level actually stored in avcC.
+    const codec =
+      'avc1.' + avcConfiguration.subarray(1, 4).toString('hex').toUpperCase();
+    const mp4 = mux(chunks, avcConfiguration, 768, 768);
     const name = `portal-${theme}.mp4`;
     await fs.writeFile(path.join(out, name), mp4);
     publicFiles.set('/' + name, mp4);
@@ -446,12 +454,13 @@ try {
       Math.abs(playback.currentTime - 25 / 30) > 0.001
     )
       throw new Error('Encoded video metadata or seeking failed.');
-    generated.push({ name, bytes: mp4 });
+    generated.push({ name, bytes: mp4, codec });
     const result = {
       theme,
       color,
       bitrate,
-      codec: 'H264 AVC baseline',
+      codec,
+      requestedCodec,
       width: 768,
       height: 768,
       fps: 30,
@@ -465,6 +474,8 @@ try {
     console.log(JSON.stringify(result));
   }
   if (errors.length) throw new Error('Browser rendering failed.');
+  if (new Set(generated.map((file) => file.codec)).size !== 1)
+    throw new Error('Theme variants have different AVC configurations.');
   await fs.writeFile(
     path.join(out, 'report.json'),
     JSON.stringify({ support, results, errors }, null, 2) + '\n',
@@ -486,7 +497,8 @@ try {
     renderer: 'lottie-web 5.13.0 light Canvas',
     encoder: 'Chromium WebCodecs AVC',
     browser: browser.version(),
-    codec: 'avc1.42001F',
+    codec: generated[0].codec,
+    requestedCodec,
     fps: 30,
     frames: 72,
     durationMs: 2400,

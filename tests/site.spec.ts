@@ -522,33 +522,156 @@ test('reduced motion avoids animation payloads and external providers @motion', 
   expect(activeMedia).toBe(0);
 });
 
-test('native hero video plays, pauses, resumes and follows the selected theme @motion', async ({
+test('native hero verifies loop support, controls and real fallback @motion', async ({
   page,
   browserName,
   request,
-}) => {
-  test.skip(
-    browserName === 'webkit' && process.platform === 'win32',
-    'Windows WebKit Media Foundation stops native looping after one cycle, reproduced with a minimal video element. Its dedicated real-media test verifies the graceful still fallback; uninterrupted looping is not verified on this platform.',
-  );
-  const supportsH264 = await page.evaluate(() =>
-    document
-      .createElement('video')
-      .canPlayType('video/mp4; codecs="avc1.42E01E"'),
+  baseURL,
+}, info) => {
+  const manifestResponse = await request.get('/media/hero/manifest.json');
+  expect(manifestResponse.ok()).toBe(true);
+  const manifest = await manifestResponse.json();
+  const supportsH264 = await page.evaluate(
+    (codec) =>
+      document
+        .createElement('video')
+        .canPlayType(`video/mp4; codecs="${codec}"`),
+    manifest.codec,
   );
   test.skip(
     !supportsH264,
     'This browser installation does not advertise H.264 playback.',
   );
+
+  // Probe the real clip without site code before deciding whether this native
+  // media backend can sustain its loop. A decoded first frame is insufficient.
+  await page.route('**/__qa_native_loop_probe__', (route) =>
+    route.fulfill({
+      contentType: 'text/html',
+      body: '<!doctype html><html lang="en"><body><video id="native-loop-probe" width="256" height="256" muted loop playsinline></video></body></html>',
+    }),
+  );
+  await page.goto('/__qa_native_loop_probe__');
+  await page.evaluate((source) => {
+    const video = document.querySelector<HTMLVideoElement>('video')!;
+    const samples: {
+      at: number;
+      time: number;
+      paused: boolean;
+      readyState: number;
+      error: number | null;
+    }[] = [];
+    const probe = {
+      samples,
+      firstProgressAt: 0,
+      lastProgressAt: 0,
+      lastTime: 0,
+      playError: '',
+      startedAt: performance.now(),
+    };
+    (window as Window & { qaNativeProbe?: typeof probe }).qaNativeProbe = probe;
+    video.muted = true;
+    video.src = source;
+    window.setInterval(() => {
+      const at = performance.now();
+      const time = video.currentTime;
+      if (Math.abs(time - probe.lastTime) > 0.01) {
+        if (!probe.firstProgressAt && time > 0.05) probe.firstProgressAt = at;
+        probe.lastProgressAt = at;
+        probe.lastTime = time;
+      }
+      samples.push({
+        at,
+        time,
+        paused: video.paused,
+        readyState: video.readyState,
+        error: video.error?.code || null,
+      });
+      if (samples.length > 200) samples.shift();
+    }, 100);
+    void video.play().catch((error: DOMException) => {
+      probe.playError = error.name;
+    });
+  }, new URL('/media/hero/portal-light.mp4', baseURL).href);
+  const probeVideo = page.locator('#native-loop-probe');
+  await expect
+    .poll(
+      () =>
+        page.evaluate(
+          () =>
+            (window as Window & { qaNativeProbe?: { firstProgressAt: number } })
+              .qaNativeProbe?.firstProgressAt || 0,
+        ),
+      { timeout: 15_000 },
+    )
+    .toBeGreaterThan(0);
+  const probeDuration = await probeVideo.evaluate(
+    (video) => (video as HTMLVideoElement).duration,
+  );
+  expect(probeDuration).toBeCloseTo(2.4, 1);
+  await page.waitForTimeout(probeDuration * 1000 + 1200);
+  const capability = await page.evaluate(() => {
+    const video = document.querySelector<HTMLVideoElement>('video')!;
+    const probe = (
+      window as Window & {
+        qaNativeProbe?: {
+          samples: {
+            at: number;
+            time: number;
+            paused: boolean;
+            readyState: number;
+            error: number | null;
+          }[];
+          firstProgressAt: number;
+          lastProgressAt: number;
+          playError: string;
+          startedAt: number;
+        };
+      }
+    ).qaNativeProbe!;
+    return {
+      ...probe,
+      observedAt: performance.now(),
+      paused: video.paused,
+      currentTime: video.currentTime,
+      readyState: video.readyState,
+      duration: video.duration,
+      error: video.error?.code || null,
+    };
+  });
+  await info.attach('bare-native-loop-capability', {
+    body: JSON.stringify(capability, null, 2),
+    contentType: 'application/json',
+  });
+  expect(capability.playError).toBe('');
+  expect(capability.error).toBeNull();
+  expect(capability.observedAt - capability.firstProgressAt).toBeGreaterThan(
+    probeDuration * 1000,
+  );
+  const loopingSupported =
+    !capability.paused &&
+    capability.observedAt - capability.lastProgressAt < 900;
+
   await page.goto('/');
   const art = page.locator('[data-native-hero]');
   const video = art.locator('[data-hero-video]');
+  if (!loopingSupported) {
+    info.annotations.push({
+      type: 'platform',
+      description: `${browserName} on ${process.platform}: the bare local MP4 decoded and advanced, then ${capability.paused ? 'paused' : 'stalled while unpaused'} across its first loop. This case verifies the real application still fallback; uninterrupted native looping is unsupported in this measured environment.`,
+    });
+    await expect(art).toHaveAttribute('data-state', 'unavailable', {
+      timeout: 15_000,
+    });
+    await expect(art).toHaveAttribute('data-playing', 'false');
+    await expect(art).toHaveAttribute('aria-label', /Motion unavailable/);
+    await expect(video).toBeHidden();
+    await expect(art.locator('.art-poster')).toBeVisible();
+    return;
+  }
   await expect(art).toHaveAttribute('data-state', 'ready', { timeout: 25_000 });
   await expect(art).toHaveAttribute('data-playing', 'true');
   await expect(video).toHaveAttribute('src', '/media/hero/portal-light.mp4');
-  const manifestResponse = await request.get('/media/hero/manifest.json');
-  expect(manifestResponse.ok()).toBe(true);
-  const manifest = await manifestResponse.json();
   expect(manifest.width).toBe(768);
   expect(manifest.height).toBe(768);
   const properties = await video.evaluate((element) => {
@@ -631,6 +754,48 @@ test('unexpected native playback pause retains a clear still fallback @motion', 
   await expect(video).toBeHidden();
   await expect(art.locator('.art-poster')).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-motion', 'running');
+});
+
+test('hero stall monitor preserves intentional pause and detects an unpaused frozen timeline @motion', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const art = page.locator('[data-native-hero]');
+  const video = art.locator('[data-hero-video]');
+  await expect(art).toHaveAttribute('data-state', 'ready', { timeout: 25_000 });
+  await page.locator('[data-motion-toggle]').click();
+  await expect(video).toHaveJSProperty('paused', true);
+  await page.waitForTimeout(5000);
+  await expect(art).toHaveAttribute('data-state', 'ready');
+  await expect(art).toHaveAttribute('data-playing', 'false');
+  await expect(art).not.toHaveAttribute('aria-label', /unavailable/);
+  await page.locator('[data-motion-toggle]').click();
+  await expect(art).toHaveAttribute('data-playing', 'true');
+  // Model a decoder with no time progress and an incorrect paused=false flag.
+  // The real native pause silences decoding, while the observable contract
+  // remains the stalled-unpaused state seen in the Linux CI failure.
+  await video.evaluate((element) => {
+    const media = element as HTMLVideoElement;
+    const frozen = media.currentTime;
+    Object.defineProperty(media, 'paused', {
+      configurable: true,
+      get: () => false,
+    });
+    Object.defineProperty(media, 'currentTime', {
+      configurable: true,
+      get: () => frozen,
+    });
+    media.pause();
+  });
+  await expect(video).toHaveJSProperty('paused', false);
+  await expect(art).toHaveAttribute('data-state', 'ready');
+  await expect(art).toHaveAttribute('data-state', 'unavailable', {
+    timeout: 8000,
+  });
+  await expect(art).toHaveAttribute('data-playing', 'false');
+  await expect(art).toHaveAttribute('aria-label', /Motion unavailable/);
+  await expect(video).toBeHidden();
+  await expect(art.locator('.art-poster')).toBeVisible();
 });
 
 if (process.platform === 'win32') {
@@ -957,13 +1122,13 @@ test('video pause/resume and reduced motion using a local canvas-stream fixture 
     !supported,
     'This browser does not support the local canvas media fixture; real Telegram video remains an integration test.',
   );
-  await page.evaluate(async () => {
+  await page.evaluate(() => {
     const canvas = document.createElement('canvas');
     canvas.width = 16;
     canvas.height = 16;
     const context = canvas.getContext('2d')!;
-    context.fillStyle = '#7751d4';
-    context.fillRect(0, 0, 16, 16);
+    const stream = canvas.captureStream(10);
+    const track = stream.getVideoTracks()[0] as CanvasCaptureMediaStreamTrack;
     const video = document.createElement('video');
     video.id = 'qa-profile-video-fixture';
     video.dataset.profileVideo = '';
@@ -972,16 +1137,56 @@ test('video pause/resume and reduced motion using a local canvas-stream fixture 
     video.width = 16;
     video.height = 16;
     video.setAttribute('aria-label', 'Local QA media fixture');
-    video.srcObject = canvas.captureStream(1);
+    video.srcObject = stream;
+    video.dataset.qaPlay = 'pending';
     document.querySelector('main')!.append(video);
-    await video.play();
+    // Capture starts before drawing. A static pre-capture canvas can produce
+    // no frames on WebKit, leaving its play() promise pending indefinitely.
+    let frame = 0;
+    const paint = () => {
+      context.fillStyle = frame++ % 2 ? '#7751d4' : '#d7c6ff';
+      context.fillRect(0, 0, 16, 16);
+      track.requestFrame?.();
+    };
+    paint();
+    const timer = window.setInterval(paint, 100);
+    (
+      window as Window & { qaProfileFixtureCleanup?: () => void }
+    ).qaProfileFixtureCleanup = () => {
+      window.clearInterval(timer);
+      stream.getTracks().forEach((source) => source.stop());
+    };
+    void video.play().then(
+      () => {
+        video.dataset.qaPlay = 'resolved';
+      },
+      (error: DOMException) => {
+        video.dataset.qaPlay = `rejected:${error.name}`;
+      },
+    );
   });
   const video = page.locator('#qa-profile-video-fixture');
+  await expect(video).toHaveAttribute('data-qa-play', 'resolved', {
+    timeout: 10_000,
+  });
+  await expect
+    .poll(() =>
+      video.evaluate((element) => (element as HTMLVideoElement).readyState),
+    )
+    .toBeGreaterThanOrEqual(2);
   await expect
     .poll(() =>
       video.evaluate((element) => (element as HTMLVideoElement).paused),
     )
     .toBe(false);
+  const firstTime = await video.evaluate(
+    (element) => (element as HTMLVideoElement).currentTime,
+  );
+  await expect
+    .poll(() =>
+      video.evaluate((element) => (element as HTMLVideoElement).currentTime),
+    )
+    .toBeGreaterThan(firstTime + 0.05);
   await page.locator('[data-motion-toggle]').click();
   await expect
     .poll(() =>
@@ -994,12 +1199,25 @@ test('video pause/resume and reduced motion using a local canvas-stream fixture 
       video.evaluate((element) => (element as HTMLVideoElement).paused),
     )
     .toBe(false);
+  const resumedTime = await video.evaluate(
+    (element) => (element as HTMLVideoElement).currentTime,
+  );
+  await expect
+    .poll(() =>
+      video.evaluate((element) => (element as HTMLVideoElement).currentTime),
+    )
+    .toBeGreaterThan(resumedTime + 0.05);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect
     .poll(() =>
       video.evaluate((element) => (element as HTMLVideoElement).paused),
     )
     .toBe(true);
+  await page.evaluate(() =>
+    (
+      window as Window & { qaProfileFixtureCleanup?: () => void }
+    ).qaProfileFixtureCleanup?.(),
+  );
 });
 
 async function fixtureTelegram(page: Page) {

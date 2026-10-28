@@ -31,6 +31,25 @@ Before publication:
 
 Any needed Pages-source, domain, HTTPS, environment-protection or DNS change is a separate concrete infrastructure change for approval. This rebuild does not require a DNS change.
 
+## What the owner should prepare in GitHub
+
+Prepare these values and review the current settings before the final approval. Do not change the production source or merge a publishing branch during preparation.
+
+| Location | Required preparation |
+| --- | --- |
+| Settings > Pages | Record the current publishing source. The prepared Astro workflow expects **GitHub Actions** at publication time. If Pages currently publishes a branch, resolve that transition before merging. Preserve the existing `wizardloop.com` custom domain and verify HTTPS. |
+| Settings > Environments > github-pages | Review branch restrictions and any required reviewer. Limit production deployment to the reviewed `main` branch; the manual confirmation field is not an access-control boundary. |
+| Settings > Actions > General | Allow the repository's checked-in GitHub Actions. The workflow declares its permissions; a personal access token is not required for Pages deployment. |
+| Settings > Secrets and variables > Actions > Variables | If feedback will be enabled, prepare `PUBLIC_FEEDBACK_API_URL` including `/feedback`, and `PUBLIC_TURNSTILE_SITE_KEY`. Both are public values. Leave them empty until the separate Worker is configured and verified. |
+| Pull request checks | Require the current `check` and `profile-sync-tests` jobs to succeed on the commit being reviewed. Check the attached media capability evidence as well as the pass/fail totals. |
+| Recovery record | Retain the previously deployed artifact, its commit and current Pages/domain settings before the approved change. |
+
+The Pages source and environment behavior follow [GitHub's publishing-source guidance](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) and [custom-workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). These are preparation instructions, not a claim that the account settings have been inspected or changed.
+
+For feedback, prepare a Cloudflare Worker endpoint, a Managed Turnstile widget for `wizardloop.com`, a dedicated Telegram bot and a verified private numeric Chat ID using [the setup guide](FEEDBACK-SETUP.md). Keep `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `TURNSTILE_SECRET_KEY` and `RATE_LIMIT_SALT` in Worker secrets, outside GitHub Pages. Never send those values in a PR or commit them.
+
+Automatic profile/posts synchronization additionally needs a separate private host, its service credentials and a reviewed method for delivering validated snapshots into the site build. The prepared schedules do not publish new snapshots to Pages. With no integrations activated, the static site retains its existing snapshots, Telegram links and an unavailable feedback form; approving publication does not make those integrations live.
+
 ## Manual Pages workflow
 
 `.github/workflows/ci.yml` runs quality checks on pull requests or manual dispatch with read-only repository permissions. It cannot publish Pages. Its actual run result is evidence; the presence of the file does not mean CI passed.

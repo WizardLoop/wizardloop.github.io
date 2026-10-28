@@ -24,6 +24,19 @@ These PNGs were captured from the built site with Playwright, with motion paused
 
 ## Browser acceptance
 
+### PR CI follow-up, 2026-10-28
+
+The [first PR quality run](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40461052552) on Ubuntu 24.04 recorded **137 browser tests passed and 2 failed**. Formatting, source checks, typechecking, build, feedback unit tests and both Python test suites passed. The failures were confined to native-media tests in Linux WebKit:
+
+- The hero advanced through its first clip, then its clock stopped while `paused` remained `false`. Listening only for `pause` and `error` missed that state. A lightweight progress monitor now returns to the labeled still preview after four seconds of observed nonprogress. It stops while motion is disabled, the hero is offscreen, the document is hidden, or the page is suspended. A long timer scheduling gap resets observation rather than misclassifying a busy main thread.
+- The canvas-stream fixture painted before capture started and never produced another frame. Its unbounded `play()` wait timed out. The fixture now paints after capture starts, keeps producing frames, and uses bounded playback and clock assertions.
+
+The native-media test now first measures the same MP4 in a bare video element without site code, attaching its timeline to the report. If that independent probe sustains playback, the full loop, theme and pause/resume assertions remain required. If it demonstrably stops or stalls, the test explicitly verifies the real site's still fallback and records the unsupported native loop in a platform annotation. It does not report fallback as successful uninterrupted playback. A separate frozen-clock fixture verifies the new monitor and preserves an intentional pause longer than its deadline.
+
+The AVC manifest also now records the encoded codec `avc1.424029`, independently of the encoder's requested `avc1.42001F`; the original MP4 bytes are unchanged. Review the latest PR check run for the remote result of these corrections. The local results below describe the earlier review and remain historical evidence.
+
+### Earlier local browser review, 2026-10-27
+
 The complete serial run recorded **129 passed, 6 failed and 1 skipped** across 136 cases. Follow-up checks corrected no-JavaScript/HTML-attribute test assumptions, exposed the Windows native looping failure described below, and verified its graceful fallback after the application fix. The final affected-behavior run recorded **15 passed, 0 failed and 1 explicitly unsupported check** across 16 cases.
 
 The latest result for each case is **138 passed, 0 unresolved failures and 2 skipped** across 140 unique engine/test combinations: Chromium 69 passed, Firefox 35 passed, and Windows WebKit 34 passed with 2 explicit limitations. This combines the complete run and focused rechecks; it is **not** a claim that a fresh complete local run was green. [The machine-readable summary](qa/browser-summary.json) preserves all six run histories and their failures. Full reports remain in `artifacts/final/`.
@@ -59,7 +72,7 @@ Lighthouse **13.5.0**, mobile simulation, built local preview, three sequential 
 
 Accessibility, Best Practices and SEO scored 100 in every one of these samples. Performance medians meet the 90+ target, but **not every run does**. Home and Posts had substantially slower initial-render outliers in the first run. Local machine and rendering variability remain material; these are lab results, not field Core Web Vitals or a guarantee of production performance. Median metrics are calculated individually rather than taken from one selected run.
 
-These samples include the final performance changes. The first precedes the paused-menu CSS fix; later tooltip hover/Escape fixes do not alter the initial, unfocused rendering path. The subsequent native-pause fallback is event-driven and adds no timer or initial media request. No audit-specific user-agent detection, animation suppression or benchmark delay is used.
+These samples include the original performance changes. The first precedes the paused-menu CSS fix; later tooltip hover/Escape fixes do not alter the initial, unfocused rendering path. The subsequent native-pause fallback was event-driven. The PR follow-up adds a 500ms progress sample only during permitted native playback; these Lighthouse measurements predate that monitor and are not a fresh benchmark of it. No audit-specific user-agent detection, animation suppression or benchmark delay is used.
 
 ### Improvements supported by measurements
 

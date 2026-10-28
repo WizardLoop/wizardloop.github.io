@@ -7,6 +7,10 @@ export function mountHero(node: HTMLElement) {
   let visible = false;
   let selected = '';
   let suspended = false;
+  let progressTimer: number | undefined;
+  let lastTime = 0;
+  let lastProgress = 0;
+  let lastSample = 0;
   video.muted = true;
   const allowed = () =>
     visible &&
@@ -18,7 +22,47 @@ export function mountHero(node: HTMLElement) {
     video!.getAttribute('src') === selected &&
     video!.currentSrc === new URL(selected, document.baseURI).href;
 
+  function stopProgressWatch() {
+    window.clearTimeout(progressTimer);
+    progressTimer = undefined;
+  }
+
+  function watchProgress() {
+    if (progressTimer !== undefined || !allowed() || video!.paused) return;
+    lastTime = video!.currentTime;
+    lastSample = lastProgress = performance.now();
+    const sample = () => {
+      progressTimer = undefined;
+      if (
+        !allowed() ||
+        !isCurrentSource() ||
+        node.dataset.state !== 'ready' ||
+        video!.paused
+      )
+        return;
+      const currentTime = video!.currentTime;
+      const now = performance.now();
+      // A delayed timer may miss entire healthy loops. Require continuously
+      // observed nonprogress rather than treating a busy main thread as failure.
+      if (now - lastSample > 1500) lastProgress = now;
+      lastSample = now;
+      if (Math.abs(currentTime - lastTime) > 0.001) {
+        lastTime = currentTime;
+        lastProgress = now;
+      } else if (now - lastProgress >= 4000) {
+        // Some decoders stall at a loop boundary without pause/error events.
+        // A "playing" flag alone must not leave a frozen frame presented as motion.
+        failed.add(selected);
+        unavailable();
+        return;
+      }
+      progressTimer = window.setTimeout(sample, 500);
+    };
+    progressTimer = window.setTimeout(sample, 500);
+  }
+
   function unavailable() {
+    stopProgressWatch();
     video!.pause();
     video!.hidden = true;
     node.dataset.state = 'unavailable';
@@ -34,6 +78,7 @@ export function mountHero(node: HTMLElement) {
       document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
     const source = `/media/hero/portal-${theme}.mp4`;
     if (selected !== source) {
+      stopProgressWatch();
       video!.pause();
       node.dataset.state = 'poster';
       node.dataset.playing = 'false';
@@ -48,6 +93,7 @@ export function mountHero(node: HTMLElement) {
       return;
     }
     if (!allowed()) {
+      stopProgressWatch();
       video!.pause();
       return;
     }
@@ -58,6 +104,7 @@ export function mountHero(node: HTMLElement) {
     // Playback may be denied by browser policy. The still stays useful and the
     // visitor can explicitly resume from the persistent motion control.
     void video!.play().catch(() => {});
+    if (node.dataset.state === 'ready') watchProgress();
   }
 
   video.addEventListener('playing', () => {
@@ -65,9 +112,11 @@ export function mountHero(node: HTMLElement) {
     node.dataset.state = 'ready';
     node.dataset.playing = 'true';
     node.setAttribute('aria-label', description);
+    watchProgress();
   });
   video.addEventListener('pause', () => {
     if (!video.paused) return;
+    stopProgressWatch();
     node.dataset.playing = 'false';
     // A native decoder can stop a looping clip without an error event. Our own
     // pauses first change permission or source state, so they keep their frame.
@@ -96,6 +145,7 @@ export function mountHero(node: HTMLElement) {
   document.addEventListener('visibilitychange', reconcile);
   window.addEventListener('pagehide', () => {
     suspended = true;
+    stopProgressWatch();
     video.pause();
   });
   window.addEventListener('pageshow', () => {
