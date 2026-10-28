@@ -1,5 +1,7 @@
 # Integration feasibility - Phase 1
 
+> Historical Phase 1 record. The owner chose a static, link-based site on 2026-10-28. Integration proposals and operational assumptions below are superseded; retain this report for dated observations and asset provenance. See [README](../README.md), [deployment](DEPLOYMENT.md) and [current boundaries](QA-INTEGRATIONS.md) for the maintained architecture.
+
 Reviewed on 2026-10-27 (Asia/Jerusalem). This is research for local design review. No remote settings, deployments, credentials, webhooks, sessions, releases or production content were changed. Integration proposals below are not implemented or end-to-end tested.
 
 ## Findings that affect design approval

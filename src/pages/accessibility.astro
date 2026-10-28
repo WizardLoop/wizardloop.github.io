@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 
 <Base
   title="Accessibility"
-  description="WizardLoop's accessibility features, WCAG 2.2 AA technical target, known third-party limitations and ways to report a barrier."
+  description="WizardLoop's accessibility features, WCAG 2.2 AA technical target, known testing limitations and ways to report a barrier."
 >
   <section class="wrap prose-page">
     <header class="page-intro">
@@ -19,7 +19,7 @@ import Base from '../layouts/Base.astro';
         across different devices and access needs.
       </p>
       <p>
-        Reviewed <time datetime="2026-10-27">27 October 2026</time>.
+        Reviewed <time datetime="2026-10-28">28 October 2026</time>.
       </p>
     </header>
     <div class="prose">
@@ -46,8 +46,8 @@ import Base from '../layouts/Base.astro';
       <ul>
         <li>Semantic page sections, headings and a Skip to content link.</li>
         <li>
-          Keyboard-operable navigation, links, form fields and controls with
-          visible focus indicators.
+          Keyboard-operable navigation, links and controls with visible focus
+          indicators.
         </li>
         <li>
           A mobile menu with focus management, Escape to close and focus
@@ -66,10 +66,6 @@ import Base from '../layouts/Base.astro';
           illustrations.
         </li>
         <li>
-          Form labels, required-field information and status messages intended
-          for assistive technology.
-        </li>
-        <li>
           Appropriate language and direction handling, including Hebrew content
           where it appears.
         </li>
@@ -83,20 +79,15 @@ import Base from '../layouts/Base.astro';
       </p>
       <p>
         The header's motion control pauses the site's repeated animation. Your
-        operating system's reduced-motion preference is respected. Pausing also
-        unloads optional Telegram embeds, because their internal animation
-        cannot be reliably controlled from this site. Original post links remain
-        available.
+        operating system's reduced-motion preference is respected. Local artwork
+        has still previews when motion is paused or playback is unavailable.
       </p>
 
       <h2>Known limitations</h2>
       <p>
-        Telegram embeds and the configured Cloudflare Turnstile challenge are
-        third-party interfaces. Their markup, keyboard behavior, media playback
-        and screen-reader output are not fully under my control. Telegram may
-        also omit some media or formatting available in its own apps. You can
-        decline embeds, open original posts, or use the contact alternatives
-        below.
+        Telegram and GitHub open as separate websites. Their accessibility and
+        media playback are outside this website's control. You can choose email
+        instead of Telegram for direct contact.
       </p>
       <p>
         A complete human screen-reader audit has not been performed. Automated
@@ -105,10 +96,9 @@ import Base from '../layouts/Base.astro';
         accessibility score or legal compliance claim is made here.
       </p>
       <p>
-        The feedback form can be unavailable when its external service is not
-        configured or is temporarily failing. Email and direct Telegram contact
-        remain alternatives. If one of those channels is difficult to use,
-        describe your preferred way to receive a response.
+        The contact page provides direct Telegram and email links without a form
+        or verification challenge. If one channel is difficult to use, choose
+        the other and describe your preferred way to receive a response.
       </p>
 
       <h2>Report an accessibility barrier</h2>

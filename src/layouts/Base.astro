@@ -116,6 +116,13 @@ const schema = {
       type="font/woff2"
       crossorigin
     />
+    <link
+      rel="preload"
+      href="/fonts/manrope-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
   </head>
   <body id="top">
     <a class="skip-link" href="#main" tabindex="0">
@@ -255,14 +262,18 @@ const schema = {
           </a>
           <a href={site.links.telegram}>
             <Icon name="telegram" size={18} />
-            Contact me
+            Message me
+          </a>
+          <a href={`mailto:${site.email}`}>
+            <Icon name="mail" size={18} />
+            Email me
           </a>
         </div>
         <div class="footer-nav">
           <h2>A good web</h2>
           <a href="/feedback/">
             <Icon name="mail" size={18} />
-            Feedback
+            Contact
           </a>
           <a href="/accessibility/">Accessibility</a>
           <a href="/privacy/">Privacy & cookies</a>
@@ -271,9 +282,7 @@ const schema = {
       </div>
       <div class="footer-bottom wrap">
         <span>© 2026 WizardLoop. All rights reserved.</span>
-        <button class="text-button" data-privacy-open>
-          Privacy preferences
-        </button>
+        <a href="/cookies/">Cookies & storage</a>
         <a href={site.links.source}>
           <Icon name="code" size={17} />
           Website source
@@ -284,45 +293,6 @@ const schema = {
         their respective rights.
       </p>
     </footer>
-    <dialog
-      class="privacy-dialog"
-      id="privacy-dialog"
-      aria-labelledby="privacy-title"
-    >
-      <div class="dialog-heading">
-        <h2 id="privacy-title">Your privacy, your choice.</h2>
-        <button
-          class="icon-button"
-          data-privacy-close
-          aria-label="Close privacy preferences"
-        >
-          <Icon name="close" />
-        </button>
-      </div>
-      <p>
-        This site does not use advertising or analytics. Theme and motion
-        preferences stay in your browser.
-      </p>
-      <label class="consent-option">
-        <input type="checkbox" id="telegram-consent" />
-        <span>
-          <strong>Load Telegram posts</strong>
-          <br />
-          Telegram receives your connection information and may store cookies
-          when its embeds load. Animated content is controlled by Telegram.
-        </span>
-      </label>
-      <p class="small-text">
-        You can read every post in Telegram without enabling embeds here.
-        Revoking permission removes loaded embeds.
-      </p>
-      <button class="button" data-privacy-save>
-        Save preferences <Icon name="check" size={18} />
-      </button>
-      <a class="text-link" href="/privacy/">
-        Read the privacy policy
-      </a>
-    </dialog>
     <div
       class="sr-only"
       role="status"

@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 
 <Base
   title="Cookies & storage"
-  description="The local preferences WizardLoop saves, how optional Telegram embeds work, and how to change or remove your choices."
+  description="WizardLoop remembers only your local theme and motion choices. No analytics, advertising cookies or embedded social feeds."
 >
   <section class="wrap prose-page">
     <header class="page-intro">
@@ -12,92 +12,57 @@ import Base from '../layouts/Base.astro';
       <h1>
         A few preferences.
         <br />
-        No analytics.
+        No tracking scripts.
       </h1>
       <p>
-        This site does not add advertising or analytics cookies. It uses local
-        browser storage for choices you make and asks before loading optional
-        Telegram content.
-      </p>
-      <p>
-        Reviewed <time datetime="2026-10-27">27 October 2026</time>.
+        Updated <time datetime="2026-10-28">28 October 2026</time>.
       </p>
     </header>
     <div class="prose">
       <h2>What this website remembers</h2>
+      <p>
+        The website code does not set cookies. It uses two local-storage entries
+        for choices you make:
+      </p>
       <ul>
         <li>
-          <strong>Theme:</strong> your light or dark appearance choice.
+          <strong>Theme:</strong> light or dark appearance, stored as{' '}
+          <code>wizardloop-theme</code>.
         </li>
         <li>
-          <strong>Motion:</strong> whether you paused the site's animation. Your
-          system's reduced-motion setting is also respected.
-        </li>
-        <li>
-          <strong>Telegram preference:</strong> whether you chose to allow
-          optional embedded posts.
+          <strong>Motion:</strong> whether you paused animation, stored as{' '}
+          <code>wizardloop-motion</code>. Your system's reduced-motion
+          preference is also respected.
         </li>
       </ul>
       <p>
-        These values use local storage, which is different from a cookie but
-        still stores information in your browser. They are not used to create a
-        marketing profile. They remain until you change them or clear this
-        site's data. If storage is blocked, the site still works and preferences
-        may not persist.
+        Local storage is different from a cookie, but both store information in
+        your browser. These settings remain until you change them or clear this
+        website's data. They are not used to identify visitors or build a
+        marketing profile. If storage is unavailable, the site remains usable
+        and your choices may apply only to the current visit.
       </p>
-
-      <h2>External services</h2>
+      <h2>No embedded services</h2>
       <p>
-        Optional Telegram embeds stay unloaded until you choose to enable them.
-        Telegram can then process connection information and use its own cookies
-        or storage. You can leave embeds disabled and open the original post
-        separately. The{' '}
-        <a href="https://telegram.org/privacy">Telegram Privacy Policy</a>{' '}
-        describes its practices.
+        The site has no advertising, analytics, social widgets, CAPTCHA or
+        embedded Telegram feed. It does not need a banner asking permission to
+        load those features. Links to Telegram and GitHub take you to their
+        websites only when you choose to follow them; their own storage and
+        privacy rules then apply.
       </p>
+      <h2>Change or clear your choices</h2>
       <p>
-        When the feedback form is configured, Cloudflare Turnstile provides an
-        anti-abuse check. Its explanation appears before loading the check. It
-        is not an analytics or advertising integration; Cloudflare still
-        processes technical information needed for its service. See{' '}
-        <a href="https://www.cloudflare.com/privacypolicy/">
-          Cloudflare's Privacy Policy
-        </a>
-        .
+        Use the theme and motion buttons in the header. To reset all saved
+        choices, clear the data for <strong>wizardloop.com</strong> in your
+        browser's site settings. An older version's Telegram preference, if
+        present, is no longer read or used and is removed when you clear the
+        site's data.
       </p>
       <p>
-        There is no blanket consent banner for features this site does not use.
-        Optional external posts have their own choice at the point where you
-        would load them.
-      </p>
-
-      <h2>Change your preferences</h2>
-      <p>
-        Use the theme and motion controls in the header to change those
-        settings. Use the Telegram preference control on the Posts page to
-        withdraw permission for embeds. Declining is available without
-        preventing access to the rest of the site.
-      </p>
-      <p>
-        <button class="button" type="button" data-privacy-open>
-          Manage external content
-        </button>
-      </p>
-      <p>
-        <a class="text-link" href="/posts/">
-          Visit the Posts page
-        </a>
-      </p>
-      <p>
-        You can also clear local storage and cookies through your browser's
-        site-data settings. Clearing this site's data resets its choices.
-        Telegram-owned cookies must be cleared for Telegram's domain, and
-        withdrawing permission does not reverse information already sent to a
-        provider.
-      </p>
-      <p>
-        For questions, see the <a href="/privacy/">Privacy Policy</a> or email{' '}
-        <a href="mailto:wizard@wizardloop.com">wizard@wizardloop.com</a>.
+        These statements describe the website code, not independent hosting
+        security logs or data stored by websites you visit through links. Read
+        the <a href="/privacy/">Privacy Policy</a> or{' '}
+        <a href="/feedback/">contact me</a> if you have a question.
       </p>
     </div>
   </section>

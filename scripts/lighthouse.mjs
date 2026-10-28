@@ -5,12 +5,14 @@ import { existsSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 const output = process.env.LIGHTHOUSE_OUTPUT || 'artifacts/lighthouse';
+const pages = (process.env.LIGHTHOUSE_PAGES || 'home,work,projects,posts,feedback').split(',');
+if (pages.some(page => !['home', 'work', 'projects', 'posts', 'feedback'].includes(page))) throw new Error('Unknown audit page');
 await mkdir(output, { recursive: true });
 const windowsChrome = join(homedir(), 'AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe');
 const chrome = await launch({ chromePath: process.env.CHROME_PATH || (process.platform === 'win32' && existsSync(windowsChrome) ? windowsChrome : undefined), chromeFlags: ['--headless', '--no-sandbox', '--disable-dev-shm-usage'] });
 const results = [];
 try {
-  for (const page of ['home', 'work', 'posts', 'feedback']) {
+  for (const page of pages) {
     const result = await lighthouse(`http://127.0.0.1:4322/${page === 'home' ? '' : page + '/'}`, { port: chrome.port, output: ['html', 'json'], logLevel: 'error', onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'] });
     await writeFile(`${output}/page-${page}.html`, result.report[0]);
     await writeFile(`${output}/page-${page}.json`, result.report[1]);

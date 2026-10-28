@@ -13,7 +13,8 @@ const chromiumExecutable =
   (process.platform === 'win32' && existsSync(windowsChromium)
     ? windowsChromium
     : undefined);
-const browserSmoke = /@smoke|@keyboard|@preferences|@privacy|@profile|@motion/;
+const browserSmoke =
+  /@smoke|@matrix|@keyboard|@preferences|@privacy|@profile|@motion/;
 
 export default defineConfig({
   testDir: './tests',
@@ -79,8 +80,7 @@ export default defineConfig({
       ? undefined
       : {
           command:
-            process.env.PLAYWRIGHT_WEB_SERVER_COMMAND ||
-            'npm run preview -- --host 127.0.0.1 --port 4322',
+            process.env.PLAYWRIGHT_WEB_SERVER_COMMAND || 'npm run preview',
           url: baseURL,
           reuseExistingServer: true,
           timeout: 120_000,

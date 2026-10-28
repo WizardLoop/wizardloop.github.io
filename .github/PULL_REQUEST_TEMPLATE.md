@@ -1,11 +1,13 @@
 ## What changes for visitors
 
-Describe the visible behavior and the reason for it. Link representative desktop/mobile screenshots when the interface changes.
+Describe the concrete behavior and reason for it. Include desktop/mobile screenshots for visual changes.
 
 ## Validation
 
-List commands actually run, measured results, and remaining limitations. Distinguish fixtures from authenticated service tests.
+List checks actually run, measured results and remaining limitations. Do not present older QA results as verification of this revision.
 
-## Deployment and privacy
+## Publication
 
-State whether credentials, content synchronization, third-party requests, public URLs or hosting settings are affected. Keep secrets and personal feedback out of this description. Merging or deploying requires the owner's explicit approval.
+Merging into `main` triggers the GitHub Pages workflow. Confirm that the change is ready for the owner to publish, preserves `wizardloop.com` and existing URLs, and includes any relevant rollback notes. A pull request does not itself merge or deploy the change.
+
+State any changes to external links, visitor data handling or hosting settings. Keep credentials and personal messages out of this description.

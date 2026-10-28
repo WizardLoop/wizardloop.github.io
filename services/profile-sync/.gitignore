@@ -1,7 +1,0 @@
-.venv/
-.deps/
-__pycache__/
-*.pyc
-test-output/
-*.session*
-.env*

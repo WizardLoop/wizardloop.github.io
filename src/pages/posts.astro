@@ -1,116 +1,91 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import posts from '../content/posts.json';
 import { site } from '../config/site';
-const syncedAt =
-  'lastSyncedAt' in posts ? String(posts.lastSyncedAt).slice(0, 10) : null;
+import '../styles/destinations.css';
 ---
 
 <Base
   title="Posts from the studio"
-  description="Follow original posts, animation drops and studio notes from WizardLoop's Telegram channel, with optional official Telegram embeds."
+  description="Read WizardLoop's posts on Telegram. Design, motion, creative experiments and notes from the making, in their original home."
 >
-  <section class="page-intro wrap">
-    <p class="eyebrow">NOTES FROM THE STUDIO / @WIZARD_LOOP</p>
-    <h1>
-      Fresh from
-      <br />
-      <span class="outlined-word">the loop.</span>
-    </h1>
-    <p>
-      Animation drops, experiments and a glimpse of the making. These links lead
-      to real channel posts. Load their official Telegram embeds when you want
-      to see more.
-    </p>
-    <a class="text-link" href={site.links.channel}>
-      <Icon name="telegram" />
-      Join the channel <Icon name="northeast" size={18} />
-    </a>
-  </section>
-  <section class="posts-shell wrap" data-telegram-feed>
-    <div class="embed-consent notice" hidden={posts.posts.length === 0}>
-      <div>
-        <h2>A small privacy pause.</h2>
+  <section class="destination-page destination-posts wrap">
+    <header class="destination-heading">
+      <p class="eyebrow">POSTS / NOTES FROM THE STUDIO</p>
+      <h1>
+        Fresh from
+        <br />
+        <em>the loop.</em>
+      </h1>
+      <p>
+        Thoughts, visual experiments and things in the making. Find the posts on
+        my Telegram channel.
+      </p>
+    </header>
+    <section
+      class="destination-stage destination-dispatch"
+      aria-labelledby="posts-heading"
+    >
+      <div class="destination-copy">
+        <span class="destination-index">A DIRECT LINE TO THE STUDIO</span>
+        <h2 id="posts-heading">
+          Read it where
+          <br />
+          it happens.
+        </h2>
         <p>
-          Loading posts connects you to Telegram, which can set cookies and
-          receive your connection information. Some animated stickers and custom
-          emoji may only play completely in Telegram.
+          Open the public feed to explore the original posts and media, or join
+          the channel to follow along in Telegram.
         </p>
-        <p class="small-text">
-          The site's motion button unloads these embeds because it cannot
-          control animation inside Telegram's frame.
-        </p>
-      </div>
-      <div class="consent-actions">
-        <button class="button" data-telegram-load>
-          <Icon name="telegram" />
-          Load Telegram posts
-        </button>
-        <button class="button secondary-button" data-telegram-reset hidden>
-          Unload Telegram posts
-        </button>
-        <button class="text-button" data-telegram-retry>
-          Retry embeds
-        </button>
-        <a class="text-link" href="/privacy/">
-          Privacy details
-        </a>
-      </div>
-      <p class="embed-status" role="status" data-telegram-status>
-        Telegram content is off. You can still open every original post.
-      </p>
-    </div>
-    <p class="feed-source">
-      {posts.status === 'protected'
-        ? 'This channel is currently protected. Posts are not republished here.'
-        : posts.status === 'incremental'
-          ? `Incremental channel snapshot updated ${syncedAt || posts.verifiedAt}. Earlier channel history may be incomplete.`
-          : `Verified post links from ${posts.verifiedAt}. Automatic synchronization is not connected yet.`}{' '}
-      <a href={site.links.channelPreview}>
-        View the latest posts in Telegram <Icon name="northeast" size={14} />
-      </a>
-    </p>
-    <div class="post-list">
-      {posts.posts.map((post) => (
-        <article class="telegram-card">
-          <div class="post-heading">
-            <span class="post-avatar">
-              <Icon name="telegram" size={22} />
-            </span>
-            <div>
-              <h2 dir="auto">{post.title}</h2>
-              <span>
-                {post.kind} / Telegram post #{post.id}
-              </span>
-            </div>
-            <a
-              class="icon-link"
-              href={post.url}
-              aria-label={`Open ${post.title} in Telegram`}
-            >
-              <Icon name="northeast" />
-            </a>
-          </div>
-          <div
-            class="telegram-slot"
-            data-telegram-slot={`wizard_loop/${post.id}`}
-          ></div>
-          <p dir="auto">{post.note}</p>
-          <a class="text-link" href={post.url}>
-            Open original post <Icon name="northeast" size={17} />
+        <div class="destination-actions">
+          <a class="button" href={site.links.channelPreview}>
+            Read the posts <Icon name="northeast" size={19} />
           </a>
-        </article>
-      ))}
+          <a class="text-link" href={site.links.channel}>
+            <Icon name="telegram" size={19} /> Join the channel
+          </a>
+        </div>
+        <p class="destination-address">Opens the public Telegram feed.</p>
+      </div>
+      <div class="destination-art dispatch-drawing" aria-hidden="true">
+        <svg viewBox="0 0 460 400" fill="none" focusable="false">
+          <circle class="drawing-violet" cx="235" cy="202" r="127" />
+          <path
+            class="drawing-stroke drawing-dotted"
+            d="M87 258c-60-93 33-181 99-125 57 49-66 64-96 139-19 48 38 96 102 63"
+          />
+          <path
+            class="drawing-shadow"
+            d="m124 186 237-91-71 226-67-76-47 35 11-66z"
+          />
+          <path
+            class="drawing-paper drawing-stroke"
+            d="m114 175 237-91-71 226-67-76-47 35 11-66z"
+          />
+          <path
+            class="drawing-peach drawing-stroke"
+            d="m177 203-11 66 47-35L351 84z"
+          />
+          <path class="drawing-stroke" d="m213 234 138-150" />
+          <path
+            class="drawing-yellow drawing-stroke"
+            d="m82 73 9 23 24 5-24 7-9 23-8-23-24-7 24-5z"
+          />
+          <path
+            class="drawing-stroke"
+            d="m327 317 17 6m-26 11 12 13m-28-7 4 17m64-200 20-2m-17 20 17 6"
+          />
+          <circle class="drawing-ink" cx="265" cy="52" r="4" />
+          <circle class="drawing-ink" cx="385" cy="271" r="4" />
+        </svg>
+        <span class="destination-handnote">See you in the loop.</span>
+      </div>
+    </section>
+    <div class="destination-after">
+      <p>Keep the conversation going.</p>
+      <a class="text-link" href={site.links.community}>
+        Join the community <Icon name="arrow" size={19} />
+      </a>
     </div>
-    <button class="button secondary-button" data-posts-more hidden>
-      More from the loop <Icon name="arrow" />
-    </button>
-    <noscript>
-      <p class="notice">
-        JavaScript is disabled. The original Telegram links above remain
-        available. No third-party embeds have been loaded.
-      </p>
-    </noscript>
   </section>
 </Base>

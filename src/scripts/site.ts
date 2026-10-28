@@ -1,12 +1,5 @@
 export {};
 const root = document.documentElement;
-const read = (key: string) => {
-  try {
-    return localStorage.getItem(key);
-  } catch {
-    return null;
-  }
-};
 const save = (key: string, value: string) => {
   try {
     localStorage.setItem(key, value);
@@ -30,12 +23,6 @@ function updateControls() {
   motionButton?.setAttribute('aria-label', label);
   motionButton?.setAttribute('data-tooltip', label);
   motionButton?.setAttribute('aria-pressed', String(paused));
-  document
-    .querySelectorAll<HTMLVideoElement>('video[data-profile-video]')
-    .forEach((video) => {
-      if (paused) video.pause();
-      else video.play().catch(() => {});
-    });
   document.dispatchEvent(new CustomEvent('wizardloop:preferences'));
 }
 themeButton?.addEventListener('click', () => {
@@ -55,6 +42,33 @@ motionMedia.addEventListener('change', () => {
   }
 });
 updateControls();
+
+const copyEmail =
+  document.querySelector<HTMLButtonElement>('[data-copy-email]');
+const copyStatus = document.querySelector<HTMLElement>('[data-copy-status]');
+if (copyEmail && copyStatus && navigator.clipboard?.writeText) {
+  let copying = false;
+  copyEmail.hidden = false;
+  copyEmail.addEventListener('click', async () => {
+    const address = copyEmail.dataset.copyEmail;
+    if (!address || copying) return;
+    copying = true;
+    copyEmail.setAttribute('aria-disabled', 'true');
+    copyEmail.setAttribute('aria-busy', 'true');
+    copyStatus.textContent = '';
+    try {
+      await navigator.clipboard.writeText(address);
+      copyStatus.textContent =
+        'Email address copied. Paste it into your message.';
+    } catch {
+      copyStatus.textContent = `Copy unavailable. Select: ${address}`;
+    } finally {
+      copying = false;
+      copyEmail.removeAttribute('aria-disabled');
+      copyEmail.removeAttribute('aria-busy');
+    }
+  });
+}
 
 const tooltipTriggers = [
   ...document.querySelectorAll<HTMLElement>('[data-tooltip]'),
@@ -141,53 +155,14 @@ wireDialog(
 matchMedia('(min-width:901px)').addEventListener('change', (e) => {
   if (e.matches && menu?.open) menu.close();
 });
-const privacyDialog =
-  document.querySelector<HTMLDialogElement>('#privacy-dialog');
-wireDialog(
-  privacyDialog,
-  document.querySelectorAll<HTMLElement>('[data-privacy-open]'),
-  document.querySelector('[data-privacy-close]'),
-);
-const consent = document.querySelector<HTMLInputElement>('#telegram-consent');
-if (consent) consent.checked = read('wizardloop-telegram-consent') === 'yes';
-document.querySelector('[data-privacy-save]')?.addEventListener('click', () => {
-  save('wizardloop-telegram-consent', consent?.checked ? 'yes' : 'no');
-  document.dispatchEvent(new CustomEvent('wizardloop:consent'));
-  privacyDialog?.close();
-});
-
-document
-  .querySelectorAll<HTMLVideoElement>('video[data-profile-video]')
-  .forEach((video) => {
-    video.addEventListener(
-      'error',
-      () => {
-        video.pause();
-        video.hidden = true;
-        const image = video.parentElement?.querySelector<HTMLImageElement>(
-          'img[data-profile-image]',
-        );
-        if (image) image.hidden = false;
-      },
-      true,
-    );
-  });
-
 document
   .querySelectorAll<HTMLImageElement>('img[data-profile-image]')
   .forEach((img) => {
-    const sources = [
-      img.dataset.githubFallback,
-      '/media/profile/fallback.svg',
-    ].filter(Boolean) as string[];
-    let next = 0;
+    let usedFallback = false;
     function fallback() {
-      if (next < sources.length) {
-        img.src = sources[next++];
-        const label = document.querySelector('[data-profile-source]');
-        if (label)
-          label.textContent =
-            next === 1 ? 'GitHub profile fallback' : 'Local WizardLoop artwork';
+      if (!usedFallback) {
+        usedFallback = true;
+        img.src = '/media/profile/fallback.svg';
       }
     }
     img.addEventListener('error', fallback);
@@ -201,5 +176,3 @@ const hero = document.querySelector<HTMLElement>('[data-native-hero]');
 if (hero) import('./hero').then(({ mountHero }) => mountHero(hero));
 if (artNodes.length)
   import('./motion').then(({ mountMotion }) => mountMotion(artNodes));
-if (document.querySelector('[data-telegram-feed]')) import('./posts');
-if (document.querySelector('[data-feedback-form]')) import('./feedback');

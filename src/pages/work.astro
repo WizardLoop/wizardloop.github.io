@@ -1,141 +1,118 @@
 ---
 import Base from '../layouts/Base.astro';
-import MotionArt from '../components/MotionArt.astro';
 import Icon from '../components/Icon.astro';
-import artworks from '../content/artworks.json';
-import flags from '../content/flags.json';
 import { site } from '../config/site';
+import '../styles/destinations.css';
 ---
 
 <Base
   title="Selected work"
-  description="Explore WizardLoop's original Infinity Atelier animation collection and animated country flags. Illustration, character design and motion, in a loop."
+  description="Discover WizardLoop's design, illustration and motion work on the public Telegram channel. A personal creative practice, shared in the loop."
 >
-  <section class="page-intro wrap">
-    <p class="eyebrow">DESIGN / ILLUSTRATION / ANIMATION</p>
-    <h1>
-      A little strange.
-      <br />
-      <span class="outlined-word">A lot of character.</span>
-    </h1>
-    <p>
-      Original WizardLoop assets, brought out of the workbench and into the
-      light. A collection of expressive worlds, all made to move.
-    </p>
-  </section>
-  <section class="collection section wrap" id="infinity-atelier">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">01 / CHARACTER DESIGN & MOTION</p>
-        <h2>
-          Infinity Atelier<span class="accent-dot">.</span>
+  <section class="destination-page destination-work wrap">
+    <header class="destination-heading">
+      <p class="eyebrow">WORK / DESIGN, ILLUSTRATION & MOTION</p>
+      <h1>
+        A little strange.
+        <br />
+        <em>A lot of character.</em>
+      </h1>
+      <p>
+        Expressive characters. Playful visuals. Unexpected loops. Explore the
+        work I share on Telegram.
+      </p>
+    </header>
+    <section
+      class="destination-stage destination-portfolio"
+      aria-labelledby="portfolio-heading"
+    >
+      <div class="destination-copy">
+        <span class="destination-index">THE PORTFOLIO</span>
+        <h2 id="portfolio-heading">
+          A window into
+          <br />
+          the making.
         </h2>
         <p>
-          {artworks.length} animated studies. One unmistakably curious wizard.
+          My channel is the place to explore my visual work, from design and
+          illustration to motion. Open the public feed, or join me there.
         </p>
+        <div class="destination-actions">
+          <a class="button" href={site.links.channelPreview}>
+            View my work <Icon name="northeast" size={19} />
+          </a>
+          <a class="text-link" href={site.links.channel}>
+            <Icon name="telegram" size={19} /> Join the channel
+          </a>
+        </div>
+        <p class="destination-address">Opens the public Telegram feed.</p>
       </div>
-      <span class="collection-stamp">
-        ORIGINAL
-        <br />
-        WIZARDLOOP
-      </span>
-    </div>
-    <div class="collection-grid">
-      {artworks.map((art, i) => (
-        <figure
-          class:list={['collection-item', { 'extra-artwork': i >= 9 }]}
-          hidden={i >= 9}
-        >
-          <div class="collection-art">
-            <MotionArt name={art.slug} alt={art.alt} />
-            <span class="small-number">{String(i + 1).padStart(2, '0')}</span>
-          </div>
-          <figcaption>
-            <h3>{art.title}</h3>
-            <span>Illustration & animation</span>
-          </figcaption>
-        </figure>
-      ))}
-    </div>
-    <noscript>
-      <style is:inline>
-        .extra-artwork[hidden] {
-          display: block !important;
-        }
-      </style>
-    </noscript>
-    <button
-      class="button secondary-button collection-more"
-      data-show-collection
-      hidden
-    >
-      Explore all {artworks.length} animations <Icon name="arrow" />
-    </button>
-    <p class="collection-note">
-      Original vector animations from the Infinity Atelier collection. Up to
-      three visible pieces play at once. Use the motion button in the header to
-      pause everything. Reduced-motion preferences show still frames.
-    </p>
-  </section>
-  <section class="collection section wrap" id="flags">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">02 / SMALL DETAILS. A WORLD OF MOTION.</p>
-        <h2>Flags, with a little life.</h2>
-        <p>Selected animated flags from the WizardLoop country collection.</p>
+      <div class="destination-art portfolio-drawing" aria-hidden="true">
+        <svg viewBox="0 0 460 400" fill="none" focusable="false">
+          <path class="drawing-shadow" d="m111 79 261 21-20 265-261-21z" />
+          <path
+            class="drawing-paper drawing-stroke"
+            d="m95 64 261 21-20 265-261-21z"
+          />
+          <path
+            class="drawing-peach drawing-stroke"
+            d="m126 43 246 51-50 252-246-51z"
+          />
+          <path class="drawing-paper drawing-stroke" d="M101 73h252v266H101z" />
+          <path class="drawing-stroke" d="M101 117h252M120 95h50m143 0h20" />
+          <circle
+            class="drawing-mint drawing-stroke"
+            cx="226"
+            cy="219"
+            r="76"
+          />
+          <g stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M226 219c-19-20-30-33-45-30-18 3-22 18-15 34 8 18 24 22 39 9l42-34c17-14 32-10 39 4 9 17-1 37-18 37-15 0-28-7-42-20Z"
+              stroke="var(--ink)"
+              stroke-width="18"
+            />
+            <path
+              d="M226 219c-19-20-30-33-45-30-18 3-22 18-15 34 8 18 24 22 39 9l42-34c17-14 32-10 39 4 9 17-1 37-18 37-15 0-28-7-42-20Z"
+              stroke="var(--accent)"
+              stroke-width="14"
+            />
+            <path d="m211 227 30-24" stroke="var(--mint)" stroke-width="24" />
+            <path d="m205 232 42-34" stroke="var(--ink)" stroke-width="18" />
+            <path d="m205 232 42-34" stroke="var(--accent)" stroke-width="14" />
+            <path
+              d="M173 198c9-7 17-1 24 5m70 29c10 0 16-8 15-17m-68 8 23-19"
+              stroke="#f9f6ff"
+              stroke-width="2.5"
+            />
+          </g>
+          <path
+            class="drawing-accent drawing-stroke"
+            d="m226 153 4 11 11 4-11 4-4 11-4-11-11-4 11-4z"
+          />
+          <path
+            class="drawing-yellow drawing-stroke"
+            d="m319 28 11 23 25-5-13 22 17 19-26-1-7 25-8-25-26 1 17-19-13-22 25 5z"
+          />
+          <path
+            class="drawing-stroke"
+            d="m47 242 15-11m-7 29 17-5m-12 26 17-1m299-112 17-11m-11 30 18-4"
+          />
+          <path
+            class="drawing-accent-stroke"
+            d="M130 369c56 17 114 18 176 3m-147 9c40 5 80 4 119 0"
+          />
+          <circle class="drawing-ink" cx="62" cy="118" r="4" />
+          <circle class="drawing-ink" cx="388" cy="285" r="4" />
+        </svg>
+        <span class="destination-handnote">Made with curiosity.</span>
       </div>
+    </section>
+    <div class="destination-after">
+      <p>Something here sparks an idea?</p>
+      <a class="text-link" href="/feedback/">
+        Let's talk <Icon name="arrow" size={19} />
+      </a>
     </div>
-    <div class="flags-grid">
-      {flags.map((flag) => (
-        <figure>
-          <MotionArt name={flag.slug} alt={flag.alt} />
-          <figcaption>{flag.title}</figcaption>
-        </figure>
-      ))}
-    </div>
-    <p class="collection-note">
-      Animation by WizardLoop. Flag source and rights information is preserved
-      in the <a href="/media/licenses/FLAGS-NOTICES.txt">asset notices</a>. The
-      source-code MIT license does not cover branding and media.
-    </p>
   </section>
-  <section class="contact-cta wrap">
-    <p class="eyebrow">EXPRESSIVE CHARACTERS. UNEXPECTED LOOPS.</p>
-    <h2>
-      Something on
-      <br />
-      your <span>mind?</span>
-    </h2>
-    <a class="button" href={site.links.telegram}>
-      <Icon name="telegram" />
-      Let's talk about it <Icon name="arrow" />
-    </a>
-  </section>
-  <script>
-    const extras = document.querySelectorAll<HTMLElement>('.extra-artwork');
-    const show = document.querySelector<HTMLButtonElement>(
-      '[data-show-collection]',
-    );
-    if (show) {
-      show.addEventListener('click', () => {
-        extras.forEach((el) => {
-          el.hidden = false;
-        });
-        show.hidden = true;
-        const firstHeading = extras[0]?.querySelector<HTMLElement>('h3');
-        if (firstHeading) {
-          firstHeading.tabIndex = -1;
-          firstHeading.focus({ preventScroll: true });
-        }
-        extras[0]?.scrollIntoView({
-          behavior:
-            document.documentElement.dataset.motion === 'paused'
-              ? 'instant'
-              : 'smooth',
-          block: 'start',
-        });
-      });
-      show.hidden = false;
-    }
-  </script>
 </Base>

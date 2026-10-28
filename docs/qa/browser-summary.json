@@ -1,190 +1,83 @@
 {
-  "resultBasis": "Latest result for each unique engine/test from the full run and focused rechecks. Test-harness corrections preceded a generic unexpected-native-pause fallback fix. The last run checks every affected hero behavior on the rebuilt production bundle; unaffected results come from the full run. The original full run had failures; all histories are retained below. This is a combined result, not a green full-suite rerun.",
-  "startedAt": "2026-10-27T04:56:37.766Z",
-  "completedAt": "2026-10-27T05:59:03.870Z",
-  "generatedAt": "2026-10-27T05:59:13.453Z",
-  "environment": "Local static Astro production build at http://127.0.0.1:4322",
-  "workers": 1,
-  "executedChecksIncludingRechecks": 166,
-  "total": 140,
-  "passed": 138,
-  "failed": 0,
-  "skipped": 2,
+  "resultBasis": "Latest result for each unique engine/test from the initial static-site run and focused checks of the final build. The initial run had failures, retained below. This is a combined result, not a green full-suite rerun. Remote CI verifies the complete suite separately.",
+  "generatedAt": "2026-10-28T10:35:42.181Z",
+  "environment": "Windows, local built Astro site at http://127.0.0.1:4322, one Playwright worker",
+  "total": 171,
+  "passed": 171,
+  "unresolvedFailures": [],
   "engines": {
     "chromium": {
-      "total": 69,
-      "passed": 69,
+      "total": 74,
+      "passed": 74,
       "failed": 0,
       "skipped": 0
     },
     "firefox": {
-      "total": 35,
-      "passed": 35,
+      "total": 48,
+      "passed": 48,
       "failed": 0,
       "skipped": 0
     },
     "webkit": {
-      "total": 36,
-      "passed": 34,
+      "total": 49,
+      "passed": 49,
       "failed": 0,
-      "skipped": 2
+      "skipped": 0
     }
   },
-  "skippedTests": [
-    {
-      "engine": "webkit",
-      "title": "native hero video plays, pauses, resumes and follows the selected theme @motion",
-      "reason": "Windows WebKit Media Foundation stops native looping after one cycle, reproduced with a minimal video element. Its dedicated real-media test verifies the graceful still fallback; uninterrupted looping is not verified on this platform."
-    },
-    {
-      "engine": "webkit",
-      "title": "video pause/resume and reduced motion using a local canvas-stream fixture @motion",
-      "reason": "This browser does not support the local canvas media fixture; real Telegram video remains an integration test."
-    }
-  ],
-  "failedTests": [],
-  "unresolvedFailures": [],
   "platformNotes": [
     {
       "engine": "webkit",
+      "type": "platform",
+      "description": "webkit on win32: the bare local MP4 decoded and advanced, then paused across its first loop. This case verifies the real application still fallback; uninterrupted native looping is unsupported in this measured environment."
+    },
+    {
+      "engine": "webkit",
+      "type": "platform",
       "description": "Windows WebKit Media Foundation stops this real native MP4 after its first loop. This test verifies graceful fallback, not successful uninterrupted looping. The same stop was reproduced on a minimal video without application code."
     }
   ],
   "runs": [
     {
-      "report": "artifacts/final/playwright-final-results.json",
-      "startedAt": "2026-10-27T04:56:37.766Z",
-      "durationSeconds": 1294,
-      "total": 136,
-      "passed": 129,
-      "failed": 6,
-      "skipped": 1,
-      "failedTests": [
+      "report": "artifacts/final/static-initial-results.json",
+      "startedAt": "2026-10-28T09:32:08.320Z",
+      "durationSeconds": 1517,
+      "total": 135,
+      "passed": 131,
+      "failures": [
         {
           "engine": "chromium",
-          "title": "feedback cannot submit personal fields through a URL when JavaScript is unavailable @privacy"
+          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
+          "status": "failed",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected: \"/media/profile/avatar.jpg\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n"
         },
         {
           "engine": "firefox",
-          "title": "native hero video plays, pauses, resumes and follows the selected theme @motion"
+          "title": "mobile menu has native modal focus, an explicit Tab loop, Escape and scroll restoration @keyboard",
+          "status": "failed",
+          "error": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator('#mobile-nav').locator('a[href=\"/posts/\"]')\n    - locator resolved to <a href=\"/posts/\">…</a>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - performing click action\n"
         },
         {
           "engine": "firefox",
-          "title": "feedback cannot submit personal fields through a URL when JavaScript is unavailable @privacy"
+          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
+          "status": "failed",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected: \"/media/profile/avatar.jpg\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n"
         },
         {
           "engine": "webkit",
-          "title": "native hero video plays, pauses, resumes and follows the selected theme @motion"
-        },
-        {
-          "engine": "webkit",
-          "title": "failed native hero media retains its poster across theme retries @motion"
-        },
-        {
-          "engine": "webkit",
-          "title": "feedback cannot submit personal fields through a URL when JavaScript is unavailable @privacy"
+          "title": "the profile is a dimensioned local still with no provider or synchronization dependency @profile",
+          "status": "failed",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('img[data-profile-image]')\nExpected: \"/media/profile/avatar.jpg\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" locator('img[data-profile-image]') with timeout 10000ms\n  - waiting for locator('img[data-profile-image]')\n"
         }
       ]
     },
     {
-      "report": "artifacts/final/playwright-noscript-recheck-results.json",
-      "startedAt": "2026-10-27T05:23:32.855Z",
-      "durationSeconds": 139,
-      "total": 3,
-      "passed": 2,
-      "failed": 1,
-      "skipped": 0,
-      "failedTests": [
-        {
-          "engine": "firefox",
-          "title": "feedback cannot submit personal fields through a URL when JavaScript is unavailable @privacy"
-        }
-      ]
-    },
-    {
-      "report": "artifacts/final/playwright-final-recheck-results.json",
-      "startedAt": "2026-10-27T05:28:56.966Z",
-      "durationSeconds": 153,
-      "total": 9,
-      "passed": 8,
-      "failed": 1,
-      "skipped": 0,
-      "failedTests": [
-        {
-          "engine": "webkit",
-          "title": "native hero video plays, pauses, resumes and follows the selected theme @motion"
-        }
-      ]
-    },
-    {
-      "report": "artifacts/final/playwright-webkit-media-recheck-results.json",
-      "startedAt": "2026-10-27T05:36:03.024Z",
-      "durationSeconds": 16,
-      "total": 1,
-      "passed": 0,
-      "failed": 1,
-      "skipped": 0,
-      "failedTests": [
-        {
-          "engine": "webkit",
-          "title": "native hero video plays, pauses, resumes and follows the selected theme @motion"
-        }
-      ]
-    },
-    {
-      "report": "artifacts/final/playwright-webkit-playback-final-results.json",
-      "startedAt": "2026-10-27T05:37:21.739Z",
-      "durationSeconds": 32,
-      "total": 1,
-      "passed": 0,
-      "failed": 1,
-      "skipped": 0,
-      "failedTests": [
-        {
-          "engine": "webkit",
-          "title": "native hero video plays, pauses, resumes and follows the selected theme @motion"
-        }
-      ]
-    },
-    {
-      "report": "artifacts/final/playwright-native-fallback-review-results.json",
-      "startedAt": "2026-10-27T05:54:55.485Z",
-      "durationSeconds": 248,
-      "total": 16,
-      "passed": 15,
-      "failed": 0,
-      "skipped": 1,
-      "failedTests": []
+      "report": "artifacts/final/static-final-results.json",
+      "startedAt": "2026-10-28T10:20:43.519Z",
+      "durationSeconds": 850,
+      "total": 96,
+      "passed": 96,
+      "failures": []
     }
-  ],
-  "testHarnessCorrections": [
-    "Playwright text matching skips NOSCRIPT. The no-JavaScript notice is checked with an explicit CSS locator for visible notice text and contact links.",
-    "The tested Firefox engine does not expose the playsInline JavaScript property. The test checks the required playsinline HTML attribute while retaining native playback, pause, timing, theme and fallback checks.",
-    "Reading fieldset.disabled with toHaveJSProperty in this Firefox no-JavaScript context repeatedly failed in browser/Juggler code. The test checks the native disabled HTML attribute and retains disabled behavior assertions on every input and button.",
-    "Windows WebKit Media Foundation reports a cached display surface as naturalSize and loads media outside Playwright route interception. Manifest declares 768x768; Chromium/Firefox decode checks verify encoded dimensions. The error fixture now uses genuine missing local URLs and DOM source-state assertions. Successful native looping is explicitly skipped on Windows WebKit after the real engine stop was reproduced; a separate actual-media test verifies its graceful fallback.",
-    "A follow-up assertion incorrectly required a square video DOM box. The design fills a rectangular stage using object-fit: contain; the corrected test checks matching stage bounds and contain behavior without changing application code."
-  ],
-  "evidence": {
-    "rawReport": "artifacts/final/playwright-final-results.json",
-    "focusedRecheck": "artifacts/final/playwright-final-recheck-results.json",
-    "finalWebKitRecheck": "artifacts/final/playwright-webkit-playback-final-results.json",
-    "finalAffectedRecheck": "artifacts/final/playwright-native-fallback-review-results.json",
-    "nativeEngineDiagnostic": "artifacts/final/webkit-capture-side-effect-probe.json",
-    "htmlReport": "artifacts/final/playwright-final-report/index.html",
-    "testArtifacts": "artifacts/final/final-test-results",
-    "screenshots": [
-      "docs/previews/home-light-desktop.png",
-      "docs/previews/home-dark-desktop.png",
-      "docs/previews/home-light-mobile.png",
-      "docs/previews/home-dark-mobile.png"
-    ],
-    "animationRecording": "artifacts/final/wizardloop-home-animation.webm",
-    "localFeedback": "artifacts/final/feedback-ui-results.json",
-    "liveTelegram": "artifacts/final/telegram-live-results.json",
-    "liveTelegramMotion": "artifacts/final/telegram-live-motion-results.json"
-  },
-  "realFeedbackDeliveryTested": false,
-  "realTurnstileVerificationTested": false,
-  "humanScreenReaderAuditPerformed": false,
-  "deploymentPerformed": false
+  ]
 }

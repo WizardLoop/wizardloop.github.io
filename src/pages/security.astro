@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 
 <Base
   title="Security"
-  description="How WizardLoop separates its static website from feedback services, protects credentials and receives private vulnerability reports."
+  description="WizardLoop is a static GitHub Pages website with local assets, direct contact links and no public submission endpoint."
 >
   <section class="wrap prose-page">
     <header class="page-intro">
@@ -15,78 +15,58 @@ import Base from '../layouts/Base.astro';
         Clear boundaries.
       </h1>
       <p>
-        Security is part of maintaining this personal website. This page
-        describes the design and its practical limits.
-      </p>
-      <p>
-        Reviewed <time datetime="2026-10-27">27 October 2026</time>.
+        Updated <time datetime="2026-10-28">28 October 2026</time>.
       </p>
     </header>
     <div class="prose">
-      <h2>The website and its services</h2>
+      <h2>Simple by design</h2>
       <p>
-        The main website is a static site hosted on GitHub Pages. It does not
-        require visitor accounts or passwords. Fonts and core visual assets are
-        served with the site. Optional third-party content is separated from the
-        main reading experience.
+        This website is static HTML, CSS, JavaScript and local media, hosted on
+        GitHub Pages. Browsing does not require an account, a password, a bot or
+        a backend service. Contact links open Telegram or your email
+        application. No form submissions, CAPTCHA requests or profile
+        synchronization are processed here.
       </p>
       <p>
-        Feedback uses a separate Cloudflare Worker when configured. That service
-        validates form fields on the server, verifies Turnstile, checks the
-        exact request origin and challenge hostname, limits request size and
-        submission rate, and escapes content before sending it to Telegram. A
-        missing required security configuration makes the service unavailable.
+        Fonts and visual assets are served with the site. Repository checks
+        validate the build, local links, public metadata and basic secret
+        patterns. Credentials and private information must never be committed to
+        the public repository.
+      </p>
+      <h2>Practical limits</h2>
+      <p>
+        Third-party websites you open have their own availability and security
+        practices. The website does not control messages after they enter an
+        email or Telegram conversation. A link opening successfully does not
+        confirm that a message has been delivered.
       </p>
       <p>
-        Bot credentials, secret keys and private destination identifiers belong
-        in server-side secret storage. They are not included in the public
-        website build. The local feedback mock does not send Telegram messages
-        and identifies its results as local tests.
+        GitHub Pages does not expose arbitrary per-site response-header
+        configuration. This source sets a referrer policy, but does not claim a
+        custom HTTP Content Security Policy, Permissions Policy or other
+        proxy-level protection is active. No additional proxy service is
+        required by this version.
       </p>
-
-      <h2>What these measures do not guarantee</h2>
-      <p>
-        No website can promise complete protection. Third-party services have
-        their own availability, security and data-handling rules. A feedback
-        request can fail, and a network timeout can leave delivery uncertain.
-        The form reports that uncertainty instead of claiming success.
-      </p>
-      <p>
-        GitHub Pages does not provide arbitrary per-site HTTP response-header
-        configuration. Controls that require response headers cannot all be
-        enabled through site source alone. This page does not claim that a
-        configurable CSP, Permissions Policy or other CDN-level protection is
-        active on the main site. Additional controls would require a separately
-        reviewed hosting or proxy configuration.
-      </p>
-      <p>
-        The separate feedback API sets its own restrictive response headers.
-        Those headers do not change the headers served by GitHub Pages.
-        Production deployment and infrastructure changes require a separate
-        review.
-      </p>
-
       <h2>Report a vulnerability privately</h2>
       <p>
         Email <a href="mailto:wizard@wizardloop.com">wizard@wizardloop.com</a>{' '}
-        with a concise description, the affected URL or component, and safe
-        steps to reproduce the issue. You can also{' '}
+        with the affected URL, a short description and safe reproduction steps.
+        You can also{' '}
         <a href="https://t.me/wizardloop">contact me on Telegram</a> to arrange
         a private report.
       </p>
       <p>
-        Please do not post secrets, personal data or exploit details in a public
-        issue. Use your own test data, avoid service disruption and stop if a
-        test exposes someone else's information. There is no promised
-        response-time guarantee or paid bounty program.
+        Please do not publish credentials, personal information or exploit
+        details in a public issue. Use your own test data and avoid disruption.
+        There is no promised response time or paid bounty program.
       </p>
       <p>
-        The source and security guidance are available in the{' '}
+        The{' '}
         <a href="https://github.com/WizardLoop/wizardloop.github.io">
-          website repository
-        </a>
-        . Public code is available for review; access to source is not
-        permission to test third-party infrastructure.
+          website source
+        </a>{' '}
+        is available for review. Access to that source does not authorize
+        testing third-party infrastructure.
       </p>
     </div>
   </section>
