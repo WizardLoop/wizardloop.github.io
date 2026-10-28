@@ -14,7 +14,7 @@ The website screenshots and measurements below remain rc.3 evidence. My existing
 
 ## Website review - 1.0.0-rc.3
 
-I recorded the following results on **2026-10-28** for **1.0.0-rc.3** on `polish/studio-motion-and-marks`, based on `ef1157bd1d3f45420656864b5cfbf895d9128f3a`. After that review, [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) merged at `062bdad623c53c2bd10661c3fe578f1cfc62b2b2`. [Deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) passed all **185 browser checks** and published successfully on **2026-10-28 at 16:57:11 Asia/Jerusalem (13:57:11 UTC)**. I then verified live HTTPS 200 and the Silver Grimoire and SVG mark on Home. That publication does not imply a Git tag or GitHub Release.
+I recorded the following results on **2026-10-28** for **1.0.0-rc.3** on `polish/studio-motion-and-marks`, based on `ef1157bd1d3f45420656864b5cfbf895d9128f3a`. After that review, [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) merged at `062bdad623c53c2bd10661c3fe578f1cfc62b2b2`. [Deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) passed all **185 browser checks** and published successfully on **2026-10-28 at 15:57:11 Asia/Jerusalem (13:57:11 UTC)**. I then verified live HTTPS 200 and the Silver Grimoire and SVG mark on Home. That publication does not imply a Git tag or GitHub Release.
 
 ### What I changed
 

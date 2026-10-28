@@ -20,7 +20,7 @@ This repository-only update is prepared for review. I have not merged or deploye
 - I added regression checks for SVG identity, delayed animation loading, independent playback and lifecycle recovery, plus Linux Lighthouse reports in review CI.
 - I rewrote my site and repository prose in my own first-person voice while preserving factual history and third-party legal notices.
 
-I published this version after [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) merged at `062bdad623c53c2bd10661c3fe578f1cfc62b2b2`. [Deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) completed successfully on **2026-10-28 at 16:57:11 Asia/Jerusalem (13:57:11 UTC)**. I verified HTTPS 200 and the Silver Grimoire artwork and SVG mark on my live Home page. This publication record does not imply a Git tag or GitHub Release. I retain the version's measured checks and known limits in [QA.md](docs/QA.md).
+I published this version after [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) merged at `062bdad623c53c2bd10661c3fe578f1cfc62b2b2`. [Deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) completed successfully on **2026-10-28 at 15:57:11 Asia/Jerusalem (13:57:11 UTC)**. I verified HTTPS 200 and the Silver Grimoire artwork and SVG mark on my live Home page. This publication record does not imply a Git tag or GitHub Release. I retain the version's measured checks and known limits in [QA.md](docs/QA.md).
 
 ## 1.0.0-rc.2 - Deployed 2026-10-28
 
