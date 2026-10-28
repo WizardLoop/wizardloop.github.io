@@ -11,10 +11,18 @@ type Playback = {
   duration: number;
 };
 
+type MotionData = {
+  fr: number;
+  ip: number;
+  op: number;
+  [key: string]: unknown;
+};
+
 export function mountMotion(nodes: HTMLElement[]) {
   const instances = new Map<HTMLElement, Playback>();
   const visible = new Set<HTMLElement>();
   const loading = new Set<HTMLElement>();
+  const assets = new Map<string, Promise<MotionData>>();
   let renderer:
     | Promise<typeof import('lottie-web/build/player/lottie_light_canvas')>
     | undefined;
@@ -64,14 +72,18 @@ export function mountMotion(nodes: HTMLElement[]) {
     // One bounded draw loop for all art. Elapsed time preserves the source speed.
     if (now - lastTick >= 1000 / 24) {
       lastTick = now - ((now - lastTick) % (1000 / 24));
-      instances.forEach((playback) => {
+      instances.forEach((playback, node) => {
         if (!playback.running || !playback.ready) return;
         const elapsed =
           (playback.elapsed + now - playback.started) % playback.duration;
         const frame = Math.floor((elapsed * playback.fps) / 1000);
         if (frame !== playback.lastFrame) {
-          playback.animation.goToAndStop(frame, true);
-          playback.lastFrame = frame;
+          try {
+            playback.animation.goToAndStop(frame, true);
+            playback.lastFrame = frame;
+          } catch {
+            unavailable(node);
+          }
         }
       });
     }
@@ -82,25 +94,10 @@ export function mountMotion(nodes: HTMLElement[]) {
       request = requestAnimationFrame(tick);
   }
 
-  async function mount(node: HTMLElement) {
-    if (
-      instances.has(node) ||
-      loading.has(node) ||
-      node.dataset.state === 'unavailable' ||
-      !allowed() ||
-      disposed
-    )
-      return;
-    const name = node.dataset.animation;
-    if (
-      !name ||
-      !/^[a-z0-9-]+$/.test(name) ||
-      !('DecompressionStream' in window)
-    )
-      return;
-    loading.add(node);
-    try {
-      renderer ||= import('lottie-web/build/player/lottie_light_canvas');
+  function loadAsset(name: string): Promise<MotionData> {
+    const cached = assets.get(name);
+    if (cached) return cached;
+    const pending = (async () => {
       const response = await fetch(`/media/animations/${name}.tgs`, {
         signal: AbortSignal.timeout(12000),
       });
@@ -109,14 +106,48 @@ export function mountMotion(nodes: HTMLElement[]) {
       const data = await new Response(
         response.body.pipeThrough(new DecompressionStream('gzip')),
       ).json();
-      const { default: lottie } = await renderer;
-      if (disposed || !allowed()) return;
       if (
+        !data ||
         ![data.fr, data.ip, data.op].every(Number.isFinite) ||
         data.fr <= 0 ||
         data.op <= data.ip
       )
         throw new Error('Invalid animation timing');
+      return data as MotionData;
+    })();
+    assets.set(name, pending);
+    void pending.catch(() => {
+      if (assets.get(name) === pending) assets.delete(name);
+    });
+    return pending;
+  }
+
+  async function mount(node: HTMLElement) {
+    if (
+      instances.has(node) ||
+      loading.has(node) ||
+      node.dataset.state === 'unavailable' ||
+      !allowed() ||
+      !visible.has(node) ||
+      disposed
+    )
+      return;
+    const name = node.dataset.animation;
+    if (
+      !name ||
+      !/^[a-z0-9-]+$/.test(name) ||
+      !('DecompressionStream' in window)
+    ) {
+      unavailable(node);
+      return;
+    }
+    loading.add(node);
+    try {
+      const [data, { default: lottie }] = await Promise.all([
+        loadAsset(name),
+        (renderer ||= import('lottie-web/build/player/lottie_light_canvas')),
+      ]);
+      if (disposed || !allowed() || !visible.has(node)) return;
       const container = node.querySelector<HTMLElement>('.art-player');
       if (!container) return;
       const size = Math.max(node.clientWidth, node.clientHeight, 1);
@@ -130,7 +161,8 @@ export function mountMotion(nodes: HTMLElement[]) {
         renderer: 'canvas',
         loop: true,
         autoplay: false,
-        animationData: data,
+        // Lottie mutates animation data; each view needs an independent copy.
+        animationData: structuredClone(data),
         rendererSettings: {
           dpr,
           clearCanvas: true,

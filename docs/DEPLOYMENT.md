@@ -1,20 +1,22 @@
 # GitHub Pages publication and recovery
 
-This guide applies only to `WizardLoop/wizardloop.github.io` and `wizardloop.com`. The site is static. No private host, bot, synchronization schedule, feedback service or additional infrastructure is needed.
+I use this guide for `WizardLoop/wizardloop.github.io` and `wizardloop.com` only. My site is static. I do not need a private host, bot, synchronization schedule, feedback service or additional infrastructure.
 
-Merging a reviewed change into `main` is the owner's publication action: it triggers the checked-in Pages workflow. Creating or updating a pull request does not publish it. The current package version is `1.0.0-rc.2`; that label does not prove a release or production deployment exists.
+When I approve and merge a change into `main`, it triggers my checked-in Pages workflow. Creating or updating a pull request does not publish it. My current source candidate is `1.0.0-rc.3`, which I have not deployed. I verified the preceding `1.0.0-rc.2` baseline after [PR #4](https://github.com/WizardLoop/wizardloop.github.io/pull/4) merged at `ef1157b`: [deployment run 40679459115](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40679459115) passed 170 browser tests on 2026-10-28. A package version alone does not prove a Git tag or GitHub Release exists.
 
 ## One-time repository setting
 
-Before merging the first Astro publication change:
+I retain these setup instructions for checking or restoring my GitHub Pages configuration:
 
 1. Open repository **Settings > Pages > Build and deployment** and select **GitHub Actions** as the source.
 2. Preserve the existing custom domain `wizardloop.com` and HTTPS configuration. This change does not require editing DNS.
 3. Check **Settings > Actions > General** permits the actions used by the repository.
-4. Check the `github-pages` environment permits deployment from `main`. If the owner has configured required reviewers, deployments wait for that review; the workflow does not remove this protection.
+4. Check the `github-pages` environment permits deployment from `main`. If I configure required reviewers, deployments wait for that review; the workflow does not remove this protection.
 5. Retain the previous published commit/artifact and note the current Pages/domain settings for recovery.
 
-These are setup instructions, not a claim that the account settings have been inspected or changed. Source code and CNAME alone cannot switch the Pages publishing source. If the source remains a branch, the old root `index.html` may keep being published instead of the Astro `dist/` artifact. Ensure the source is correct before relying on merge-to-publish behavior.
+I verified publication of the baseline identified above. These recovery instructions do not establish the state of every account setting. Source code and CNAME alone cannot switch the Pages publishing source. If the source is changed back to a branch, my old root `index.html` may be published instead of the Astro `dist/` artifact. Ensure the source is correct before relying on merge-to-publish behavior.
+
+In my latest read-only baseline check, [custom deployment run 40679459115](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40679459115) succeeded, while the parallel [legacy Pages/Jekyll run 40679459252](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40679459252) failed when it interpreted Astro component frontmatter as YAML. These are separate builders. My intended publishing source is **GitHub Actions**, which builds Astro and publishes only `dist/`. I have not directly verified the current Pages source setting, and this check changed no settings. Do not rewrite valid Astro as Jekyll YAML or add a root `.nojekyll` to publish the legacy repository files; confirm the Pages source instead.
 
 GitHub documents [custom workflow requirements](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) and [choosing the publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). Astro supports [static publication to GitHub Pages](https://docs.astro.build/en/guides/deploy/github/).
 
@@ -35,11 +37,13 @@ Stop any development server on port 4322 before browser tests so Playwright uses
 
 The root `CNAME`, `public/CNAME` and generated `dist/CNAME` must contain `wizardloop.com`. Astro's `site` remains `https://wizardloop.com`, with directory output and trailing slashes. Do not add `/wizardloop.github.io` as a base path.
 
-For a local non-indexable review build, set `PUBLIC_PREVIEW=true`. The production workflow explicitly sets it to `false`. Review the final diff, screenshots, factual content, rights, keyboard behavior and measured QA before the owner merges.
+For a local non-indexable review build, set `PUBLIC_PREVIEW=true`. My production workflow explicitly sets it to `false`. I review the final diff, screenshots, factual content, rights, keyboard behavior and measured QA before merging.
 
 ## What runs after merging
 
 `.github/workflows/ci.yml` runs on development-branch pushes, pull requests and manual dispatch. It has read-only repository permissions and cannot deploy. Require its `check` result before merging through repository rules if desired; these rules are account settings and are not created by this source change.
+
+After browser tests, that review workflow measures Home, About, Work, Projects, Posts and Contact with Lighthouse on Linux. I retain the HTML/JSON reports, raw traces and network logs in a separate `mobile-lighthouse-results` artifact for seven days. Audit execution errors fail CI; numeric scores are recorded without a fixed threshold. The production workflow below still validates the build and browser suite before publication.
 
 `.github/workflows/deploy.yml`, named **Deploy to GitHub Pages**, runs on pushes to `main` and supports manual dispatch. Its build is restricted to this repository and `main`.
 
@@ -68,14 +72,14 @@ See [QA.md](QA.md) for local test evidence and known browser/assistive-technolog
 
 ## Rollback
 
-Retain a known-good deployment and its commit before a change. For an Astro regression, prepare a revert or recovery pull request that restores the known-good source and lockfile while preserving the domain. Validate it, then let the owner merge it. The same `main` workflow publishes the recovery. Do not force-push `main`, delete history or overwrite tags.
+I retain a known-good deployment and its commit before a change. For an Astro regression, prepare a revert or recovery pull request that restores the known-good source and lockfile while preserving the domain. Validate it, then leave the merge for my approval. The same `main` workflow publishes the recovery. Do not force-push `main`, delete history or overwrite tags.
 
 Keep the validated Pages workflow in the recovery change. Reverting the pull request that introduced automatic publication would also remove its `push` trigger; in that case a merge alone will not publish the recovery. Retain the workflow or use its reviewed manual dispatch path, and verify the resulting deployment.
 
 The pre-rebuild baseline is `658ed667c173f861cd16e6048126de12ec3648b9`. It has no npm build, so running this Astro workflow against that old commit is not a valid recovery procedure. Its original `index.html`, `assets/css/style.css` and `CNAME` are retained in the repository and Git history. If that legacy site is needed, prepare an explicitly reviewed artifact/publication workflow appropriate to the active Pages source. Preserve its relative paths, PaperMod notice and `wizardloop.com`; DNS need not change.
 
-Git history does not record every hosting setting. Restore account settings only through an owner-approved operation, using the recovery record.
+Git history does not record every hosting setting. Restore account settings only with my approval, using the recovery record.
 
 ## Tags and releases
 
-A successful deployment does not create a Git tag or GitHub Release. If the owner requests a release, verify the live result, recheck existing tags/releases, choose the semantic version, update the package and lockfile together, and tag the exact reviewed commit. Never overwrite an existing tag. Release notes should state actual validation, known limits, licensing and recovery instructions.
+A successful deployment does not create a Git tag or GitHub Release. When I decide to publish a release, I verify the live result, recheck existing tags/releases, choose the semantic version, update the package and lockfile together, and tag the exact reviewed commit. Never overwrite an existing tag. My release notes state actual validation, known limits, licensing and recovery instructions.

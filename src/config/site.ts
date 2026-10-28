@@ -3,7 +3,7 @@ export const site = {
   url: 'https://wizardloop.com',
   tagline: 'Code, Design & a Little Magic.',
   description:
-    'The personal studio of WizardLoop. Independent design, illustration, animation, software, Telegram bots and open-source experiments.',
+    "I'm WizardLoop. I bring ideas to life through design, illustration, animation, software, Telegram bots and open-source experiments.",
   email: 'wizard@wizardloop.com',
   links: {
     telegram: 'https://t.me/wizardloop',

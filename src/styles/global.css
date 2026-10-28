@@ -368,7 +368,8 @@ main:focus {
 }
 .brand-spark {
   color: var(--accent);
-  font-size: 20px;
+  width: 20px;
+  height: 20px;
   vertical-align: super;
   display: inline-block;
   margin-left: 2px;
@@ -545,9 +546,7 @@ dialog::backdrop {
 .drawn-star {
   width: 87px;
   height: 87px;
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.5;
+  color: var(--accent);
   transform: rotate(-8deg);
 }
 .magic-word {
@@ -963,8 +962,8 @@ dialog::backdrop {
   position: absolute;
   left: 7%;
   top: 70px;
-  font-size: 90px;
-  line-height: 1;
+  width: 90px;
+  height: 90px;
   color: var(--accent);
   transform: rotate(-10deg);
 }
@@ -1396,7 +1395,8 @@ dialog::backdrop {
   }
   .cta-spark {
     left: 4%;
-    font-size: 70px;
+    width: 70px;
+    height: 70px;
   }
 }
 @media (max-width: 900px) {
@@ -1556,7 +1556,8 @@ dialog::backdrop {
     display: none;
   }
   .cta-spark {
-    font-size: 45px;
+    width: 45px;
+    height: 45px;
     left: 25px;
     top: 25px;
   }
@@ -1677,7 +1678,8 @@ dialog::backdrop {
     height: 28px;
   }
   .brand-spark {
-    font-size: 17px;
+    width: 17px;
+    height: 17px;
   }
   .header-contact {
     display: none;
@@ -1906,7 +1908,8 @@ dialog::backdrop {
     font-size: 11px;
   }
   .cta-spark {
-    font-size: 34px;
+    width: 34px;
+    height: 34px;
     left: 17px;
     top: 17px;
   }
@@ -2142,7 +2145,8 @@ dialog::backdrop {
     width: 24px;
   }
   .brand-spark {
-    font-size: 15px;
+    width: 15px;
+    height: 15px;
   }
   .header-controls .icon-button {
     width: 34px;

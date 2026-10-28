@@ -1,21 +1,13 @@
 {
-  "schemaVersion": 2,
-  "date": "2026-10-28",
-  "candidate": "Simplified static site after the Manrope font preload was added.",
+  "schemaVersion": 3,
+  "version": "1.0.0-rc.3",
+  "generatedAt": "2026-10-28T13:15:51.020Z",
   "method": {
+    "environment": "Windows local static Astro preview, sequential Lighthouse runs after acceptance browsers closed",
     "lighthouseVersion": "13.5.0",
-    "environment": "Local built Astro preview on Windows with Headless Chromium.",
-    "url": "http://127.0.0.1:4322/",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36",
+    "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36",
     "formFactor": "mobile",
     "throttlingMethod": "simulate",
-    "screenEmulation": {
-      "mobile": true,
-      "width": 412,
-      "height": 823,
-      "deviceScaleFactor": 1.75,
-      "disabled": false
-    },
     "throttling": {
       "rttMs": 150,
       "throughputKbps": 1638.4,
@@ -24,675 +16,157 @@
       "uploadThroughputKbps": 675,
       "cpuSlowdownMultiplier": 4
     },
-    "scoreScale": "0 to 100",
-    "note": "Synthetic lab measurements, not production traffic or field Core Web Vitals. Local host load, caching and timing can affect results. Baseline and diagnostic samples are excluded from final aggregates. These runs do not establish that the font preload alone caused every measured difference."
+    "screenEmulation": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    }
   },
-  "sampleCount": 7,
-  "measurementWindow": {
-    "firstFetchTime": "2026-10-28T10:17:33.409Z",
-    "lastFetchTime": "2026-10-28T10:19:34.917Z"
-  },
-  "summary": [
+  "conclusion": "The measured Windows Home performance median did not meet the 90 target. The local reports show variable initial style/layout work, before any TGS or Lottie request. No root cause is established. Independent Linux measurements are included in the development-branch CI; these local results must not be presented as uniformly 90+.",
+  "pages": [
     {
       "page": "home",
-      "path": "/",
-      "sampleCount": 3,
-      "scores": {
-        "performance": {
-          "median": 98,
-          "range": [
-            94,
-            98
-          ],
-          "samples": [
-            98,
-            94,
-            98
-          ]
-        },
-        "accessibility": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100,
-            100,
-            100
-          ]
-        },
-        "best-practices": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100,
-            100,
-            100
-          ]
-        },
-        "seo": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100,
-            100,
-            100
-          ]
-        }
+      "samples": 3,
+      "performance": {
+        "median": 57,
+        "min": 38,
+        "max": 83
       },
-      "metrics": {
-        "first-contentful-paint": {
-          "unit": "ms",
-          "median": 1464,
-          "range": [
-            1360.261,
-            1654
-          ],
-          "samples": [
-            1464,
-            1360.261,
-            1654
-          ]
-        },
-        "largest-contentful-paint": {
-          "unit": "ms",
-          "median": 2235,
-          "range": [
-            2235,
-            2345.348
-          ],
-          "samples": [
-            2235,
-            2345.348,
-            2235
-          ]
-        },
-        "total-blocking-time": {
-          "unit": "ms",
-          "median": 51,
-          "range": [
-            1,
-            83.41300000000001
-          ],
-          "samples": [
-            51,
-            83.41300000000001,
-            1
-          ]
-        },
-        "cumulative-layout-shift": {
-          "unit": "unitless",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0,
-            0,
-            0
-          ]
-        },
-        "speed-index": {
-          "unit": "ms",
-          "median": 1654,
-          "range": [
-            1464,
-            4932.387445850005
-          ],
-          "samples": [
-            1464,
-            4932.387445850005,
-            1654
-          ]
-        },
-        "total-byte-weight": {
-          "unit": "bytes",
-          "median": 889953,
-          "range": [
-            889953,
-            889953
-          ],
-          "samples": [
-            889953,
-            889953,
-            889953
-          ]
-        }
+      "lcpMedianMs": 6083,
+      "tbtMedianMs": 473.116,
+      "clsMax": 0.008180280262261445
+    },
+    {
+      "page": "about",
+      "samples": 3,
+      "performance": {
+        "median": 95,
+        "min": 90,
+        "max": 98
       },
-      "interpretation": "Three final samples retained, including the lower score."
+      "lcpMedianMs": 1741.4951999999998,
+      "tbtMedianMs": 257.5,
+      "clsMax": 0
     },
     {
       "page": "work",
-      "path": "/work/",
-      "sampleCount": 1,
-      "scores": {
-        "performance": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "accessibility": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "best-practices": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "seo": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        }
+      "samples": 1,
+      "performance": {
+        "median": 95,
+        "min": 95,
+        "max": 95
       },
-      "metrics": {
-        "first-contentful-paint": {
-          "unit": "ms",
-          "median": 1362.426,
-          "range": [
-            1362.426,
-            1362.426
-          ],
-          "samples": [
-            1362.426
-          ]
-        },
-        "largest-contentful-paint": {
-          "unit": "ms",
-          "median": 1512.4260000000002,
-          "range": [
-            1512.4260000000002,
-            1512.4260000000002
-          ],
-          "samples": [
-            1512.4260000000002
-          ]
-        },
-        "total-blocking-time": {
-          "unit": "ms",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0
-          ]
-        },
-        "cumulative-layout-shift": {
-          "unit": "unitless",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0
-          ]
-        },
-        "speed-index": {
-          "unit": "ms",
-          "median": 1362.426,
-          "range": [
-            1362.426,
-            1362.426
-          ],
-          "samples": [
-            1362.426
-          ]
-        },
-        "total-byte-weight": {
-          "unit": "bytes",
-          "median": 105364,
-          "range": [
-            105364,
-            105364
-          ],
-          "samples": [
-            105364
-          ]
-        }
-      },
-      "interpretation": "One final sample; the equal minimum and maximum do not establish run-to-run stability."
+      "lcpMedianMs": 1798.9349,
+      "tbtMedianMs": 20,
+      "clsMax": 0
     },
     {
       "page": "projects",
-      "path": "/projects/",
-      "sampleCount": 1,
-      "scores": {
-        "performance": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "accessibility": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "best-practices": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "seo": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        }
+      "samples": 1,
+      "performance": {
+        "median": 98,
+        "min": 98,
+        "max": 98
       },
-      "metrics": {
-        "first-contentful-paint": {
-          "unit": "ms",
-          "median": 1375.7973000000002,
-          "range": [
-            1375.7973000000002,
-            1375.7973000000002
-          ],
-          "samples": [
-            1375.7973000000002
-          ]
-        },
-        "largest-contentful-paint": {
-          "unit": "ms",
-          "median": 1525.7972999999997,
-          "range": [
-            1525.7972999999997,
-            1525.7972999999997
-          ],
-          "samples": [
-            1525.7972999999997
-          ]
-        },
-        "total-blocking-time": {
-          "unit": "ms",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0
-          ]
-        },
-        "cumulative-layout-shift": {
-          "unit": "unitless",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0
-          ]
-        },
-        "speed-index": {
-          "unit": "ms",
-          "median": 1375.7973000000002,
-          "range": [
-            1375.7973000000002,
-            1375.7973000000002
-          ],
-          "samples": [
-            1375.7973000000002
-          ]
-        },
-        "total-byte-weight": {
-          "unit": "bytes",
-          "median": 105177,
-          "range": [
-            105177,
-            105177
-          ],
-          "samples": [
-            105177
-          ]
-        }
-      },
-      "interpretation": "One final sample; the equal minimum and maximum do not establish run-to-run stability."
+      "lcpMedianMs": 1580.5156500000003,
+      "tbtMedianMs": 47.500000000000455,
+      "clsMax": 0
     },
     {
       "page": "posts",
-      "path": "/posts/",
-      "sampleCount": 1,
-      "scores": {
-        "performance": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "accessibility": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "best-practices": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "seo": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        }
+      "samples": 1,
+      "performance": {
+        "median": 98,
+        "min": 98,
+        "max": 98
       },
-      "metrics": {
-        "first-contentful-paint": {
-          "unit": "ms",
-          "median": 1366.3227000000002,
-          "range": [
-            1366.3227000000002,
-            1366.3227000000002
-          ],
-          "samples": [
-            1366.3227000000002
-          ]
-        },
-        "largest-contentful-paint": {
-          "unit": "ms",
-          "median": 1516.3227000000002,
-          "range": [
-            1516.3227000000002,
-            1516.3227000000002
-          ],
-          "samples": [
-            1516.3227000000002
-          ]
-        },
-        "total-blocking-time": {
-          "unit": "ms",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0
-          ]
-        },
-        "cumulative-layout-shift": {
-          "unit": "unitless",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0
-          ]
-        },
-        "speed-index": {
-          "unit": "ms",
-          "median": 1366.3227000000002,
-          "range": [
-            1366.3227000000002,
-            1366.3227000000002
-          ],
-          "samples": [
-            1366.3227000000002
-          ]
-        },
-        "total-byte-weight": {
-          "unit": "bytes",
-          "median": 105100,
-          "range": [
-            105100,
-            105100
-          ],
-          "samples": [
-            105100
-          ]
-        }
-      },
-      "interpretation": "One final sample; the equal minimum and maximum do not establish run-to-run stability."
+      "lcpMedianMs": 1664.634,
+      "tbtMedianMs": 152,
+      "clsMax": 0
     },
     {
       "page": "feedback",
-      "path": "/feedback/",
-      "sampleCount": 1,
-      "scores": {
-        "performance": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "accessibility": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "best-practices": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        },
-        "seo": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100
-          ]
-        }
+      "samples": 1,
+      "performance": {
+        "median": 100,
+        "min": 100,
+        "max": 100
       },
-      "metrics": {
-        "first-contentful-paint": {
-          "unit": "ms",
-          "median": 1377.4293,
-          "range": [
-            1377.4293,
-            1377.4293
-          ],
-          "samples": [
-            1377.4293
-          ]
-        },
-        "largest-contentful-paint": {
-          "unit": "ms",
-          "median": 1527.4293,
-          "range": [
-            1527.4293,
-            1527.4293
-          ],
-          "samples": [
-            1527.4293
-          ]
-        },
-        "total-blocking-time": {
-          "unit": "ms",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0
-          ]
-        },
-        "cumulative-layout-shift": {
-          "unit": "unitless",
-          "median": 0,
-          "range": [
-            0,
-            0
-          ],
-          "samples": [
-            0
-          ]
-        },
-        "speed-index": {
-          "unit": "ms",
-          "median": 1377.4293,
-          "range": [
-            1377.4293,
-            1377.4293
-          ],
-          "samples": [
-            1377.4293
-          ]
-        },
-        "total-byte-weight": {
-          "unit": "bytes",
-          "median": 105308,
-          "range": [
-            105308,
-            105308
-          ],
-          "samples": [
-            105308
-          ]
-        }
-      },
-      "interpretation": "One final sample; the equal minimum and maximum do not establish run-to-run stability."
+      "lcpMedianMs": 1541.3478,
+      "tbtMedianMs": 0,
+      "clsMax": 0
     }
   ],
   "samples": [
     {
-      "sourceSummary": "artifacts/lighthouse-final/summary.json",
       "page": "home",
       "version": "13.5.0",
-      "fetchTime": "2026-10-28T10:17:33.409Z",
+      "fetchTime": "2026-10-28T12:56:57.702Z",
       "formFactor": "mobile",
       "throttling": "simulate",
       "scores": {
-        "performance": 98,
+        "performance": 83,
         "accessibility": 100,
         "best-practices": 100,
-        "seo": 100
+        "seo": 92
       },
       "metrics": {
         "first-contentful-paint": {
-          "numericValue": 1464,
-          "displayValue": "1.5 s"
+          "numericValue": 1972.652,
+          "displayValue": "2.0 s"
         },
         "largest-contentful-paint": {
-          "numericValue": 2235,
-          "displayValue": "2.2 s"
+          "numericValue": 2318.036,
+          "displayValue": "2.3 s"
         },
         "total-blocking-time": {
-          "numericValue": 51,
-          "displayValue": "50 ms"
+          "numericValue": 473.116,
+          "displayValue": "470 ms"
         },
         "cumulative-layout-shift": {
-          "numericValue": 0,
-          "displayValue": "0"
+          "numericValue": 0.008180280262261445,
+          "displayValue": "0.008"
         },
         "speed-index": {
-          "numericValue": 1464,
-          "displayValue": "1.5 s"
+          "numericValue": 3570.7275626853634,
+          "displayValue": "3.6 s"
         },
         "total-byte-weight": {
-          "numericValue": 889953,
-          "displayValue": "Total size was 869 KiB"
+          "numericValue": 905788,
+          "displayValue": "Total size was 885 KiB"
         }
       },
       "failedAudits": [
         {
           "id": "first-contentful-paint",
-          "score": 0.96,
+          "score": 0.85,
           "title": "First Contentful Paint"
         },
         {
           "id": "largest-contentful-paint",
-          "score": 0.94,
+          "score": 0.93,
           "title": "Largest Contentful Paint"
         },
         {
+          "id": "speed-index",
+          "score": 0.87,
+          "title": "Speed Index"
+        },
+        {
+          "id": "total-blocking-time",
+          "score": 0.6,
+          "title": "Total Blocking Time"
+        },
+        {
           "id": "max-potential-fid",
-          "score": 0.11,
+          "score": 0,
           "title": "Max Potential First Input Delay"
         },
         {
           "id": "interactive",
-          "score": 0.99,
+          "score": 0.97,
           "title": "Time to Interactive"
         },
         {
@@ -701,8 +175,13 @@
           "title": "Minimize main-thread work"
         },
         {
-          "id": "image-delivery-insight",
+          "id": "robots-txt",
           "score": 0,
+          "title": "robots.txt is not valid"
+        },
+        {
+          "id": "image-delivery-insight",
+          "score": 0.5,
           "title": "Improve image delivery"
         },
         {
@@ -716,308 +195,511 @@
           "title": "Render-blocking requests"
         }
       ],
-      "error": null
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3/page-home.json"
     },
     {
-      "sourceSummary": "artifacts/lighthouse-final/summary.json",
-      "page": "work",
+      "page": "about",
       "version": "13.5.0",
-      "fetchTime": "2026-10-28T10:17:53.179Z",
+      "fetchTime": "2026-10-28T12:57:32.459Z",
       "formFactor": "mobile",
       "throttling": "simulate",
       "scores": {
-        "performance": 100,
+        "performance": 90,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
       "metrics": {
         "first-contentful-paint": {
-          "numericValue": 1362.426,
+          "numericValue": 1419.0485,
           "displayValue": "1.4 s"
         },
         "largest-contentful-paint": {
-          "numericValue": 1512.4260000000002,
-          "displayValue": "1.5 s"
+          "numericValue": 2154.0727500000003,
+          "displayValue": "2.2 s"
         },
         "total-blocking-time": {
-          "numericValue": 0,
-          "displayValue": "0 ms"
+          "numericValue": 356.65049999999997,
+          "displayValue": "360 ms"
         },
         "cumulative-layout-shift": {
           "numericValue": 0,
           "displayValue": "0"
         },
         "speed-index": {
-          "numericValue": 1362.426,
-          "displayValue": "1.4 s"
+          "numericValue": 1485.6975417600706,
+          "displayValue": "1.5 s"
         },
         "total-byte-weight": {
-          "numericValue": 105364,
-          "displayValue": "Total size was 103 KiB"
+          "numericValue": 286461,
+          "displayValue": "Total size was 280 KiB"
         }
       },
       "failedAudits": [
         {
           "id": "first-contentful-paint",
           "score": 0.97,
-          "title": "First Contentful Paint"
-        },
-        {
-          "id": "network-dependency-tree-insight",
-          "score": 0,
-          "title": "Network dependency tree"
-        },
-        {
-          "id": "render-blocking-insight",
-          "score": 0,
-          "title": "Render-blocking requests"
-        }
-      ],
-      "error": null
-    },
-    {
-      "sourceSummary": "artifacts/lighthouse-final/summary.json",
-      "page": "projects",
-      "version": "13.5.0",
-      "fetchTime": "2026-10-28T10:18:05.597Z",
-      "formFactor": "mobile",
-      "throttling": "simulate",
-      "scores": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "metrics": {
-        "first-contentful-paint": {
-          "numericValue": 1375.7973000000002,
-          "displayValue": "1.4 s"
-        },
-        "largest-contentful-paint": {
-          "numericValue": 1525.7972999999997,
-          "displayValue": "1.5 s"
-        },
-        "total-blocking-time": {
-          "numericValue": 0,
-          "displayValue": "0 ms"
-        },
-        "cumulative-layout-shift": {
-          "numericValue": 0,
-          "displayValue": "0"
-        },
-        "speed-index": {
-          "numericValue": 1375.7973000000002,
-          "displayValue": "1.4 s"
-        },
-        "total-byte-weight": {
-          "numericValue": 105177,
-          "displayValue": "Total size was 103 KiB"
-        }
-      },
-      "failedAudits": [
-        {
-          "id": "first-contentful-paint",
-          "score": 0.97,
-          "title": "First Contentful Paint"
-        },
-        {
-          "id": "network-dependency-tree-insight",
-          "score": 0,
-          "title": "Network dependency tree"
-        },
-        {
-          "id": "render-blocking-insight",
-          "score": 0,
-          "title": "Render-blocking requests"
-        }
-      ],
-      "error": null
-    },
-    {
-      "sourceSummary": "artifacts/lighthouse-final/summary.json",
-      "page": "posts",
-      "version": "13.5.0",
-      "fetchTime": "2026-10-28T10:18:20.528Z",
-      "formFactor": "mobile",
-      "throttling": "simulate",
-      "scores": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "metrics": {
-        "first-contentful-paint": {
-          "numericValue": 1366.3227000000002,
-          "displayValue": "1.4 s"
-        },
-        "largest-contentful-paint": {
-          "numericValue": 1516.3227000000002,
-          "displayValue": "1.5 s"
-        },
-        "total-blocking-time": {
-          "numericValue": 0,
-          "displayValue": "0 ms"
-        },
-        "cumulative-layout-shift": {
-          "numericValue": 0,
-          "displayValue": "0"
-        },
-        "speed-index": {
-          "numericValue": 1366.3227000000002,
-          "displayValue": "1.4 s"
-        },
-        "total-byte-weight": {
-          "numericValue": 105100,
-          "displayValue": "Total size was 103 KiB"
-        }
-      },
-      "failedAudits": [
-        {
-          "id": "first-contentful-paint",
-          "score": 0.97,
-          "title": "First Contentful Paint"
-        },
-        {
-          "id": "network-dependency-tree-insight",
-          "score": 0,
-          "title": "Network dependency tree"
-        },
-        {
-          "id": "render-blocking-insight",
-          "score": 0,
-          "title": "Render-blocking requests"
-        }
-      ],
-      "error": null
-    },
-    {
-      "sourceSummary": "artifacts/lighthouse-final/summary.json",
-      "page": "feedback",
-      "version": "13.5.0",
-      "fetchTime": "2026-10-28T10:18:33.696Z",
-      "formFactor": "mobile",
-      "throttling": "simulate",
-      "scores": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "metrics": {
-        "first-contentful-paint": {
-          "numericValue": 1377.4293,
-          "displayValue": "1.4 s"
-        },
-        "largest-contentful-paint": {
-          "numericValue": 1527.4293,
-          "displayValue": "1.5 s"
-        },
-        "total-blocking-time": {
-          "numericValue": 0,
-          "displayValue": "0 ms"
-        },
-        "cumulative-layout-shift": {
-          "numericValue": 0,
-          "displayValue": "0"
-        },
-        "speed-index": {
-          "numericValue": 1377.4293,
-          "displayValue": "1.4 s"
-        },
-        "total-byte-weight": {
-          "numericValue": 105308,
-          "displayValue": "Total size was 103 KiB"
-        }
-      },
-      "failedAudits": [
-        {
-          "id": "first-contentful-paint",
-          "score": 0.97,
-          "title": "First Contentful Paint"
-        },
-        {
-          "id": "network-dependency-tree-insight",
-          "score": 0,
-          "title": "Network dependency tree"
-        },
-        {
-          "id": "render-blocking-insight",
-          "score": 0,
-          "title": "Render-blocking requests"
-        }
-      ],
-      "error": null
-    },
-    {
-      "sourceSummary": "artifacts/lighthouse-final-2/summary.json",
-      "page": "home",
-      "version": "13.5.0",
-      "fetchTime": "2026-10-28T10:18:59.847Z",
-      "formFactor": "mobile",
-      "throttling": "simulate",
-      "scores": {
-        "performance": 94,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "metrics": {
-        "first-contentful-paint": {
-          "numericValue": 1360.261,
-          "displayValue": "1.4 s"
-        },
-        "largest-contentful-paint": {
-          "numericValue": 2345.348,
-          "displayValue": "2.3 s"
-        },
-        "total-blocking-time": {
-          "numericValue": 83.41300000000001,
-          "displayValue": "80 ms"
-        },
-        "cumulative-layout-shift": {
-          "numericValue": 0,
-          "displayValue": "0"
-        },
-        "speed-index": {
-          "numericValue": 4932.387445850005,
-          "displayValue": "4.9 s"
-        },
-        "total-byte-weight": {
-          "numericValue": 889953,
-          "displayValue": "Total size was 869 KiB"
-        }
-      },
-      "failedAudits": [
-        {
-          "id": "first-contentful-paint",
-          "score": 0.98,
           "title": "First Contentful Paint"
         },
         {
           "id": "largest-contentful-paint",
-          "score": 0.92,
+          "score": 0.95,
           "title": "Largest Contentful Paint"
         },
         {
-          "id": "speed-index",
-          "score": 0.65,
-          "title": "Speed Index"
-        },
-        {
           "id": "total-blocking-time",
-          "score": 0.99,
+          "score": 0.72,
           "title": "Total Blocking Time"
         },
         {
           "id": "max-potential-fid",
-          "score": 0.33,
+          "score": 0.11,
           "title": "Max Potential First Input Delay"
         },
         {
           "id": "interactive",
+          "score": 0.97,
+          "title": "Time to Interactive"
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "score": 0,
+          "title": "Minimize main-thread work"
+        },
+        {
+          "id": "bootup-time",
+          "score": 0,
+          "title": "Reduce JavaScript execution time"
+        },
+        {
+          "id": "unused-javascript",
+          "score": 0.5,
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "image-delivery-insight",
+          "score": 0.5,
+          "title": "Improve image delivery"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3/page-about.json"
+    },
+    {
+      "page": "work",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T12:57:49.936Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1734.9349,
+          "displayValue": "1.7 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 1798.9349,
+          "displayValue": "1.8 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 20,
+          "displayValue": "20 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 4739.815194260056,
+          "displayValue": "4.7 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 105760,
+          "displayValue": "Total size was 103 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.91,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "score": 0.98,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "speed-index",
+          "score": 0.68,
+          "title": "Speed Index"
+        },
+        {
+          "id": "max-potential-fid",
+          "score": 0.98,
+          "title": "Max Potential First Input Delay"
+        },
+        {
+          "id": "server-response-time",
+          "score": 0,
+          "title": "Reduce initial server response time"
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "score": 0.5,
+          "title": "Minimize main-thread work"
+        },
+        {
+          "id": "document-latency-insight",
+          "score": 0,
+          "title": "Document request latency"
+        },
+        {
+          "id": "lcp-breakdown-insight",
+          "score": 0,
+          "title": "LCP breakdown"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0.5,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3/page-work.json"
+    },
+    {
+      "page": "projects",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T12:58:05.181Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1536.0156499999998,
+          "displayValue": "1.5 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 1580.5156500000003,
+          "displayValue": "1.6 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 47.500000000000455,
+          "displayValue": "50 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 3141.454937973976,
+          "displayValue": "3.1 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 105569,
+          "displayValue": "Total size was 103 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.95,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
           "score": 0.99,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "speed-index",
+          "score": 0.92,
+          "title": "Speed Index"
+        },
+        {
+          "id": "max-potential-fid",
+          "score": 0.05,
+          "title": "Max Potential First Input Delay"
+        },
+        {
+          "id": "server-response-time",
+          "score": 0,
+          "title": "Reduce initial server response time"
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "score": 0,
+          "title": "Minimize main-thread work"
+        },
+        {
+          "id": "document-latency-insight",
+          "score": 0,
+          "title": "Document request latency"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0.5,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3/page-projects.json"
+    },
+    {
+      "page": "posts",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T12:58:21.629Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1383.634,
+          "displayValue": "1.4 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 1664.634,
+          "displayValue": "1.7 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 152,
+          "displayValue": "150 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1621.19397053214,
+          "displayValue": "1.6 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 256170,
+          "displayValue": "Total size was 250 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.97,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "score": 0.99,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "total-blocking-time",
+          "score": 0.94,
+          "title": "Total Blocking Time"
+        },
+        {
+          "id": "max-potential-fid",
+          "score": 0.37,
+          "title": "Max Potential First Input Delay"
+        },
+        {
+          "id": "interactive",
+          "score": 0.98,
+          "title": "Time to Interactive"
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "score": 0,
+          "title": "Minimize main-thread work"
+        },
+        {
+          "id": "bootup-time",
+          "score": 0,
+          "title": "Reduce JavaScript execution time"
+        },
+        {
+          "id": "unused-javascript",
+          "score": 0.5,
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "lcp-discovery-insight",
+          "score": 0,
+          "title": "LCP request discovery"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3/page-posts.json"
+    },
+    {
+      "page": "feedback",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T12:58:36.593Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1391.3478,
+          "displayValue": "1.4 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 1541.3478,
+          "displayValue": "1.5 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 0,
+          "displayValue": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1391.3478,
+          "displayValue": "1.4 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 105710,
+          "displayValue": "Total size was 103 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.97,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3/page-feedback.json"
+    },
+    {
+      "page": "home",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:00:37.048Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 38,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 5930,
+          "displayValue": "5.9 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 6083,
+          "displayValue": "6.1 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 1258,
+          "displayValue": "1,260 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 6335.6127799655205,
+          "displayValue": "6.3 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 905788,
+          "displayValue": "Total size was 885 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.04,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "score": 0.12,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "speed-index",
+          "score": 0.41,
+          "title": "Speed Index"
+        },
+        {
+          "id": "total-blocking-time",
+          "score": 0.19,
+          "title": "Total Blocking Time"
+        },
+        {
+          "id": "max-potential-fid",
+          "score": 0,
+          "title": "Max Potential First Input Delay"
+        },
+        {
+          "id": "interactive",
+          "score": 0.49,
           "title": "Time to Interactive"
         },
         {
@@ -1027,7 +709,7 @@
         },
         {
           "id": "image-delivery-insight",
-          "score": 0,
+          "score": 0.5,
           "title": "Improve image delivery"
         },
         {
@@ -1046,13 +728,13 @@
           "title": "Render-blocking requests"
         }
       ],
-      "error": null
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3-repeat-2/page-home.json"
     },
     {
-      "sourceSummary": "artifacts/lighthouse-final-3/summary.json",
-      "page": "home",
+      "page": "about",
       "version": "13.5.0",
-      "fetchTime": "2026-10-28T10:19:34.917Z",
+      "fetchTime": "2026-10-28T13:00:55.704Z",
       "formFactor": "mobile",
       "throttling": "simulate",
       "scores": {
@@ -1063,55 +745,173 @@
       },
       "metrics": {
         "first-contentful-paint": {
-          "numericValue": 1654,
-          "displayValue": "1.7 s"
+          "numericValue": 1211.9144999999999,
+          "displayValue": "1.2 s"
         },
         "largest-contentful-paint": {
-          "numericValue": 2235,
-          "displayValue": "2.2 s"
+          "numericValue": 1736.9144999999999,
+          "displayValue": "1.7 s"
         },
         "total-blocking-time": {
-          "numericValue": 1,
-          "displayValue": "0 ms"
+          "numericValue": 154.5,
+          "displayValue": "150 ms"
         },
         "cumulative-layout-shift": {
           "numericValue": 0,
           "displayValue": "0"
         },
         "speed-index": {
-          "numericValue": 1654,
-          "displayValue": "1.7 s"
+          "numericValue": 1252.045064486876,
+          "displayValue": "1.3 s"
         },
         "total-byte-weight": {
-          "numericValue": 889953,
-          "displayValue": "Total size was 869 KiB"
+          "numericValue": 286461,
+          "displayValue": "Total size was 280 KiB"
         }
       },
       "failedAudits": [
         {
           "id": "first-contentful-paint",
-          "score": 0.93,
+          "score": 0.99,
           "title": "First Contentful Paint"
         },
         {
           "id": "largest-contentful-paint",
-          "score": 0.94,
+          "score": 0.99,
           "title": "Largest Contentful Paint"
         },
         {
+          "id": "total-blocking-time",
+          "score": 0.94,
+          "title": "Total Blocking Time"
+        },
+        {
+          "id": "max-potential-fid",
+          "score": 0.23,
+          "title": "Max Potential First Input Delay"
+        },
+        {
           "id": "interactive",
-          "score": 0.99,
+          "score": 0.97,
           "title": "Time to Interactive"
         },
         {
           "id": "mainthread-work-breakdown",
+          "score": 0,
+          "title": "Minimize main-thread work"
+        },
+        {
+          "id": "bootup-time",
+          "score": 0,
+          "title": "Reduce JavaScript execution time"
+        },
+        {
+          "id": "unused-javascript",
           "score": 0.5,
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "image-delivery-insight",
+          "score": 0.5,
+          "title": "Improve image delivery"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3-repeat-2/page-about.json"
+    },
+    {
+      "page": "home",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:01:32.902Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 57,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 5887.5,
+          "displayValue": "5.9 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 6212.5,
+          "displayValue": "6.2 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 269,
+          "displayValue": "270 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0.00004679164839040017,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 6339.2503149792165,
+          "displayValue": "6.3 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 905788,
+          "displayValue": "Total size was 885 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.04,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "score": 0.11,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "speed-index",
+          "score": 0.41,
+          "title": "Speed Index"
+        },
+        {
+          "id": "total-blocking-time",
+          "score": 0.82,
+          "title": "Total Blocking Time"
+        },
+        {
+          "id": "max-potential-fid",
+          "score": 0,
+          "title": "Max Potential First Input Delay"
+        },
+        {
+          "id": "interactive",
+          "score": 0.6,
+          "title": "Time to Interactive"
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "score": 0,
           "title": "Minimize main-thread work"
         },
         {
           "id": "image-delivery-insight",
-          "score": 0,
+          "score": 0.5,
           "title": "Improve image delivery"
+        },
+        {
+          "id": "lcp-breakdown-insight",
+          "score": 0,
+          "title": "LCP breakdown"
         },
         {
           "id": "network-dependency-tree-insight",
@@ -1124,218 +924,299 @@
           "title": "Render-blocking requests"
         }
       ],
-      "error": null
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3-repeat-3/page-home.json"
+    },
+    {
+      "page": "about",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:01:57.924Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1216.4951999999998,
+          "displayValue": "1.2 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 1741.4951999999998,
+          "displayValue": "1.7 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 257.5,
+          "displayValue": "260 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1216.4951999999998,
+          "displayValue": "1.2 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 286461,
+          "displayValue": "Total size was 280 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.99,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "score": 0.99,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "total-blocking-time",
+          "score": 0.83,
+          "title": "Total Blocking Time"
+        },
+        {
+          "id": "max-potential-fid",
+          "score": 0.1,
+          "title": "Max Potential First Input Delay"
+        },
+        {
+          "id": "interactive",
+          "score": 0.96,
+          "title": "Time to Interactive"
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "score": 0,
+          "title": "Minimize main-thread work"
+        },
+        {
+          "id": "bootup-time",
+          "score": 0,
+          "title": "Reduce JavaScript execution time"
+        },
+        {
+          "id": "unused-javascript",
+          "score": 0.5,
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "image-delivery-insight",
+          "score": 0.5,
+          "title": "Improve image delivery"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null,
+      "localReport": "artifacts/lighthouse-rc3-repeat-3/page-about.json"
     }
   ],
-  "beforeChange": {
-    "candidate": "Earlier simplified static build before the final Manrope preload change.",
-    "includedInFinalAggregates": false,
-    "sourceSummaries": [
-      "artifacts/lighthouse-static/summary.json",
-      "artifacts/lighthouse-static-2/summary.json",
-      "artifacts/lighthouse-static-3/summary.json"
-    ],
-    "sampleCount": 15,
-    "summary": [
-      {
-        "page": "home",
-        "performance": {
-          "median": 37,
-          "range": [
-            35,
-            63
-          ],
-          "samples": [
-            63,
-            35,
-            37
-          ]
-        },
-        "metrics": {
-          "largest-contentful-paint": {
-            "unit": "ms",
-            "median": 5998.5,
-            "range": [
-              3154,
-              6375
-            ],
-            "samples": [
-              3154,
-              6375,
-              5998.5
-            ]
-          },
-          "total-blocking-time": {
-            "unit": "ms",
-            "median": 1423.5,
-            "range": [
-              1179.5,
-              1625
-            ],
-            "samples": [
-              1179.5,
-              1625,
-              1423.5
-            ]
-          },
-          "cumulative-layout-shift": {
-            "unit": "unitless",
-            "median": 4.679164839040017e-05,
-            "range": [
-              0,
-              4.679164839040017e-05
-            ],
-            "samples": [
-              4.679164839040017e-05,
-              0,
-              4.679164839040017e-05
-            ]
-          }
-        }
-      },
-      {
-        "page": "work",
-        "performance": {
-          "median": 100,
-          "range": [
-            99,
-            100
-          ],
-          "samples": [
-            99,
-            100,
-            100
-          ]
-        }
-      },
-      {
-        "page": "projects",
-        "performance": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100,
-            100,
-            100
-          ]
-        }
-      },
-      {
-        "page": "posts",
-        "performance": {
-          "median": 100,
-          "range": [
-            61,
-            100
-          ],
-          "samples": [
-            61,
-            100,
-            100
-          ]
-        },
-        "metrics": {
-          "largest-contentful-paint": {
-            "unit": "ms",
-            "median": 1525.7694,
-            "range": [
-              1519.7793000000001,
-              6460.27385
-            ],
-            "samples": [
-              6460.27385,
-              1525.7694,
-              1519.7793000000001
-            ]
-          },
-          "total-blocking-time": {
-            "unit": "ms",
-            "median": 0,
-            "range": [
-              0,
-              21
-            ],
-            "samples": [
-              21,
-              0,
-              0
-            ]
-          },
-          "cumulative-layout-shift": {
-            "unit": "unitless",
-            "median": 0.0004939590886171721,
-            "range": [
-              0,
-              0.0004939590886171721
-            ],
-            "samples": [
-              0.0004939590886171721,
-              0,
-              0.0004939590886171721
-            ]
-          }
-        }
-      },
-      {
-        "page": "feedback",
-        "performance": {
-          "median": 100,
-          "range": [
-            100,
-            100
-          ],
-          "samples": [
-            100,
-            100,
-            100
-          ]
-        }
-      }
-    ],
-    "note": "Baseline Home performance samples were 63, 35 and 37. Posts scored 61 in the first baseline sample, then 100 and 100. These earlier measurements remain visible as context, not final-candidate scores."
-  },
-  "diagnostics": [
+  "discardedExperiments": [
     {
-      "name": "Audit-order probe",
-      "includedInFinalAggregates": false,
-      "sourceReport": "artifacts/lighthouse-order-probe/home.json",
-      "fetchTime": "2026-10-28T10:13:09.287Z",
-      "page": "home",
-      "performance": 91,
-      "note": "Separate diagnostic run used to investigate audit-order or host effects. This is not a final-candidate performance result."
+      "change": "Preload the existing Cormorant italic font",
+      "disposition": "Reverted: the Home sample scored 61 and did not resolve the delayed first paint. No application code from this experiment remains.",
+      "samples": [
+        {
+          "page": "home",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-28T13:12:25.667Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 61,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 5489,
+              "displayValue": "5.5 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 5653.5,
+              "displayValue": "5.7 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 33.5,
+              "displayValue": "30 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 9817.11517396891,
+              "displayValue": "9.8 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 905805,
+              "displayValue": "Total size was 885 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "score": 0.06,
+              "title": "First Contentful Paint"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.17,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "speed-index",
+              "score": 0.1,
+              "title": "Speed Index"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.69,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "image-delivery-insight",
+              "score": 0.5,
+              "title": "Improve image delivery"
+            },
+            {
+              "id": "lcp-breakdown-insight",
+              "score": 0,
+              "title": "LCP breakdown"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0.5,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        },
+        {
+          "page": "about",
+          "version": "13.5.0",
+          "fetchTime": "2026-10-28T13:12:54.409Z",
+          "formFactor": "mobile",
+          "throttling": "simulate",
+          "scores": {
+            "performance": 96,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": {
+              "numericValue": 1000.4142999999999,
+              "displayValue": "1.0 s"
+            },
+            "largest-contentful-paint": {
+              "numericValue": 1812.4143,
+              "displayValue": "1.8 s"
+            },
+            "total-blocking-time": {
+              "numericValue": 215.29284999999982,
+              "displayValue": "220 ms"
+            },
+            "cumulative-layout-shift": {
+              "numericValue": 0,
+              "displayValue": "0"
+            },
+            "speed-index": {
+              "numericValue": 1310.5740513340684,
+              "displayValue": "1.3 s"
+            },
+            "total-byte-weight": {
+              "numericValue": 286476,
+              "displayValue": "Total size was 280 KiB"
+            }
+          },
+          "failedAudits": [
+            {
+              "id": "largest-contentful-paint",
+              "score": 0.98,
+              "title": "Largest Contentful Paint"
+            },
+            {
+              "id": "total-blocking-time",
+              "score": 0.88,
+              "title": "Total Blocking Time"
+            },
+            {
+              "id": "max-potential-fid",
+              "score": 0.27,
+              "title": "Max Potential First Input Delay"
+            },
+            {
+              "id": "interactive",
+              "score": 0.97,
+              "title": "Time to Interactive"
+            },
+            {
+              "id": "mainthread-work-breakdown",
+              "score": 0,
+              "title": "Minimize main-thread work"
+            },
+            {
+              "id": "bootup-time",
+              "score": 0,
+              "title": "Reduce JavaScript execution time"
+            },
+            {
+              "id": "unused-javascript",
+              "score": 0.5,
+              "title": "Reduce unused JavaScript"
+            },
+            {
+              "id": "image-delivery-insight",
+              "score": 0.5,
+              "title": "Improve image delivery"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "score": 0,
+              "title": "Network dependency tree"
+            },
+            {
+              "id": "render-blocking-insight",
+              "score": 0,
+              "title": "Render-blocking requests"
+            }
+          ],
+          "error": null
+        }
+      ]
     }
   ],
-  "sourceDigests": [
-    {
-      "path": "artifacts/lighthouse-final/summary.json",
-      "sha256": "65d37989f7025bac4776d58dca6452e48b84f725c8bf6e7460b400780af5cbc8"
-    },
-    {
-      "path": "artifacts/lighthouse-final-2/summary.json",
-      "sha256": "57e145c0010ecf0cac3b7059eedec0eb2223417218e611dd444afa962d0a46e9"
-    },
-    {
-      "path": "artifacts/lighthouse-final-3/summary.json",
-      "sha256": "850c1f9638ed6ede2dd59e3304b95ffe0eb523e4237ad68a5d384c661686b493"
-    },
-    {
-      "path": "artifacts/lighthouse-static/summary.json",
-      "sha256": "e04443d1c791ec311c9574576f03c70c61da8d8750cd66fcf26bf81602e7b23a"
-    },
-    {
-      "path": "artifacts/lighthouse-static-2/summary.json",
-      "sha256": "8690c19d6e7a7e9dad270d12c6dee0fe73817cd3ed3bcb6e56e94cf7afca08b5"
-    },
-    {
-      "path": "artifacts/lighthouse-static-3/summary.json",
-      "sha256": "872f040467f67427bfa6be1f72cae4da3117b1e13453b49a0169c86a76996459"
-    },
-    {
-      "path": "artifacts/lighthouse-order-probe/home.json",
-      "sha256": "0c707c73ce0d3f958c03cd13d2bfee7fe1771cd81859c643d624661590b1ff45"
-    }
-  ]
+  "robotsNote": "The first Home sample scored SEO92 because the audit could not finish fetching robots.txt. Direct verification returned200 with valid contents; both repeated Home audits scored SEO100. The original result is retained."
 }

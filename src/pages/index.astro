@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import MotionArt from '../components/MotionArt.astro';
 import HeroArt from '../components/HeroArt.astro';
+import SparkMark from '../components/SparkMark.astro';
 import { site } from '../config/site';
 ---
 
@@ -19,10 +20,7 @@ import { site } from '../config/site';
         <h1 id="hero-title">
           <span>MAKE</span>
           <span class="hero-line">
-            IT{' '}
-            <svg class="drawn-star" viewBox="0 0 100 100" aria-hidden="true">
-              <path d="m50 2 8 31 28-18-18 28 30 7-30 8 18 28-28-18-8 30-8-30-28 18 18-28-30-8 30-7-18-28 28 18Z" />
-            </svg>
+            IT <SparkMark size={87} class="drawn-star" />
           </span>
           <span class="magic-word">
             MAGIC<span aria-hidden="true">.</span>
@@ -42,7 +40,7 @@ import { site } from '../config/site';
           <a
             class="icon-link"
             href={site.links.telegram}
-            aria-label="Contact WizardLoop on Telegram"
+            aria-label="Contact me on Telegram"
             data-tooltip="Say hello on Telegram"
           >
             <Icon name="telegram" size={24} />
@@ -50,7 +48,7 @@ import { site } from '../config/site';
           <a
             class="icon-link"
             href={site.links.github}
-            aria-label="WizardLoop on GitHub"
+            aria-label="Explore my GitHub profile"
             data-tooltip="Explore GitHub"
           >
             <Icon name="github" size={24} />
@@ -85,7 +83,7 @@ import { site } from '../config/site';
             <br />A lot of making.
           </span>
           <span class="art-source">
-            Original WizardLoop animation
+            An animation from my studio
             <br />A little piece of my world
           </span>
         </div>
@@ -165,7 +163,7 @@ import { site } from '../config/site';
     <div class="about-drawing">
       <MotionArt
         name="living-spellbook"
-        alt="WizardLoop's wizard emerges from an open illustrated spellbook"
+        alt="My illustrated wizard emerges from an open spellbook"
       />
       <span class="sketch-caption">The person behind the pixels ↗</span>
     </div>
@@ -196,8 +194,8 @@ import { site } from '../config/site';
     <div class="post-comic">
       <span class="comic-label">A NOTE FROM THE STUDIO</span>
       <MotionArt
-        name="overwhelmed-hat"
-        alt="A playful wizard hat floats above a small chat bubble"
+        name="silver-grimoire"
+        alt="A silver infinity emblem with engraved details and glinting highlights"
       />
       <span class="speech-note">
         There's always
@@ -230,9 +228,7 @@ import { site } from '../config/site';
     </div>
   </section>
   <section class="contact-cta wrap">
-    <div class="cta-spark" aria-hidden="true">
-      ✳
-    </div>
+    <SparkMark size={90} class="cta-spark" />
     <p class="eyebrow">GOOD THINGS START WITH A LITTLE CURIOSITY.</p>
     <h2>
       Got a strange idea?

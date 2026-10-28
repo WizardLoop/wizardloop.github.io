@@ -23,9 +23,29 @@ jobs:
       - run: npm run check
       - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run test:browsers
+      - name: Measure mobile Lighthouse
+        run: |
+          npm run preview > /tmp/wizardloop-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4322/ > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4322/ > /dev/null
+          export CHROME_PATH="$(node -p "require('@playwright/test').chromium.executablePath()")"
+          npm run audit:performance
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: browser-quality-results
           path: artifacts/final/
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-lighthouse-results
+          path: artifacts/lighthouse/
           retention-days: 7

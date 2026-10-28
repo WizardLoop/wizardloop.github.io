@@ -1,32 +1,43 @@
 # Changelog
 
-These headings record source changes. They do not establish that a Git tag, GitHub Release or production deployment exists.
+I record source changes here and identify verified deployments separately. A version heading alone does not establish that a Git tag or GitHub Release exists.
 
-## 1.0.0-rc.2 - Unreleased
+## 1.0.0-rc.3 - Unreleased
 
-- Simplify the site to static GitHub Pages with manually maintained profile content and local media.
-- Replace the feedback form with verified direct contact links while preserving `/feedback/`.
-- Add an accessible email-copy action, persistent mobile-menu close control and visible current-page navigation.
-- Refine the illustrated destination pages around original ink, paper, star and infinity artwork; keep the creator's existing wizard identity and motion.
-- Preload the local body font to reduce initial text-layout work; record fresh Lighthouse measurements and broader three-engine responsive coverage.
-- Direct Work and Posts visitors to the original Telegram channel and Projects visitors to all GitHub repositories; retain the existing page URLs.
-- Remove automatic profile/post services, the feedback backend, CAPTCHA setup, related fixtures and obsolete operational instructions.
-- Remove embedded-feed loading and explain the current external-link behavior in privacy, security and accessibility information.
-- Publish validated `dist/` output on pushes to `main`, with a manual retry option. Require lint, typecheck, build and browser checks before deployment; keep deployment permissions in the deploy job.
-- Document the one-time GitHub Actions publishing-source setting, direct content editing, verification and rollback. No DNS change or additional service credentials are required.
+- I added Silver Grimoire to Home, About and Posts, with local still previews and the existing motion controls.
+- I replaced decorative star glyphs with an original reusable SVG mark so the design does not depend on a device's emoji font.
+- I cached animation source data and isolated each player's mutable copy so repeated artwork placements can run independently.
+- I added a manual poster-generation command for animation asset editing.
+- I added regression checks for SVG identity, delayed animation loading, independent playback and lifecycle recovery, plus Linux Lighthouse reports in review CI.
+- I rewrote my site and repository prose in my own first-person voice while preserving factual history and third-party legal notices.
 
-Current validation and known limits are recorded in [QA.md](docs/QA.md). This candidate does not claim completed legal conformance, human screen-reader review or a verified production release.
+This source candidate has not been deployed. I recorded its measured browser checks, performance samples and the local Home performance limitation separately from the historical baseline in [QA.md](docs/QA.md).
+
+## 1.0.0-rc.2 - Deployed 2026-10-28
+
+- I simplified my site to static GitHub Pages with manually maintained profile content and local media.
+- I replaced the feedback form with verified direct contact links while preserving `/feedback/`.
+- I added an accessible email-copy action, persistent mobile-menu close control and visible current-page navigation.
+- I refined my illustrated destination pages around original ink, paper, star and infinity artwork while retaining my wizard identity and motion.
+- I preloaded my local body font to reduce initial text-layout work and recorded fresh Lighthouse measurements and broader three-engine responsive coverage.
+- I directed Work and Posts visitors to my Telegram channel and Projects visitors to all my GitHub repositories, retaining the existing page URLs.
+- I removed automatic profile/post services, the feedback backend, CAPTCHA setup, related fixtures and obsolete operational instructions.
+- I removed embedded-feed loading and explained external-link behavior in my privacy, security and accessibility information.
+- I configured publication of validated `dist/` output on pushes to `main`, with a manual retry option. Lint, typecheck, build and browser checks run before deployment; deployment permissions stay in the deploy job.
+- I documented the one-time GitHub Actions publishing-source setting, direct content editing, verification and rollback. I made no DNS change and added no service credentials.
+
+I merged this baseline through [PR #4](https://github.com/WizardLoop/wizardloop.github.io/pull/4) at `ef1157b` and verified it in production on 2026-10-28. [Deployment run 40679459115](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40679459115) passed 170 browser tests. I retain its local validation and known limits in the [pinned rc.2 QA report](https://github.com/WizardLoop/wizardloop.github.io/blob/ef1157bd1d3f45420656864b5cfbf895d9128f3a/docs/QA.md). I do not claim completed legal conformance or a human screen-reader review.
 
 ## 1.0.0-rc.1 - Earlier review candidate
 
-- Rebuilt the personal site with Astro and the selected Spectrum Circuit direction, comic framing and the owner's wizard illustrations.
-- Added responsive pages, themes, navigation, motion preferences, semantic metadata, static social artwork and domain-preserving builds.
-- Included 30 original wizard animations, six flag samples, retained TGS sources, transparent posters and provenance manifests.
-- Added native hero video and static fallbacks for decoders that stop or freeze, plus browser, accessibility and performance checks.
-- Prototyped private profile/post synchronization and a feedback backend. Those components were removed in `1.0.0-rc.2` after the owner chose a simpler static scope. Their earlier code and review evidence remain in Git history.
+- I rebuilt my personal site with Astro, the Spectrum Circuit direction, comic framing and my wizard illustrations.
+- I added responsive pages, themes, navigation, motion preferences, semantic metadata, static social artwork and domain-preserving builds.
+- I included 30 original wizard animations, six flag samples, retained TGS sources, transparent posters and provenance manifests.
+- I added native hero video and static fallbacks for decoders that stop or freeze, plus browser, accessibility and performance checks.
+- I prototyped private profile/post synchronization and a feedback backend. I removed those components in `1.0.0-rc.2` when I chose a simpler static scope. Their earlier code and review evidence remain in Git history.
 
-The earlier service tests are historical evidence, not verification of a current live service. No release is implied by this entry.
+I keep the earlier service tests as historical evidence, not verification of a current live service. This entry does not imply a release.
 
 ## Earlier baseline
 
-The original four-file website remains in Git history at `658ed667c173f861cd16e6048126de12ec3648b9`, dated 2025-07-20. The initial audit found no tags or GitHub Releases; recheck before creating any release. Do not assign a historical semantic version retrospectively. Phase 1 tooling used `0.1.0-preview.1` for the three local concepts, not a production release.
+My original four-file website remains in Git history at `658ed667c173f861cd16e6048126de12ec3648b9`, dated 2025-07-20. My initial audit found no tags or GitHub Releases; recheck before creating any release. I have not assigned a historical semantic version retrospectively. I used `0.1.0-preview.1` for the three local concepts' Phase 1 tooling, not a production release.

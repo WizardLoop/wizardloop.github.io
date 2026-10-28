@@ -1,6 +1,6 @@
 # Contributing to WizardLoop
 
-This repository is one creator's personal website. Contributions should preserve the owner's identity, verified content and control over publication. Open focused pull requests for corrections, and discuss major visual changes or dependencies first. Report vulnerabilities privately through [SECURITY.md](SECURITY.md).
+This repository is my personal website. Please preserve my identity, verified content and control over publication when contributing. Open focused pull requests for corrections, and discuss major visual changes or dependencies with me first. Report vulnerabilities privately through [SECURITY.md](SECURITY.md).
 
 ## Local work
 
@@ -9,7 +9,7 @@ This repository is one creator's personal website. Contributions should preserve
 3. Install Node 22.23.4 or newer, run `npm ci`, then `npm run dev`.
 4. Edit content, styles and browser interactions in their documented locations. No service credentials or mock server are needed.
 
-Preserve `wizardloop.com`, both source CNAME files and existing public routes. Hosting or domain changes require a specific owner-reviewed proposal. Keep the site static unless the owner explicitly requests a different architecture.
+Preserve `wizardloop.com`, both source CNAME files and existing public routes. I review hosting or domain changes as separate proposals. Keep my site static unless I explicitly request a different architecture.
 
 ## Content and interface
 
@@ -18,7 +18,7 @@ Preserve `wizardloop.com`, both source CNAME files and existing public routes. H
 - Use a regular hyphen instead of U+2014 in controlled content and metadata.
 - Preserve keyboard access, visible focus, semantic headings, contrast and narrow-screen layouts. Honor reduced motion and the global motion control.
 - Keep useful content when JavaScript fails. Do not load external scripts or media merely to display a link to another service.
-- Record asset provenance and licensing. MIT code contributions do not relicense the owner's branding or artwork.
+- Record asset provenance and licensing. MIT code contributions do not relicense my branding or artwork.
 
 ## Validation and review
 
@@ -28,6 +28,6 @@ Describe the concrete change, validation actually performed and remaining limits
 
 Keep lockfile updates with dependency changes. Exclude installed packages, build output, test artifacts, `.env` files, credentials and personal messages. Review the diff before submitting.
 
-**An owner-approved merge into `main` triggers publication after checks pass.** Creating a pull request does not authorize someone else to merge it. Confirm publication readiness before merging and follow [DEPLOYMENT.md](docs/DEPLOYMENT.md). Tags, releases and DNS changes remain separate owner decisions.
+**A merge I approve into `main` triggers publication after checks pass.** Creating a pull request does not authorize someone else to merge it. Confirm publication readiness with me before merging and follow [DEPLOYMENT.md](docs/DEPLOYMENT.md). I decide separately about tags, releases and DNS changes.
 
 New source contributions are offered under the repository's MIT license. Submit only material you may contribute and identify any different asset license. Participation follows [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).

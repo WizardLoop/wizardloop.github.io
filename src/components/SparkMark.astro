@@ -1,0 +1,49 @@
+---
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 24, class: className } = Astro.props;
+---
+
+<svg
+  class:list={['spark-mark', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 64 64"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    class="spark-mark-silhouette"
+    d="m32 4 7 18 13-10-10 14 18 6-18 7 10 13-14-10-6 18-7-18-13 10 10-14-18-6 18-7-10-13 14 10Z"
+  />
+  <path class="spark-mark-fold" d="m32 4 7 18 13-10-17 20-3-7Z" />
+  <path class="spark-mark-aperture" d="m32 25 7 7-7 7-7-7Z" />
+</svg>
+
+<style>
+  .spark-mark {
+    display: inline-block;
+    flex: none;
+    overflow: visible;
+  }
+  .spark-mark-silhouette {
+    fill: currentColor;
+    stroke: var(--ink, currentColor);
+    stroke-width: 1.8;
+    stroke-linejoin: round;
+  }
+  .spark-mark-fold {
+    fill: color-mix(in srgb, #68dcd5 75%, var(--paper, #fff));
+    stroke: none;
+  }
+  .spark-mark-aperture {
+    fill: var(--paper, #fff);
+    stroke: var(--ink, currentColor);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+</style>
