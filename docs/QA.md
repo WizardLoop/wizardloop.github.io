@@ -20,7 +20,9 @@ I ran the complete local suite on Windows against the built site at `http://127.
 
 All three failures came from the same outdated profile-alt assertion, once per engine. The test expected the word `WizardLoop`, while my revised first-person text was `My public profile artwork`. I corrected only that test expectation and reran the affected cases: **3 of 3 passed**. I changed no served application source between the full run and the focused verification; only the assertion and documentation changed.
 
-The latest result for each of **186 unique browser checks is passing**: **Chromium 79, Firefox 53 and WebKit 54**, with no unresolved failures or skips. I report this as a combined result, **not a green full-suite local rerun**. [browser-summary.json](qa/browser-summary.json) retains both histories, the original failure messages and platform notes. Raw reports remain in ignored `artifacts/rc3-initial-full-results.json` and `artifacts/rc3-profile-results.json`. GitHub CI must independently run the complete suite on the pushed revision.
+The latest result for each of **186 unique browser checks is passing**: **Chromium 79, Firefox 53 and WebKit 54**, with no unresolved failures or skips. I report this as a combined result, **not a green full-suite local rerun**. [browser-summary.json](qa/browser-summary.json) retains both histories, the original failure messages and platform notes. Raw reports remain in ignored `artifacts/rc3-initial-full-results.json` and `artifacts/rc3-profile-results.json`.
+
+I then independently passed the complete **185-case Linux suite** in [GitHub run 40695410701](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40695410701), at application commit `4158b20978d02241db478da2101dae3409de22bc`, with no failures or skips. That run took 2.3 minutes for browser checks. Linux omits the Windows-specific native-video diagnostic. [ci-summary.json](qa/ci-summary.json) records the remote evidence. The subsequent report-only update changes no application code, dependencies or workflow.
 
 My responsive matrix covers 12 routes, three engines, six widths (320, 360, 390, 768, 1024 and 1440px) and both themes: **432 viewport cases**. **24 axe checks passed** across six main pages, both themes and mobile/desktop. The suite also checks direct navigation, keyboard/focus behavior, mobile-menu scrolling, theme/motion persistence, local profile fallback, static SEO/social assets and the absence of unsolicited external requests. Clipboard tests use controlled success, denial and unavailable-API fixtures; they do not inspect a visitor's clipboard or send a message.
 
@@ -61,7 +63,20 @@ Accessibility and Best Practices scored 100 in all ten samples. SEO scored 100 i
 
 **Home did not meet my 90 performance target in these Windows samples.** The reports show variable initial style/layout work before any TGS or Lottie request. The affected runs used identical payloads; the current evidence does not establish the root cause. I tried preloading the existing Cormorant font, measured Home at 61 and reverted that experiment because it did not resolve the delayed first paint. Its two samples remain separately recorded, outside the final-source distribution.
 
-I added an independent Linux Lighthouse pass to development-branch CI, with HTML/JSON reports, raw traces and network logs retained as the `mobile-lighthouse-results` artifact. A failed audit execution fails CI; numeric scores are recorded without a flaky score threshold. Those remote results are pending until this revision is pushed. I do not label these local measurements uniformly 90+, reuse rc.2 scores or equate lab results with field Core Web Vitals.
+I added an independent Linux Lighthouse pass to development-branch CI, with HTML/JSON reports, raw traces and network logs retained as the `mobile-lighthouse-results` artifact. A failed audit execution fails CI; numeric scores are recorded without a flaky score threshold.
+
+The successful [same-revision Linux run](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40695410701) measured one sample per page:
+
+| Page | Performance | Accessibility | Best Practices | SEO | LCP | TBT | CLS |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Home | 98 | 100 | 100 | 100 | 2.25 s | 0 ms | 0 |
+| About | 97 | 100 | 100 | 100 | 2.47 s | 4 ms | 0 |
+| Work | 100 | 100 | 100 | 100 | 1.51 s | 0 ms | 0 |
+| Projects | 100 | 100 | 100 | 100 | 1.52 s | 0 ms | 0 |
+| Posts | 98 | 100 | 100 | 100 | 2.23 s | 9 ms | 0 |
+| Contact | 100 | 100 | 100 | 100 | 1.51 s | 0 ms | 0 |
+
+These independent readings meet the 90 target in that environment. They do not erase the lower Windows measurements or establish their cause. I keep the environments separate, retain all samples and do not equate lab results with field Core Web Vitals or universal device performance. The complete remote samples are in [ci-summary.json](qa/ci-summary.json).
 
 ## Historical baseline and publication
 

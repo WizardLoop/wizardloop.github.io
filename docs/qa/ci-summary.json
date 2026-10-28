@@ -1,0 +1,446 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0-rc.3",
+  "runId": 40695410701,
+  "jobId": 122840751243,
+  "commit": "4158b20978d02241db478da2101dae3409de22bc",
+  "workflow": "https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40695410701",
+  "conclusion": "success",
+  "environment": "GitHub Actions ubuntu-latest, installed Playwright Chromium, Lighthouse mobile simulation; separate from Windows samples",
+  "browserTests": {
+    "total": 185,
+    "passed": 185,
+    "failed": 0,
+    "skipped": 0,
+    "durationMinutes": 2.3
+  },
+  "sourceCheck": {
+    "files": 241,
+    "astroFiles": 25,
+    "routes": 12
+  },
+  "performanceSamples": [
+    {
+      "page": "home",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:23:14.826Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1147.6956500000001,
+          "displayValue": "1.1 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 2254.7971000000002,
+          "displayValue": "2.3 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 0,
+          "displayValue": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1147.6956500000001,
+          "displayValue": "1.1 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 905787,
+          "displayValue": "Total size was 885 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.99,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "score": 0.94,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "interactive",
+          "score": 0.99,
+          "title": "Time to Interactive"
+        },
+        {
+          "id": "image-delivery-insight",
+          "score": 0,
+          "title": "Improve image delivery"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "about",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:23:21.066Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1579.2842,
+          "displayValue": "1.6 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 2473.998675,
+          "displayValue": "2.5 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 4,
+          "displayValue": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1579.2842,
+          "displayValue": "1.6 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 286460,
+          "displayValue": "Total size was 280 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.94,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "score": 0.9,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "interactive",
+          "score": 0.98,
+          "title": "Time to Interactive"
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "score": 0.5,
+          "title": "Minimize main-thread work"
+        },
+        {
+          "id": "bootup-time",
+          "score": 0.5,
+          "title": "Reduce JavaScript execution time"
+        },
+        {
+          "id": "unused-javascript",
+          "score": 0,
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "image-delivery-insight",
+          "score": 0,
+          "title": "Improve image delivery"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "work",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:23:27.110Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1358.1146999999999,
+          "displayValue": "1.4 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 1508.1146999999999,
+          "displayValue": "1.5 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 0,
+          "displayValue": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1358.1146999999999,
+          "displayValue": "1.4 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 105759,
+          "displayValue": "Total size was 103 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.98,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "projects",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:23:32.643Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1366.2687,
+          "displayValue": "1.4 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 1516.2687,
+          "displayValue": "1.5 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 0,
+          "displayValue": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1366.2687,
+          "displayValue": "1.4 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 105568,
+          "displayValue": "Total size was 103 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.97,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "posts",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:23:38.180Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1360.878,
+          "displayValue": "1.4 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 2228.004,
+          "displayValue": "2.2 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 8.5,
+          "displayValue": "10 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1360.878,
+          "displayValue": "1.4 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 256169,
+          "displayValue": "Total size was 250 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.98,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "largest-contentful-paint",
+          "score": 0.94,
+          "title": "Largest Contentful Paint"
+        },
+        {
+          "id": "max-potential-fid",
+          "score": 0.99,
+          "title": "Max Potential First Input Delay"
+        },
+        {
+          "id": "interactive",
+          "score": 0.99,
+          "title": "Time to Interactive"
+        },
+        {
+          "id": "unused-javascript",
+          "score": 0.5,
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "image-delivery-insight",
+          "score": 0.5,
+          "title": "Improve image delivery"
+        },
+        {
+          "id": "lcp-discovery-insight",
+          "score": 0,
+          "title": "LCP request discovery"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "feedback",
+      "version": "13.5.0",
+      "fetchTime": "2026-10-28T13:23:43.936Z",
+      "formFactor": "mobile",
+      "throttling": "simulate",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "numericValue": 1359.0942,
+          "displayValue": "1.4 s"
+        },
+        "largest-contentful-paint": {
+          "numericValue": 1509.0942,
+          "displayValue": "1.5 s"
+        },
+        "total-blocking-time": {
+          "numericValue": 0,
+          "displayValue": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "numericValue": 0,
+          "displayValue": "0"
+        },
+        "speed-index": {
+          "numericValue": 1359.0942,
+          "displayValue": "1.4 s"
+        },
+        "total-byte-weight": {
+          "numericValue": 105709,
+          "displayValue": "Total size was 103 KiB"
+        }
+      },
+      "failedAudits": [
+        {
+          "id": "first-contentful-paint",
+          "score": 0.98,
+          "title": "First Contentful Paint"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "score": 0,
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "score": 0,
+          "title": "Render-blocking requests"
+        }
+      ],
+      "error": null
+    }
+  ],
+  "notes": [
+    "One Lighthouse sample per page in this run; no repeatability distribution is claimed.",
+    "Windows Home results remain lower and are retained separately in lighthouse-summary.json.",
+    "The later report-only commit does not change the tested application, dependencies or workflow."
+  ]
+}

@@ -96,7 +96,7 @@ On Linux, install browser system dependencies with `npx playwright install --wit
 
 Browser evidence is written under ignored `artifacts/final/`; performance reports go to `artifacts/lighthouse/`. See [QA.md](docs/QA.md) for measured results. Tests do not establish complete accessibility or legal conformance, and older reports do not verify later source changes.
 
-My development-branch CI also measures six pages with Lighthouse after browser tests and retains a separate `mobile-lighthouse-results` artifact, including raw traces and network logs. Audit execution errors fail the check; numeric scores are evidence, not a fixed pass threshold. I document the Windows Home performance limitation and all samples in my QA report.
+My development-branch CI also measures six pages with Lighthouse after browser tests and retains a separate `mobile-lighthouse-results` artifact, including raw traces and network logs. Audit execution errors fail the check; numeric scores are evidence, not a fixed pass threshold. My QA report records the complete 185-case Linux pass, its 97-100 performance scores and the separate Windows Home performance limitation.
 
 ## Publishing
 
