@@ -4,7 +4,7 @@ I keep each version's measurements and publication evidence separate. A document
 
 ## Repository update - 1.0.0-rc.4
 
-I prepared this unreleased update on **2026-10-28**, on `docs/repository-refresh-rc4` from the published `062bdad623c53c2bd10661c3fe578f1cfc62b2b2` baseline. I improved the README presentation, corrected publication records, clarified contribution/review guidance and updated the package and lockfile version metadata. I changed no website source, public assets, dependencies, tests or workflows.
+published successfully on **2026-10-29** , on `docs/repository-refresh-rc4` from the published `062bdad623c53c2bd10661c3fe578f1cfc62b2b2` baseline. I improved the README presentation, corrected publication records, clarified contribution/review guidance and updated the package and lockfile version metadata. I changed no website source, public assets, dependencies, tests or workflows.
 
 I passed `npm run check`: source rules, formatting, **0 Astro errors/warnings/hints across 25 files** and the **12-route static build**. I checked **78 relative links and anchors across 13 Markdown files**, matched all three package/lockfile version entries, and confirmed that dependencies and all website, test and workflow files are unchanged.
 
@@ -14,7 +14,7 @@ The website screenshots and measurements below remain rc.3 evidence. My existing
 
 ## Website review - 1.0.0-rc.3
 
-I recorded the following results on **2026-10-28** for **1.0.0-rc.3** on `polish/studio-motion-and-marks`, based on `ef1157bd1d3f45420656864b5cfbf895d9128f3a`. After that review, [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) merged at `062bdad623c53c2bd10661c3fe578f1cfc62b2b2`. [Deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) passed all **185 browser checks** and published successfully on **2026-10-28 at 15:57:11 Asia/Jerusalem (13:57:11 UTC)**. I then verified live HTTPS 200 and the Silver Grimoire and SVG mark on Home. That publication does not imply a Git tag or GitHub Release.
+I recorded the following results on **2026-10-28** for **1.0.0-rc.3** on `polish/studio-motion-and-marks`, based on `ef1157bd1d3f45420656864b5cfbf895d9128f3a`. After that review, [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) merged at `062bdad623c53c2bd10661c3fe578f1cfc62b2b2`. [Deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) passed all **185 browser checks** and published successfully on **2026-10-28**. I then verified live HTTPS 200 and the Silver Grimoire and SVG mark on Home. That publication does not imply a Git tag or GitHub Release.
 
 ### What I changed
 
