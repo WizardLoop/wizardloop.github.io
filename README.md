@@ -30,7 +30,7 @@ I build with Astro and publish static HTML on GitHub Pages. My illustrations and
 
 | Published website | Repository update |
 | --- | --- |
-| **1.0.0-rc.3** · Published **2026-10-28** | **1.0.0-rc.4** · Unreleased |
+| **1.0.0-rc.3** · Published **2026-10-28** | **1.0.0-rc.4** · Published **2026-10-29** |
 | [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) · [Successful deployment](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) | I am improving repository presentation, guides and publication records. |
 
 I verified the published site at merge commit `062bdad`. My rc.4 update changes documentation and package version metadata only; it does not change the website interface or behavior. Publication, a package version and a GitHub Release are separate events. See my [changelog](CHANGELOG.md) for their history.
