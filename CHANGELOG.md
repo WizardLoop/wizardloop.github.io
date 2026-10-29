@@ -9,8 +9,6 @@ I record source changes here and identify verified deployments separately. A ver
 - I clarified first-person writing, documentation-only validation and version maintenance in my contribution guide and pull request template.
 - I updated my package and lockfile version metadata together. I changed no website source, media, dependencies, tests or workflows.
 
-This repository-only update is prepared for review. I have not merged or deployed it, created a Git tag or published a GitHub Release.
-
 ## 1.0.0-rc.3 - Deployed 2026-10-28
 
 - I added Silver Grimoire to Home, About and Posts, with local still previews and the existing motion controls.
