@@ -2,7 +2,7 @@
 
 I updated this scope on **2026-10-28** for my published static **`1.0.0-rc.3` website**. I verified [deployment run 40700122492](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) for merged commit `062bdad623c53c2bd10661c3fe578f1cfc62b2b2`; it completed at **13:57:11 UTC (15:57:11 Asia/Jerusalem)**. My live HTTPS check returned 200 and confirmed the Silver Grimoire artwork and SVG marks.
 
-My **`1.0.0-rc.4` repository update remains unreleased** and changes documentation and version metadata only. I am not changing the website source, public assets, tests, workflows or service boundaries described below. I keep measured validation and publication evidence in [QA.md](QA.md), with operation and recovery instructions in [DEPLOYMENT.md](DEPLOYMENT.md).
+My **`1.0.0-rc.4` repository published on **2026-10-29**** and changes documentation and version metadata only. I am not changing the website source, public assets, tests, workflows or service boundaries described below. I keep measured validation and publication evidence in [QA.md](QA.md), with operation and recovery instructions in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Static behavior
 
