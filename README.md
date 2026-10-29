@@ -1,14 +1,43 @@
-# WizardLoop
+<p align="center">
+  <img src="public/apple-touch-icon.png" width="80" height="80" alt="My WizardLoop illustration">
+</p>
 
-This is the source of [wizardloop.com](https://wizardloop.com), my personal website. I'm WizardLoop, an independent creator working across design, illustration, animation, software, Telegram bots and open source.
+<h1 align="center">WizardLoop</h1>
 
-I use Astro to publish a static website on GitHub Pages. I share my wizard artwork and link to my Telegram channel, community, GitHub repositories and direct contact details. I keep the site free of application backends, automatic profile/post synchronization, feedback forms and bot setup. Running the website requires no credentials.
+<p align="center"><strong>Code, Design &amp; a Little Magic.</strong></p>
 
-**Current source candidate: `1.0.0-rc.3`.** I have not deployed this candidate. My previous `1.0.0-rc.2` baseline was merged in [PR #4](https://github.com/WizardLoop/wizardloop.github.io/pull/4) at `ef1157b` and verified in production on 2026-10-28. [Its deployment run](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40679459115) passed 170 browser tests. I keep those results separate from the new candidate's validation in [QA.md](docs/QA.md).
+<p align="center">
+  <a href="https://wizardloop.com">Visit my website</a> ·
+  <a href="https://t.me/wizard_loop">Follow my channel</a> ·
+  <a href="https://t.me/wizardloopchat">Join my community</a>
+</p>
 
-## Run locally
+<p align="center">
+  <a href="https://github.com/WizardLoop/wizardloop.github.io/actions/workflows/deploy.yml"><img src="https://github.com/WizardLoop/wizardloop.github.io/actions/workflows/deploy.yml/badge.svg?branch=main" alt="My latest GitHub Pages deployment status"></a>
+</p>
 
-Use Node.js **22.23.4 or newer** and npm. GitHub workflows use Node 24.
+I'm WizardLoop, an independent creator working across design, illustration, animation, software, Telegram bots and open source. This repository is the source of my personal website, [wizardloop.com](https://wizardloop.com).
+
+I build with Astro and publish static HTML on GitHub Pages. My illustrations and motion live alongside direct links to my work, community and contact details. Running my website needs no credentials or separate application server.
+
+[Quick start](#quick-start) · [Editing guide](#editing-guide) · [Quality checks](#quality-checks) · [Publishing](#publishing) · [Documentation](#documentation) · [License](#license-and-contact)
+
+![My Home page studio section with the Silver Grimoire illustration, in dark mode](docs/previews/studio-dark-desktop.png)
+
+*My own artwork, original SVG details and local animation assets. Explore [desktop and mobile captures](docs/QA.md#visual-review) from my local review of the version now published.*
+
+## Project status
+
+| Published website | Repository update |
+| --- | --- |
+| **1.0.0-rc.3** · Published **2026-10-28** | **1.0.0-rc.4** · Published **2026-10-29** |
+| [PR #5](https://github.com/WizardLoop/wizardloop.github.io/pull/5) · [Successful deployment](https://github.com/WizardLoop/wizardloop.github.io/actions/runs/40700122492) | I am improving repository presentation, guides and publication records. |
+
+I verified the published site at merge commit `062bdad`. My rc.4 update changes documentation and package version metadata only; it does not change the website interface or behavior. Publication, a package version and a GitHub Release are separate events. See my [changelog](CHANGELOG.md) for their history.
+
+## Quick start
+
+Use **Node.js 22.23.4 or newer** and npm. My GitHub workflows use Node 24.
 
 ```sh
 git clone https://github.com/WizardLoop/wizardloop.github.io.git
@@ -17,60 +46,37 @@ npm ci
 npm run dev
 ```
 
-Open [http://127.0.0.1:4322](http://127.0.0.1:4322). To review a pull request before it is merged, check out that pull request's branch first. Make changes on a dedicated branch.
+Open **[127.0.0.1:4322](http://127.0.0.1:4322)**. To review a pull request, check out its branch first. Make changes on a dedicated branch.
+
+To inspect the production build locally:
 
 ```sh
 npm run build
 npm run preview
 ```
 
-Stop the development server before starting the built preview on the same port. `dist/` is the complete publishable website. Local commands do not deploy it.
+Stop the development server before starting the preview on the same port. `dist/` contains the complete publishable site. Local commands do not deploy it.
 
-No `.env` file is required. The only example setting, `PUBLIC_PREVIEW=true`, marks a local review build as non-indexable. Production builds explicitly disable it. Nothing prefixed `PUBLIC_` may contain a secret.
+No `.env` file is required. The optional `PUBLIC_PREVIEW=true` setting in [.env.example](.env.example) makes a review build non-indexable; my production workflow explicitly disables it. Never put a secret in a `PUBLIC_` variable.
 
-## Content and assets
+## Editing guide
 
-| Edit | Location |
+| I want to change | Where I edit |
 | --- | --- |
-| Name, verified social URLs, email and navigation | `src/config/site.ts` |
-| Page copy, links and route metadata | `src/pages/*.astro` |
-| Manually maintained profile copy and image metadata | `public/media/profile/profile.json` |
-| Local profile image and poster | `public/media/profile/` |
-| Preserved wizard artwork source inventory and provenance | `src/content/artworks.json` |
-| Preserved flag asset inventory and attribution | `src/content/flags.json` |
-| Colors, typography and responsive layouts | `src/styles/global.css` |
-| Shared header, footer and metadata | `src/layouts/Base.astro` |
-| Reusable icons and artwork components | `src/components/` |
-| Theme, navigation and motion behavior | `src/scripts/` and `public/js/preferences.js` |
+| Identity, verified links, email and navigation | [src/config/site.ts](src/config/site.ts) |
+| Page copy, routes and metadata | [src/pages/](src/pages/) |
+| My profile text and image metadata | [profile.json](public/media/profile/profile.json) |
+| Local profile media | [public/media/profile/](public/media/profile/) |
+| Colors, typography and shared layouts | [global.css](src/styles/global.css) |
+| Destination-page layouts | [destinations.css](src/styles/destinations.css) |
+| Header, footer and shared metadata | [Base.astro](src/layouts/Base.astro) |
+| SVG icons and reusable artwork | [src/components/](src/components/) |
+| Navigation, theme and motion | [src/scripts/](src/scripts/) and [preferences.js](public/js/preferences.js) |
+| Artwork provenance and inventory | [artworks.json](src/content/artworks.json) and [flags.json](src/content/flags.json) |
 
-I preserve my original asset collection and its provenance in the artwork and flag manifests. These inventories do not generate a public gallery or current portfolio listing; I choose the illustrations displayed on each page.
+I write personal copy in first person. I keep claims and links verified, record media rights, provide useful alternative text and preserve image dimensions. Controlled text, metadata and documentation use a regular hyphen instead of U+2014; my source checks enforce this rule.
 
-I edit my local profile in the repository. Changing my Telegram or GitHub profile does not update this site automatically. My Posts and Work pages link to my original Telegram content; Projects points to my GitHub repositories. I update those destinations on their respective services without a feed importer or repository API request from this website.
-
-Keep factual claims and external links verified. Do not invent clients, achievements or social profiles. Record provenance and rights for new media, provide meaningful alternative text, and preserve image dimensions. My wizard illustrations are original artwork, not screenshots of software or evidence of client relationships.
-
-Controlled text, metadata and documentation must not contain the em dash character U+2014. Use a regular hyphen; source checks enforce this rule.
-
-## Architecture
-
-I use Astro to generate complete HTML for Home, About, Work, Projects, Posts, Community, Contact at the retained `/feedback/` URL, Privacy, Cookies, Security, Accessibility and a custom 404. Directory output supports direct navigation and refreshes on GitHub Pages. I preserve my existing routes and domain.
-
-I serve CSS, fonts, icons, profile assets and animation media locally. My Home hero uses two native 768 x 768 H.264 MP4 derivatives of my `portal-alchemy` artwork, one per theme, with the original 2.4-second duration. Other TGS artwork uses a shared, lazy-loaded light Canvas Lottie player. I cache animation source data while keeping each placement's mutable player data separate. Motion preferences, reduced motion and visibility controls limit playback; a still preview remains available when playback fails. I use Silver Grimoire on Home, About and Posts, and reusable SVG sparks instead of decorative star text glyphs.
-
-My build creates quality-94 WebP delivery copies from unchanged lossless poster masters, preserving dimensions and alpha. It also generates static favicons and a 1200 x 630 social composition from my local avatar and original artwork. Run `node scripts/generate-brand.mjs` after a manual avatar change, or let `npm run build` regenerate these assets. Social-card typography uses installed Arial or a sans fallback and can vary by operating system; I do not redistribute a system font.
-
-To regenerate a still when editing an animation asset, install the Playwright Chromium browser and run:
-
-```sh
-npm run media:poster -- silver-grimoire
-npm run media:poster -- silver-grimoire 0.35
-```
-
-The optional second argument selects a frame fraction from 0 up to, but not including, 1; the default is 0.35. This manual asset-editing step needs a browser. Ordinary development and static builds do not; browser QA remains a separate check.
-
-I use ordinary links for external destinations. I do not embed Telegram, fetch remote profile/feed data, submit visitor messages or load a CAPTCHA. Following a link opens the destination service, whose terms and privacy practices apply. See [current integration boundaries](docs/QA-INTEGRATIONS.md).
-
-My build copies `public/CNAME` to `dist/CNAME`, preserving `wizardloop.com`. I retain the original root `CNAME`, `index.html` and PaperMod-attributed stylesheet for recovery. Astro uses `src/` for my rebuilt site, and I deploy only `dist/`. This custom domain needs no repository-name base path.
+I update my profile locally. Changing my Telegram or GitHub profile does not change this site automatically. Work and Posts link to my original Telegram content; Projects links to all my GitHub repositories. My asset inventories preserve provenance and do not generate a public portfolio gallery.
 
 ## Quality checks
 
@@ -80,46 +86,99 @@ npx playwright install chromium firefox webkit
 npm run test:browsers
 ```
 
-On Linux, install browser system dependencies with `npx playwright install --with-deps chromium firefox webkit`. Browser tests use the built preview on port 4322; stop any development server on that port first. `npm run check` includes the build.
+On Linux, install browser system dependencies with `npx playwright install --with-deps chromium firefox webkit`. Stop any existing server on port 4322 before browser tests so they use the built site.
 
-| Command | Scope |
+| Command | What I check or generate |
 | --- | --- |
-| `npm run format` / `npm run format:check` | Format or check the final site's Astro, CSS and TypeScript source and selected config scripts |
-| `npm run lint` | Formatting, punctuation, basic secret patterns, JavaScript syntax and project invariants |
-| `npm run typecheck` | Astro and TypeScript diagnostics |
-| `npm run build` | Brand/previews, static generation, HTML/metadata/assets/link checks |
-| `npm run check` | Lint, typecheck and build |
+| `npm run check` | Formatting, source invariants, typecheck and static build |
+| `npm run format` / `npm run format:check` | Website source and selected configuration formatting |
+| `npm run lint` / `npm run typecheck` | Source rules or Astro/TypeScript diagnostics separately |
+| `npm run build` | Brand assets, media previews, HTML, metadata, links and CNAME |
 | `npm test` | Chromium browser suite |
 | `npm run test:browsers` | Chromium suite and selected Firefox/WebKit checks |
-| `npm run audit:performance` | Lighthouse against the running built preview on port 4322 |
-| `npm run media:poster -- silver-grimoire [frame-fraction]` | Manually regenerate an animation poster while editing media |
+| `npm run audit:performance` | Six-page Lighthouse audit against the running built preview |
+| `npm run media:poster -- silver-grimoire` | Manual still-poster generation for artwork editing |
 
-Browser evidence is written under ignored `artifacts/final/`; performance reports go to `artifacts/lighthouse/`. See [QA.md](docs/QA.md) for measured results. Tests do not establish complete accessibility or legal conformance, and older reports do not verify later source changes.
+My [QA report](docs/QA.md) separates measured versions and environments. The rc.3 evidence includes 185 passing Linux browser checks, 432 responsive viewport cases and 24 axe checks. I retain the lower Windows Home performance measurements alongside the stronger Linux results. Historical results do not validate a new revision, and automated checks do not establish full accessibility or legal conformance.
 
-My development-branch CI also measures six pages with Lighthouse after browser tests and retains a separate `mobile-lighthouse-results` artifact, including raw traces and network logs. Audit execution errors fail the check; numeric scores are evidence, not a fixed pass threshold. My QA report records the complete 185-case Linux pass, its 97-100 performance scores and the separate Windows Home performance limitation.
+Branch and PR checks cannot deploy. CI retains browser evidence and six-page Lighthouse reports for seven days. Audit execution errors fail the check; numerical scores are recorded without a fixed pass threshold. Local reports go to ignored `artifacts/final/` and `artifacts/lighthouse/`.
 
-## Publishing
+For a documentation-only change, review the prose, links, images and version consistency, then run `npm run check`. My existing CI still runs its full browser and performance suite. I do not label unchanged screenshots as a fresh visual review.
 
-**When I merge a reviewed change into `main`, it triggers my Pages workflow.** The workflow runs lint, typecheck, build and browser checks before uploading `dist/` and deploying it. A failed build or test blocks publication. Pull request quality checks cannot deploy.
+## How my site works
 
-My verified baseline uses GitHub Pages publication. If restoring or reconfiguring it, confirm **Settings > Pages > Build and deployment** uses **GitHub Actions**. Preserve my existing `wizardloop.com` domain and HTTPS setting. The repository cannot change that account setting by itself; branch publication could serve my old root HTML instead of `dist/`. See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for setup, manual retry, verification and rollback.
+| Layer | Approach |
+| --- | --- |
+| Pages | Astro generates complete HTML for 12 routes, including a custom 404. |
+| Navigation | Directory URLs support direct navigation and refreshes on GitHub Pages. |
+| Visual identity | My local illustrations, SVG details, fonts, light/dark themes and motion preferences. |
+| Contact and content | Ordinary Telegram, email and GitHub links, including Contact at the retained `/feedback/` URL. |
+| Hosting | GitHub Pages publishes only `dist/` at `wizardloop.com`. |
 
-No Cloudflare account, server, bot token, CAPTCHA key, Python installation or personal access token is required. My workflow uses GitHub's built-in token and deployment identity. I decide separately whether to create a Git tag or Release; merging does not create one.
+I serve fonts, icons, profile media and animation code locally. I do not operate a feedback form, CAPTCHA, embedded feed, automatic profile/post synchronization or message-delivery backend. External links open their destination service, whose terms and privacy practices apply.
 
-## Local design studies
+<details>
+<summary><strong>Animation, posters and social artwork</strong></summary>
 
-I keep my three original concepts separate from the production build:
+My Home hero uses two native 768 x 768 H.264 MP4 derivatives of my `portal-alchemy` artwork, one per theme, with the original 2.4-second duration. Other TGS artwork uses a shared, lazy-loaded light Canvas Lottie player. I cache animation source data and isolate each player's mutable copy. Reduced-motion preferences, visibility and my global motion control limit playback; still previews remain available when playback fails.
+
+I use Silver Grimoire on Home, About and Posts. My build creates quality-94 WebP delivery copies from unchanged lossless poster masters, preserving dimensions and transparency.
+
+To regenerate a still while editing an animation, install Playwright Chromium and run:
+
+```sh
+npx playwright install chromium
+npm run media:poster -- silver-grimoire
+npm run media:poster -- silver-grimoire 0.35
+```
+
+The optional frame fraction ranges from 0 up to, but not including, 1. The default is 0.35. This manual editing step requires a browser; an ordinary static build does not.
+
+My build also regenerates favicons and a 1200 x 630 social image from my local avatar and original artwork. After a manual avatar change, run `npm run build` or `node scripts/generate-brand.mjs`. Social-card typography uses installed Arial or a sans fallback and can vary by operating system; I do not redistribute a system font.
+
+</details>
+
+<details>
+<summary><strong>Earlier local design studies</strong></summary>
 
 ```sh
 npm run dev:concepts
 ```
 
-Open `http://127.0.0.1:4321/concept-a/`, `/concept-b/` or `/concept-c/`. These local studies are non-indexable and are not copied to `dist/`. `npm run test:concepts` and `npm run test:concept-interactions` exercise that earlier review material.
+Open `http://127.0.0.1:4321/concept-a/`, `/concept-b/` or `/concept-c/`. I keep these three original studies non-indexable and outside `dist/`. The `test:concepts` and `test:concept-interactions` scripts exercise that historical review material.
+
+</details>
+
+## Publishing
+
+Merging a reviewed change into `main` triggers my Pages workflow, including documentation-only changes. It checks the source, builds the site and runs browser tests before uploading and deploying `dist/`. A failed build or test blocks publication.
+
+**Pages must use Settings > Pages > Build and deployment > Source: GitHub Actions.** The separate legacy Jekyll builder cannot parse Astro frontmatter. I preserve `wizardloop.com`, HTTPS and both source CNAME files. Source changes alone cannot set the account's publishing mode.
+
+I keep the original root HTML and PaperMod-attributed CSS for recovery; they are not the rebuilt site's publishing artifact. My custom domain needs no repository-name base path.
+
+No Cloudflare account, server, bot token, CAPTCHA key or personal access token is required. GitHub provides the workflow's built-in token and short-lived deployment identity. I review tags and Releases separately; merging does not create them.
+
+Follow my [deployment guide](docs/DEPLOYMENT.md) for setup, verification, retries and rollback.
+
+## Documentation
+
+| Guide | Purpose |
+| --- | --- |
+| [Changelog](CHANGELOG.md) | Version history and verified publication records |
+| [Quality review](docs/QA.md) | Measured results, screenshots and known limits |
+| [Deployment and recovery](docs/DEPLOYMENT.md) | GitHub Pages setup, publishing and rollback |
+| [Current service boundaries](docs/QA-INTEGRATIONS.md) | What my static site does and does not connect to |
+| [Asset inventory](docs/DESIGN-ASSET-INVENTORY.md) | Provenance and media rights |
+| [Contributing](CONTRIBUTING.md) | Local work, content conventions and review |
+| [Security](SECURITY.md) | Private vulnerability reporting |
+| [Code of conduct](CODE_OF_CONDUCT.md) | Participation expectations |
+| [Third-party notices](THIRD_PARTY_NOTICES.md) | Code, font and asset licenses |
+
+My [initial repository audit](docs/REPOSITORY-AUDIT.md) and [integration feasibility notes](docs/INTEGRATION-FEASIBILITY.md) are historical research. They do not describe active synchronization or feedback services.
 
 ## License and contact
 
-I license my website source code and tooling under [MIT](LICENSE). My name, branding, illustrations, avatar, animation media and personal content are outside that grant. Fonts and third-party assets retain their own licenses. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and the [asset inventory](docs/DESIGN-ASSET-INVENTORY.md).
+I license my website source code and tooling under **[MIT](LICENSE)**. My name, branding, illustrations, avatar, animation media and personal content are outside that grant. Fonts and third-party assets retain their own licenses, documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before contributing and [SECURITY.md](SECURITY.md) for private vulnerability reporting.
-
-[Telegram](https://t.me/wizardloop) | [Channel](https://t.me/wizard_loop) | [Community](https://t.me/wizardloopchat) | [GitHub](https://github.com/WizardLoop) | [Email](mailto:wizard@wizardloop.com)
+[Message me](https://t.me/wizardloop) · [Email me](mailto:wizard@wizardloop.com) · [My channel](https://t.me/wizard_loop) · [My community](https://t.me/wizardloopchat) · [GitHub](https://github.com/WizardLoop)
