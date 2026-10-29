@@ -2,7 +2,7 @@
 
 I record source changes here and identify verified deployments separately. A version heading alone does not establish that a Git tag or GitHub Release exists.
 
-## 1.0.0-rc.4 - Unreleased
+## 1.0.0-rc.4 - Deployed 2026-10-29
 
 - I redesigned my README with a visual introduction, quick navigation, a publication-status table and clearer setup, editing and documentation guides.
 - I recorded the verified publication date and deployment evidence for rc.3, keeping that published website separate from this repository update.
